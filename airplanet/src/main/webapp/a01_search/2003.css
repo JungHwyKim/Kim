@@ -1,0 +1,147 @@
+@charset "UTF-8";
+
+.time-set-head{
+	font-weight: bolder;
+}
+.card-body{
+	text-align: left;
+}
+.col-8>.row{
+	margin : 10px 10px;
+}
+.schedule{
+	padding:0;
+}
+.row > .topleft, .botleft{
+	text-align:right; 
+}
+.topcenter, .botcenter{
+	text-align:center; 
+	font-size: 0.4em;
+}
+.row > .topright, .botright{
+	text-align:left; 
+}
+.row > .topleft, .topright{
+	font-weight: bolder;
+	font-size: 0.8em;
+}
+.row > .botleft, .botright{
+	font-size: 0.6em;
+}
+.row > .botcenter{
+	color:#2E8B57;
+}
+.schedule-right{
+	border-left: solid 1px #969696;
+	padding-top: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.btn-secondary{
+	align-items: center;
+}
+.text-center{
+	margin:0
+}
+.btn-primary{
+	margin: 15px 10px 15px 0px;
+}
+.accodion-header{
+	font-weight: bolder;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.accodion-body{
+	margin-bottom: 15px;
+	display:none;
+}
+.act .accodion-body{
+	display:block;
+}
+
+.time-range {
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slider, .slider2 {
+  position: relative;
+  z-index: 1;
+  height: 10px;
+  margin: 0 15px;
+}
+
+.slider > .track, .slider2 > .track2 {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+.slider > .range, .slider2 > .range2 {
+  position: absolute;
+  z-index: 2;
+  left: 1%;
+  right: 1%;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background-color: steelblue;
+}
+
+.slider > .thumb, .slider2 >.thumb {
+  position: absolute;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  background-color: steelblue;
+  border-radius: 50%;
+}
+
+.slider > .thumb.left,.slider2 > .thumb.left2 {
+  left: 1%;
+  transform: translate(-15px, -5px);
+}
+.slider > .thumb.right, .slider2 > .thumb.right2 {
+  right: 1%;
+  transform: translate(15px, -5px);
+}
+
+input[type="range"] {
+  position: absolute;
+  /* opacity로 가린 것을 이벤트도 비활성화하기 위해 */
+  pointer-events: none;
+  -webkit-appearance: none;
+  z-index: 2;
+  height: 10px;
+  width: 100%;
+  opacity: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  /* 겹쳐진 두 thumb를 모두 활성화 */
+  pointer-events: all;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  border: 0 none;
+  background-color: red;
+  cursor: pointer;
+  /* appearance를 해야 위의 스타일들을 볼 수 있음 */
+  -webkit-appearance: none;
+}
+.print-time, .print-time2{
+  padding-left: 6%;
+  font-size: 0.8em;
+  font-weight: lighter;
+}
+

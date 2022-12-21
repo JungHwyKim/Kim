@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.wrapper{
+	position: relative
+}
+input[type=range]{
+	-webkit-appearance:none;
+	width:100%;
+	position:absolute;
+	pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+<input type="range" name="range1" min="0" max="86400" step="1800" size="13rem">
+<input type="range" name="range2" min="0" max="86400" step="1800" size="13rem">
+</div>
+<div></div>
+
+
+</body>
+<script>
+var div = document.querySelector("div")
+var range = document.querySelector("[name=range1]")
+range.oninput=function(){
+	var hour= Math.floor(range.value/3600)
+	var minute = (range.value%3600)/60
+	if(this.value!=86340){
+		if(hour>=12){
+			if(hour==12){
+				div.innerText = "오후"+hour+"시 "+minute+"분"
+			}else{
+				div.innerText = "오후"+(hour-12)+"시 "+minute+"분"
+			}
+			
+			}else{
+				if(hour==0){
+					div.innerText = "오전"+(hour+12)+"시 "+minute+"분"
+				}else{
+					div.innerText = "오전"+hour+"시 "+minute+"분"
+				}
+			}
+		}else{
+				console.log(this.value)
+				div.innerText = "오후"+(hour-12)+"시 "+minute+"분"
+			}
+		}
+
+
+</script>
+</html>

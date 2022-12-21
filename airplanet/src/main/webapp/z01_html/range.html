@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/*
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e5e5e5;
+}*/
+
+.time-range {
+  position: relative;
+  width: 50%;
+  max-width: 500px;
+}
+
+.slider {
+  position: relative;
+  z-index: 1;
+  height: 10px;
+  margin: 0 15px;
+}
+
+.slider > .track {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+.slider > .range {
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+  right: 25%;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background-color: steelblue;
+}
+
+.slider > .thumb {
+  position: absolute;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  background-color: steelblue;
+  border-radius: 50%;
+}
+
+.slider > .thumb.left {
+  left: 25%;
+  transform: translate(-15px, -5px);
+}
+.slider > .thumb.right {
+  right: 25%;
+  transform: translate(15px, -5px);
+}
+
+input[type="range"] {
+  position: absolute;
+  /* opacity로 가린 것을 이벤트도 비활성화하기 위해 */
+  pointer-events: none;
+  -webkit-appearance: none;
+  z-index: 2;
+  height: 10px;
+  width: 100%;
+  opacity: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  /* 겹쳐진 두 thumb를 모두 활성화 */
+  pointer-events: all;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  border: 0 none;
+  background-color: red;
+  cursor: pointer;
+  /* appearance를 해야 위의 스타일들을 볼 수 있음 */
+  -webkit-appearance: none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="time-range">
+  <div class="multi-range-slider">
+    <!-- 진짜 슬라이더 -->
+    <p class="print-time"></p>
+    <input type="range" id="input-left" min="0" max="86400" step="1800" value="21600" />
+    <input type="range" id="input-right" min="0" max="86400" step="1800" value="64800" />
+
+    <!-- 커스텀 슬라이더 -->
+    <div class="slider">
+      <div class="track"></div>
+      <div class="range"></div>
+      <div class="thumb left"></div>
+      <div class="thumb right"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+<script type="text/javascript">
+var inputLeft = document.querySelector("#input-left");
+var inputRight = document.querySelector("#input-right");
+var thumbLeft = document.querySelector(".slider > .thumb.left");
+var thumbRight = document.querySelector(".slider > .thumb.right");
+var range = document.querySelector(".slider > .range");
+var p = document.querySelector(".print-time")
+
+function printTime(){
+	var lefthour= Math.floor(inputLeft.value/3600)
+	var righthour= Math.floor(inputRight.value/3600)
+	var leftminute = (inputLeft.value%3600)/60
+	var rightminute = (inputRight.value%3600)/60
+	if(leftminute==0&&rightminute==0){
+		p.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute+"0"
+	}else if(leftminute==0){
+		p.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute
+	}else if(rightminute==0){
+		p.innerText = lefthour+":"+leftminute+" - "+righthour+":"+rightminute+"0"
+	}else{
+		p.innerText = lefthour+":"+leftminute+" - "+righthour+":"+rightminute
+	}
+}
+
+function setLeftValue(){	
+  var [min, max] = [parseInt(inputLeft.min), parseInt(inputLeft.max)];
+  inputLeft.value = Math.min(parseInt(inputLeft.value), parseInt(inputRight.value) - 1800);
+  var percent = ((inputLeft.value - min) / (max - min)) * 100;
+  thumbLeft.style.left = percent + "%";
+  range.style.left = percent + "%";
+  printTime()
+};
+
+function setRightValue (){
+  var [min, max] = [parseInt(inputRight.min), parseInt(inputRight.max)];  
+  inputRight.value = Math.max(parseInt(inputRight.value), parseInt(inputLeft.value) + 1800);
+  var percent = ((inputRight.value - min) / (max - min)) * 100;
+  thumbRight.style.right = 100 - percent + "%";
+  range.style.right = 100 - percent + "%";
+  printTime()
+};
+printTime()
+inputLeft.oninput=setLeftValue
+inputRight.oninput=setRightValue
+
+
+
+</script>
+</html>
