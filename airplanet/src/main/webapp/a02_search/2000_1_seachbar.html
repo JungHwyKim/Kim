@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<style>
+.accordion {
+	background-color: steelblue;
+	color: white;
+	font-weight: 700;
+	cursor: pointer;
+	padding: 18px;
+	width: 800px;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+	transition: 0.4s;
+	border-radius: 10px;
+}
+.panel {
+	padding: 0 18px;
+	background-color: white;
+	max-height: 0;
+	width: 798px;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+}
+.accordion:after {
+	content: '⌽';
+	font-size: 20px;
+	font-weight: 700;
+	color: white;
+	float: right;
+	margin-left: 5px;
+	margin-right: 15px;
+	transition: 0.5s;
+}
+.active:after {
+	content: '⌽';
+	font-size: 20px;
+	font-weight: 700;
+	color: white;
+	float: right;
+	margin-left: 5px;
+	margin-right: 15px;
+	transform: rotate(90deg);
+	transition: 0.5s;
+}
+.text{
+	font-weight:600;
+	font-size:small;
+}
+.switchB{
+	position:absolute;
+	width:30px;
+	height:25px;
+	margin:-150px 0 0 250px;
+	background:white;
+	border:none;
+	font-size:20px;
+	color:steelblue;
+	visibility:hidden;
+}
+.searchT{
+	position:absolute;
+	width:150px;
+	height:50px;
+	font-size:large;
+	font-weight:700;
+	background:steelblue;
+	border:1px solid moccasin;
+	color:white;
+	border-radius:10px;
+	margin:-90px 0 0 43%;
+	visibility:hidden;
+}
+.searchT:hover{
+	cursor:pointer;
+	background:rgb(40,120,170);
+}
+.switchB:hover{
+	cursor:pointer;
+	color:rgb(0,0,0);
+}
+
+</style>
+</head>
+<body>
+
+	<h2>검색창(확대/축소)</h2>
+		<div style="position:absolute;margin-left:400px;margin-top:18px;">
+			<input type="text" name="ddate" style="background:steelblue;border:none;">
+		</div>
+		<div style="position:absolute;margin-left:600px;margin-top:18px;padding-right:30px;">
+			<input type="text" name="adate" style="background:steelblue;border:none;">
+		</div>
+	<form>
+		<div class="accordion" style="display:flex;">
+			<div style="padding-right:630px;">출발지-도착지 텍스트</div>
+		</div>
+		<div class="panel">
+			<div style="margin:20px 0 0 20px">
+				<input type="radio" name="trip" checked="checked"/><span style="font-size:small;font-weight:600" > 왕복 </span> 
+				<input type="radio" name="trip"/><span style="font-size:small;font-weight:600" > 편도</span>
+			</div>
+			<div style="display:flex;margin:15px 0 0 25px;">
+				<div style="flex-direction:column;">
+					<div><span class="text">출발지</span></div>
+					<div><input style="width:255px;height:30px;" type="text" name="departure" value="출발지"/></div>
+				</div>
+				<div style="flex-direction:column;">
+					<div><span class="text">도착지</span></div>
+					<div><input style="width:255px;height:30px;" type="text" name="arrival" value="도착지"/></div>
+				</div>
+			</div>
+			<div style="display:flex;margin:15px 0 50px 25px;">
+				<div style="flex-direction:column;">
+					<div><span class="text">가는날</span></div>
+					<div><input style="width:125px;height:30px;" type="text" name="ddate"/></div>
+				</div>
+				<div style="flex-direction:column;">
+					<div><span class="text">오는날</span></div>
+					<div><input style="width:125px;height:30px;" type="text" name="adate"/></div>
+				</div>
+				<div style="flex-direction:column;">
+					<div><span class="text">좌석등급 및 승객</span></div>
+					<div><input style="width:250px;height:30px;" type="text" name="gradenum"/></div>
+				</div>
+			</div>
+			<div><input class="switchB" type="button" name="switch" value="⇄"/></div>
+			<div><input class="searchT" name="search" type="submit" value="항공권 검색 →"></div>	
+		</div>
+	</form>
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function() {
+				this.classList.toggle("active");
+				var panel = this.nextElementSibling;
+				if (panel.style.maxHeight) {
+					panel.style.maxHeight = null;
+				} else {
+					panel.style.maxHeight = panel.scrollHeight + "px";
+				}
+			});
+		}
+		
+		
+		var accord = document.querySelector(".accordion")
+		var panel = document.querySelector(".panel")
+		var swch = document.querySelector("[name=switch]")
+		var sch = document.querySelector("[name=search]")
+		/* 패널의 테두리 보기/숨기기 */
+		var clk = false;
+		accord.onclick=function(){
+			if(clk){
+				panel.style.border="none"
+				accord.style.borderRadius="10px";
+				swch.style.visibility="hidden"
+				sch.style.visibility="hidden"
+				clk = false;
+			}else{
+				panel.style.border="1px solid steelblue";	
+				panel.style.borderRadius="0 0 10px 10px";
+				accord.style.borderRadius="10px 10px 0 0";
+				swch.style.visibility="visible"
+				sch.style.visibility="visible"
+				clk = true;
+			}
+		}
+		var depart = document.querySelector("[name=departure]")
+		var arriv = document.querySelector("[name=arrival]")
+		swch.onclick=function(){
+			var departSave = depart.value
+			depart.value = arriv.value
+			arriv.value = departSave
+		}
+		
+		$(function() {
+		    $( "[name=ddate], [name=adate]" ).datepicker({
+		    	  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+		    	  changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+		    	  minDate: '0y', // 현재날짜로부터 100년이전까지 년을 표시한다.
+		    	  nextText: '다음 달', // next 아이콘의 툴팁.
+		    	  prevText: '이전 달', // prev 아이콘의 툴팁.
+		    	  numberOfMonths: [1,1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+		    	  stepMonths: 1, // next, prev 버튼을 클릭했을때 얼마나 많은 월을 이동하여 표시하는가. 
+		    	  yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+		    	  showButtonPanel: true, // 캘린더 하단에 버튼 패널을 표시한다. 
+		    	  currentText: '오늘 날짜' , // 오늘 날짜로 이동하는 버튼 패널
+		    	  closeText: '닫기',  // 닫기 버튼 패널
+		    	  dateFormat: "mm-dd", // 텍스트 필드에 입력되는 날짜 형식.
+		    	  showMonthAfterYear: true , // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다. 
+		    	  dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], // 요일의 한글 형식.
+		    	  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], // 월의 한글 형식.
+		    	  yearRange: "2022:2024" //연도 범위
+		    });
+		});
+
+		$(document).ready(function () {
+            $.datepicker.setDefaults($.datepicker.regional['ko']); 
+            $( "[name=ddate]" ).datepicker({
+                 changeMonth: true, 
+                 changeYear: true,
+                 nextText: '다음 달',
+                 prevText: '이전 달', 
+                 dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+                 monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                 monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                 dateFormat: "yymmdd",
+                 maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+                 onClose: function( selectedDate ) {    
+                      //시작일(startDate) datepicker가 닫힐때
+                      //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                     $("#endDate").datepicker( "option", "minDate", selectedDate );
+                 } 
+            });
+            
+            $( "[name=adate]" ).datepicker({
+                 changeMonth: true, 
+                 changeYear: true,
+                 nextText: '다음 달',
+                 prevText: '이전 달', 
+                 dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+                 monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                 monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                 dateFormat: "yymmdd",
+                 maxDate: 0,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+                 onClose: function( selectedDate ) {    
+                     // 종료일(endDate) datepicker가 닫힐때
+                     // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
+                     $("#startDate").datepicker( "option", "maxDate", selectedDate );
+                 }    
+            });    
+    });
+		
+	</script>
+
+</body>
+</html>

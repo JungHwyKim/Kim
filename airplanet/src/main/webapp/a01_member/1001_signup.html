@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/a00_com/a01_common.css" rel="stylesheet">
+<style type="text/css">
+.logo:hover{
+	cursor:pointer;
+}
+.colFlex{
+	display:flex;
+	flex-direction:column;
+	margin:auto;
+	margin-top:40px;
+	width:60%;
+	align-items:center;
+}
+.regFlex{
+	width:60%;
+	margin-top:5px;
+}
+.textS{
+	font-size:small;
+	font-weight:bold;
+}
+</style>
+<script>
+
+
+</script>
+
+</head>
+<body>
+	<div class="colFlex">
+		<div><img src="img/logo_l.png" onclick="location.href='2000_main.html'" class="logo"></div>
+		<div class="colFlex" style="height:580px;border:2px solid steelblue;border-radius:10px;margin-top:-5px;">
+			<!-- 아이디 -->
+			<div style="position:absolute;width:35%;">
+				<div class="regFlex" style="margin-top:50px;width:15%;margin-left:100px;"><span class="textS">아이디</span></div>
+				<div class="regFlex" style="display:flex;margin-left:100px;" >
+					<input type="text" name="id" style="width:60%;">
+					<div style="position:absolute;margin:13px 0 0 32%;">@</div>
+					<select id="email" style="width:40%"></select>
+				</div>
+				<div style="margin-left:100px;">
+					<div class="idcontainer" style="font-size:xx-small;"></div>
+				</div>
+			</div>
+			<!-- 비밀번호 -->
+			<div style="position:absolute;width:35%;margin:130px 0 0 200px;">
+				<div class="regFlex"><span class="textS" style="margin-top:50px;width:15%;">비밀번호</span></div>
+				<div class="regFlex" style="display:flex;"><input type="password" name="pw" style="width:100%;"></div>
+				<div class="chgType" style="position:relative;margin:-30px 0 0 55%;padding-bottom:10px;">
+					<img src="img/view.png" style="width:13px;height:9px;">
+				</div>
+				<div style="width:60%">
+					<div class="pwcontainer" style="font-size:xx-small;"></div>
+				</div>
+			</div>
+			<!-- 비밀번호 확인 -->
+			<div style="position:absolute;width:35%;margin:210px 0 0 200px;">
+				<div class="regFlex"><span class="textS" style="margin-top:50px;width:15%;">비밀번호 확인</span></div>
+				<div class="regFlex"><input type="password" name="pwck" style="width:100%;"></div>
+				<div class="chgType" style="position:relative;margin:-30px 0 0 55%;padding-bottom:10px;">
+					<img src="img/view.png" style="width:13px;height:10px;padding-bottom:2px;">
+				</div>
+				<div style="width:60%">
+					<div class="pwckcontainer" style="font-size:xx-small;"></div>
+				</div>
+			</div>
+			<!-- 이름 -->
+			<div style="position:absolute;width:35%;margin:290px 0 0 200px;">
+				<div class="regFlex"><span class="textS" style="margin-top:50px;width:15%;">이름</span></div>
+				<div class="regFlex"><input type="text" name="name"></div>
+				<div style="width:60%">
+					<div class="namecontainer" style="font-size:xx-small;"></div>
+				</div>
+			</div>
+			<!-- 전화번호 -->
+			<div style="position:absolute;width:35%;margin:370px 0 0 200px;">
+				<div class="regFlex"><span class="textS">전화번호</span></div>
+				<div class="regFlex" style="margin-top:0;">
+						<input style="width:70%;" type="text" name="tel">
+						<input style="width:30%;height:41px;background:steelblue;font-weight:bold;" type="button" name="telck" value="인증하기">
+				</div>
+				<div class="regFlex" style="margin-top:0;"><input style="background:#efefef;" type="text" name="telckcode" placeholder="인증번호를 입력하세요"></div>
+				<div style="width:60%">
+					<div class="telcontainer" style="font-size:xx-small;"></div>
+				</div>
+			</div>
+			<div class="regFlex" style="position:absolute;width:21%;margin-top:510px;"><input style="width:100%;background:steelblue;" type="button" name="reg" value="가입하기"></div>
+			
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var idOb = document.querySelector("[name=id]")
+var pwOb = document.querySelector("[name=pw]")
+var pwckOb = document.querySelector("[name=pwck]")
+var emailOb = document.querySelector("#email")
+var pwV = document.querySelectorAll(".chgType")
+var telOb = document.querySelector("[name=tel]")
+var telckOb = document.querySelector("[name=telck]")
+var telckcodeOb = document.querySelector("[name=telckcode]")
+var nameOb = document.querySelector("[name=name]")
+var regOb = document.querySelector("[name=reg]")
+
+
+var pattern1 = /[0-9]/; //숫자
+var pattern2 = /[a-zA-Z]/; //영어
+var pattern3 = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
+var pattern4 = /[-_]/; //특수문자
+var pattern5 = /[!@#$%^&*]/; //특수문자(비번)
+
+var emailId = ""
+var pwValid = ""
+
+var emailArr = ["hotmail.com","hanmail.net","naver.com","gmail.com","daum.net","nate.com","cyworld.com","yahoo.com"]
+var eshow = ""
+emailArr.forEach(function(e){
+	eshow += "<option>"+e+"</option>"
+})
+emailOb.innerHTML = eshow
+
+/* 이벤트 */
+idOb.onblur=idCheck
+emailOb.onchange=idCheck
+pwOb.onblur=pwCheck
+pwckOb.onblur=pwDbCheck
+telOb.onblur=telCheck
+
+/* 아이디 유효성(영문,숫자만 허용 / 아직 DB랑 연결 안함) */
+function idCheck(){
+	if(pattern5.test(idOb.value)){
+		document.querySelector(".idcontainer").innerText = "5~20자의 영문 소문자, 숫자만 사용 가능합니다."
+		document.querySelector(".idcontainer").style.color="red"
+		idOb.style.borderColor="red"
+		return;
+	}else if(!pattern3.test(idOb.value) && idOb.value.length >= 5 && idOb.value.length <= 20){
+		document.querySelector(".idcontainer").innerText = "멋진 아이디이군요!"
+		document.querySelector(".idcontainer").style.color="green"
+		idOb.style.borderColor="green"
+		emailId = idOb.value+"@"+emailOb.value
+		console.log(emailId)
+		return;
+	}else{
+		document.querySelector(".idcontainer").innerText = "5~20자의 영문 소문자, 숫자만 사용 가능합니다."
+		document.querySelector(".idcontainer").style.color="red"
+		idOb.style.borderColor="red"
+		return;
+	}
+}
+
+// 비밀번호(영문/숫자/특수문자 포함된 8~16자리 값)
+function pwCheck(){
+	if(pattern1.test(pwOb.value) && pattern2.test(pwOb.value) && pattern5.test(pwOb.value)){
+		if(pwOb.value.length >= 8 && pwOb.value.length <= 16){
+			document.querySelector(".pwcontainer").innerText = "사용가능한 비밀번호입니다!"
+			document.querySelector(".pwcontainer").style.color="green"
+			pwOb.style.borderColor="green"
+			pwValid = pwOb.value
+			return;
+		}else{
+			document.querySelector(".pwcontainer").innerText = "비밀번호 설정 조건을 확인해주세요."
+			document.querySelector(".pwcontainer").style.color="red"
+			pwOb.style.borderColor="red"
+			return;
+		}
+	}else if(pwOb.value.length == 0){
+		document.querySelector(".pwcontainer").innerText = ""
+		pwOb.style.borderColor="#cccccc"
+		return;
+	}else{
+		document.querySelector(".pwcontainer").innerText = "비밀번호 설정 조건을 확인해주세요."
+		document.querySelector(".pwcontainer").style.color="red"
+		pwOb.style.borderColor="red"
+		return;
+	}
+}
+
+function pwDbCheck(){
+	if(pwckOb.value == 0){
+		document.querySelector(".pwckcontainer").innerText = ""
+		pwckOb.style.borderColor="#cccccc"	
+	}else if(pwckOb.value == pwValid){
+		document.querySelector(".pwckcontainer").innerText = "비밀번호가 일치합니다!"
+		document.querySelector(".pwckcontainer").style.color="green"
+		pwckOb.style.borderColor="green"
+	}else{
+		document.querySelector(".pwckcontainer").innerText = "비밀번호를 확인해주세요."
+		document.querySelector(".pwckcontainer").style.color="red"
+		pwckOb.style.borderColor="red"
+	}
+}
+var pwViewBoolean0 = true
+var pwViewBoolean1 = true
+pwV.forEach(function(i){
+	pwV[0].onclick=function(){
+		if(pwViewBoolean0){
+			pwOb.type="text"
+			pwV[0].innerHTML = "<img src='img/unview.png' style='width:13px;height:11px;margin-top:1px;'/>"	
+			console.log(pwOb.type)
+			pwViewBoolean0 = false
+		}
+		else{
+			pwOb.type="password"
+			pwV[0].innerHTML = "<img src='img/view.png' style='width:13px;height:9px;padding-bottom:1px;'/>"
+			console.log(pwOb.type)
+			pwViewBoolean0 = true
+		}
+	}
+	pwV[1].onclick=function(){
+		if(pwViewBoolean1){
+			pwckOb.type="text"
+			pwV[1].innerHTML = "<img src='img/unview.png' style='width:13px;height:11px;margin-top:1px;'/>"	
+			console.log(pwOb.type)
+			pwViewBoolean1 = false
+		}
+		else{
+			pwckOb.type="password"
+			pwV[1].innerHTML = "<img src='img/view.png' style='width:13px;height:10px;padding-bottom:2px;'>"
+			console.log(pwOb.type)
+			pwViewBoolean1 = true
+		}
+	}
+})
+
+var telckboolean= false
+
+function telCheck(){
+	if(pattern1.test(telOb.value)){
+		if(telOb.value.length != 11){
+			telOb.style.borderColor="red"
+			telckcodeOb.value=""			
+			document.querySelector(".telcontainer").style.color="red"
+			document.querySelector(".telcontainer").innerText="전화번호 11자리를 입력해주세요."
+			telckboolean = false
+			telckcodeOb.style.background="#efefef"
+			telckcodeOb.readOnly = true
+			return;
+		}else{
+			telOb.style.borderColor="green"
+			document.querySelector(".telcontainer").style.color="green"
+			document.querySelector(".telcontainer").innerText="전화번호를 인증해주세요!"
+			telckboolean = true
+			return;
+		}
+	}else if(telOb.value.length == 0){
+		telOb.style.borderColor="#cccccc"
+		telckcodeOb.value=""
+		document.querySelector(".telcontainer").innerText=""
+		telckboolean = false
+		telckcodeOb.style.background="#efefef"
+		telckcodeOb.readOnly = true
+		return;
+	}else{
+		telOb.style.borderColor="red"
+		telckcodeOb.value=""
+		document.querySelector(".telcontainer").style.color="red"
+		document.querySelector(".telcontainer").innerText="전화번호를 확인해주세요."
+		telckboolean = false
+		telckcodeOb.style.background="#efefef"
+		telckcodeOb.readOnly = true
+		return;
+	}
+}
+
+nameOb.onblur=function(){
+	if(nameOb.value == ""){
+		document.querySelector(".namecontainer").innerText="이름은 필수입력 사항입니다."
+		nameOb.style.borderColor="red"
+		document.querySelector(".namecontainer").style.color="red"
+	}else{
+		document.querySelector(".namecontainer").innerText="멋진 이름입니다!"
+		nameOb.style.borderColor="green"
+		document.querySelector(".namecontainer").style.color="green"
+	}
+}
+
+telckOb.onclick=function(){
+	if(telckboolean){
+		alert("인증번호를 입력해주세요.")
+		telckcodeOb.readOnly=false
+		telckcodeOb.style.background="white"
+	}else{
+		alert("전화번호를 확인해주세요.")
+	}
+}
+
+
+regOb.onclick=function(){
+	var qstr = "?id="+emailId+"&pw="+pwOb.value+"&name="+nameOb.value+"&tel="+telOb.value
+	console.log(qstr)	
+}
+
+</script>
+</html>
