@@ -52,7 +52,7 @@
 	
 
   	<div class="container">
-  	<jsp:include page="header.html"></jsp:include>
+  	<jsp:include page="/header.jsp"></jsp:include>
   	
   		<p class="text-md-end">예상 최저 가격일 뿐입니다. 최근 8일 내에 검색한 결과입니다.</p>
   		

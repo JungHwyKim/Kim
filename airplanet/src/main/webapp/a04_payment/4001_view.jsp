@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>선택한 일정</title>
-<link href="bs-custom.css" rel="stylesheet" >
+<link href="/bs-custom.css" rel="stylesheet" >
 <style>
 form{
 	position:relative;}
@@ -19,8 +19,9 @@ form{
 </style>
 </head>
 <body>
-<%@ include file="0000_header.html" %>
+
 <main class="container">
+<%@ include file="/header.jsp" %>
 <h2>선택한 항공 스케줄</h2>
 <%@ include file="4001_scheduleDetail.jsp" %>
 

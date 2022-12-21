@@ -30,8 +30,9 @@ text-shadow: 1px 1px 3px steelblue ;}
 <title>예약 완료</title>
 </head>
 <body>
-<%@ include file="0000_header.html" %>
+
 <main class="container">
+<%@ include file="/header.jsp" %>
 <h2>해외항공권 예약</h2>
 <div class="imgbookingisdone">
 <div class="text-white"><span class="shadow-primary">예약이 완료되었습니다</span></div>
@@ -66,8 +67,7 @@ text-shadow: 1px 1px 3px steelblue ;}
 </div>
 
 <hr>
-<%@ include file="0000_footer.html" %>
-
 </main>
+<%@ include file="/0000_footer.html" %>
 </body>
 </html>

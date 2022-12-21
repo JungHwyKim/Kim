@@ -19,7 +19,7 @@
 <body>
 	
 	<div class="container">
-	<jsp:include page="header.html"></jsp:include>
+	<jsp:include page="/header.jsp"></jsp:include>
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
