@@ -25,7 +25,7 @@ a:link {
 <title>결제</title>
 </head>
 <body>
-<%@ include file="/header.html" %>
+<%@ include file="/header.jsp" %>
 <main class="container">
 <h2>선택한 항공 스케줄</h2>
 <%@ include file="4001_scheduleDetail.jsp" %>
