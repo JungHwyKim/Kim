@@ -37,12 +37,12 @@ a{
 </style>
 <body >
 	<div class="container-fluid">
-	<%@ include file="header.html" %>
+	<%@ include file="/header_logout.html" %>
 	  <div class="row no-gutters">
 	  	<div class="col-1"></div>
 	    <div class="col-3" style="text-align:center;font-size:25px;">
 	     <div class="p-3 border-0 bg-white">
-	     	<img src="img/user.PNG" class="user"><br>
+	     	<img src="/b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
 	     	<p>XXXX@email.com<p>
 	     </div>
@@ -81,7 +81,7 @@ a{
 	  </div>
 	</div>
 	<br><br>
-<%@ include file="0000_footer.html" %>
+<%@ include file="/0000_footer.html" %>
 </body>
 <script>
 function logout(){

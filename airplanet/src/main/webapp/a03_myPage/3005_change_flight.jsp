@@ -14,6 +14,7 @@
 </head>
 <body>
 	<div class="container-fluid">
+	<%@ include file="/header_logout.html" %>
 		<div class="row p-3 mt-5 border-0 bg-secondary bg-opacity-50">
 			<h2>My page > 내 예약 > 변경 요청</h2>
 		</div>
@@ -78,6 +79,6 @@
 		</div>
 	</div>
 	<br><br>
-<%@ include file="0000_footer.html" %>
+<%@ include file="/0000_footer.html" %>
 </body>
 </html>
