@@ -25,7 +25,7 @@ a:link {
 <title>결제</title>
 </head>
 <body>
-<%@ include file="0000_header.html" %>
+<%@ include file="/header.html" %>
 <main class="container">
 <h2>선택한 항공 스케줄</h2>
 <%@ include file="4001_scheduleDetail.jsp" %>
@@ -172,7 +172,7 @@ a:link {
 <br>
 <br>
 </main>
-<%@ include file="0000_footer.html" %>
+<%@ include file="/0000_footer.html" %>
 
 <script type="text/javascript">
 /* 1. 모두입력햇는지 확인*/
