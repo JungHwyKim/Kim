@@ -1,73 +1,62 @@
 -- 항공사
-ALTER TABLE "airline"
+ALTER TABLE airline
  DROP CONSTRAINT PK_airline; -- 항공사 기본키
 
 -- 항공사
-DROP TABLE IF EXISTS "airline";
+DROP TABLE airline;
 
 -- 항공사
 CREATE TABLE airline (
-	"airlineCode" char(2) NOT NULL,
-	"airlineName" varchar2(20) NULL,
-	"airlineLogo" varchar2(1000) NULL
+	airlineCode char(2) NOT NULL,
+	airlineName varchar2(20) NULL,
+	airlineLogo varchar2(1000) NULL
 );
 
 -- 항공사
 ALTER TABLE airline
-	ADD CONSTRAINT "PK_airline" -- 항공사 기본키
+	ADD CONSTRAINT PK_airline -- 항공사 기본키
 	PRIMARY KEY (
-	"airlineCode" -- 항공사코드
+	airlineCode -- 항공사코드
 	);
 	
-INSERT INTO airline values('KE','대한항공','/img/ke.PNG');
+INSERT INTO airline values('KE','대한항공','/b01_img/ke.png');
 SELECT * FROM airline;
 
 -- 공항정보
-ALTER TABLE "airportt"
- DROP CONSTRAINT PK_airportt; -- 공항정보 기본키
+ALTER TABLE airport
+ DROP CONSTRAINT PK_airport; -- 공항정보 기본키
 
 -- 공항정보
-DROP TABLE IF EXISTS "airportt";
+DROP TABLE airport;
 
 -- 공항정보
 CREATE TABLE airport (
-	"airportCode" char(3) NOT NULL,
-	"apNation" varchar2(20) NULL,
-	"apCity" varchar2(20) NULL,
-	"PacificTime" number NULL,
-	"apPhoto" varchar2(1000) NULL
+	airportCode char(3) NOT NULL,
+	apNation varchar2(20) NULL,
+	apCity varchar2(20) NULL,
+	PacificTime number NULL,
+	apPhoto varchar2(1000) NULL
 );
 
 -- 공항정보
 ALTER TABLE airport
-	ADD CONSTRAINT "PK_airport" -- 공항정보 기본키
+	ADD CONSTRAINT PK_airport -- 공항정보 기본키
 	PRIMARY KEY (
-	"airportCode" -- 공항코드
+	airportCode -- 공항코드
 	);
 	
 SELECT * FROM airport;
-INSERT INTO airport values('ICN', '대한민국', '인천', 17, '/img/ICN.PNG');  
-INSERT INTO airport values('LAX', '미국', 'LA', -8, '/img/ICN.PNG');
-INSERT INTO airport values('SFO', '미국', '샌프란시스코', -8, '/img/ICN.PNG');
+INSERT INTO airport values('ICN', '대한민국', '인천', 17, '/b01_img/ICN.png');  
+INSERT INTO airport values('LAX', '미국', 'LA', -8, '/b01_img/LA.png');
+INSERT INTO airport values('SFO', '미국', '샌프란시스코', -8, '/b01_img/SFO.png');
 
--- 항공노선
-ALTER TABLE flight
-	DROP FOREIGN KEY FK_airportt_TO_flight; -- 공항정보 -> 항공노선
-
--- 항공노선
-ALTER TABLE flight
-	DROP FOREIGN KEY FK_airportt_TO_flight2; -- 공항정보 -> 항공노선2
-
--- 항공노선
-ALTER TABLE flight
-	DROP FOREIGN KEY FK_airline_TO_flight; -- 항공사 -> 항공노선
 
 -- 항공노선
 ALTER TABLE flight
  DROP CONSTRAINT PK_flight; -- 항공노선 기본키
 
 -- 항공노선
-DROP TABLE IF EXISTS flight;
+DROP TABLE flight;
 
 -- 항공노선
 CREATE TABLE flight (
@@ -89,11 +78,11 @@ ALTER TABLE flight
 
 -- 항공노선
 ALTER TABLE flight
-	ADD CONSTRAINT FK_airportt_TO_flight -- 공항정보 -> 항공노선
+	ADD CONSTRAINT FK_airport_TO_flight -- 공항정보 -> 항공노선
 	FOREIGN KEY (
 	departAirport -- 출발공항
 	)
-	REFERENCES MY_SCHEMA.airportt ( -- 공항정보
+	REFERENCES airport ( -- 공항정보
 	airportCode -- 공항코드
 	);
 
@@ -103,7 +92,7 @@ ALTER TABLE flight
 	FOREIGN KEY (
 	arriveAirport -- 도착공항
 	)
-	REFERENCES MY_SCHEMA.airportt ( -- 공항정보
+	REFERENCES airport ( -- 공항정보
 	airportCode -- 공항코드
 	);
 
@@ -113,14 +102,14 @@ ALTER TABLE flight
 	FOREIGN KEY (
 	airlineCode -- 항공사코드
 	)
-	REFERENCES MY_SCHEMA.airline ( -- 항공사
+	REFERENCES airline ( -- 항공사
 	airlineCode -- 항공사코드
 	);
 	
 SELECT * FROM flight;
 INSERT INTO flight values('ICNLAX22122115', 'KE', 'ICN', TO_DATE('2022-12-21 15:00','YYYY-MM-DD HH24-mi'), 'LAX', '8', 800000);
 INSERT INTO flight values('LAXSFO22122123', 'KE', 'LAX', TO_DATE('2022-12-21 23:00','YYYY-MM-DD HH24-mi'), 'SFO', 1.5, 800000);
-INSERT INTO flight values('LAXICN22123020', 'KE', 'LAX', TO_DATE('2022-12-30 20:00','YYYY-MM-DD HH24-mi'), 'ICN', '10', 1000000);
+INSERT INTO flight values('LAXICN22123020', 'KE', 'LAX', TO_DATE('2022-12-30 20:00','YYYY-MM-DD HH24-mi'), 'ICN', 10, 1000000);
 
 -- 옵션별상품
 ALTER TABLE ticketOption
@@ -131,7 +120,7 @@ ALTER TABLE ticketOption
  DROP CONSTRAINT PK_ticketOption; -- 옵션별상품 기본키
 
 -- 옵션별상품
-DROP TABLE IF EXISTS ticketOption;
+DROP TABLE ticketOption;
 
 -- 옵션별상품
 CREATE TABLE ticketOption (
@@ -155,7 +144,7 @@ ALTER TABLE ticketOption
 	FOREIGN KEY (
 	flightNumber -- 항공편코드
 	)
-	REFERENCES MY_SCHEMA.flight ( -- 항공노선
+	REFERENCES flight ( -- 항공노선
 	flightNumber -- 항공편코드
 	);
 	
@@ -223,7 +212,7 @@ ALTER TABLE fare
 	FOREIGN KEY (
 	email -- 이메일
 	)
-	REFERENCES MY_SCHEMA.airMember ( -- 회원
+	REFERENCES airMember ( -- 회원
 	email -- 이메일
 	);
 
@@ -233,18 +222,20 @@ ALTER TABLE fare
 	FOREIGN KEY (
 	optionCode -- 운임코드
 	)
-	REFERENCES MY_SCHEMA.ticketOption ( -- 옵션별상품
+	REFERENCES ticketOption ( -- 옵션별상품
 	optionCode -- 운임코드
 	);
 
 SELECT * FROM fare;
 INSERT INTO fare values(to_char(sysdate,'yymmddhh24miss')||fare_seq.nextval,'ICNLAX22122115bs0','t711txt@naver.com',sysdate,'1','',2,2000000);
+
 CREATE SEQUENCE fare_seq
 	INCREMENT BY 1
 	START WITH 1000
 	MINVALUE 1000
 	MAXVALUE 9999
 	CYCLE;
+
 SELECT to_char(sysdate,'yymmddhh24miss')||to_char(fare_seq.nextval)  FROM dual;
 
 -- 탑승자정보
@@ -268,26 +259,15 @@ CREATE TABLE passenger (
 	ppnation varchar2(20) NULL
 );
 
--- 탑승자정보
-ALTER TABLE passenger
-	ADD CONSTRAINT FK_fare_TO_passenger -- Fare -> 탑승자정보
-	FOREIGN KEY (
-	bookingReference -- 예약번호
-	)
-	REFERENCES MY_SCHEMA.fare ( -- Fare
-	bookingReference -- 예약번호
-	);
+
 
 SELECT * FROM passenger;
 INSERT INTO passenger values('2212211657371010','임창균','Lim','im',to_date('1998-07-03','yyyy-mm-dd'),'m','m1234567',to_date('2030-12-01','yyyy-mm-dd'),'한국','한국');
 INSERT INTO passenger values('2212211657371010','임지우','Lim','jiou',to_date('2020-03-28','yyyy-mm-dd'),'f','m9876543',to_date('2033-11-30','yyyy-mm-dd'),'한국','한국');
 
--- 저장한탑승자정보
-ALTER TABLE myPassengerInfo
-	DROP FOREIGN KEY FK_airMember_TO_myPassengerInfo; -- 회원 -> 저장한탑승자정보
 
 -- 저장한탑승자정보
-DROP TABLE IF EXISTS myPassengerInfo;
+DROP TABLE  myPassengerInfo;
 
 -- 저장한탑승자정보
 CREATE TABLE myPassengerInfo (
@@ -303,15 +283,7 @@ CREATE TABLE myPassengerInfo (
 	ppnation varchar2(20) NULL
 );
 
--- 저장한탑승자정보
-ALTER TABLE myPassengerInfo
-	ADD CONSTRAINT FK_airMember_TO_myPassengerInfo -- 회원 -> 저장한탑승자정보
-	FOREIGN KEY (
-	email -- 이메일
-	)
-	REFERENCES MY_SCHEMA.airMember ( -- 회원
-	email -- 이메일
-	);
+
 	
 SELECT * FROM myPassengerInfo;
 INSERT INTO myPassengerInfo values('t711txt@naver.com','임창균','Lim','im',to_date('1998-07-03','yyyy-mm-dd'),'m','m1234567',to_date('2030-12-01','yyyy-mm-dd'),'한국','한국');
