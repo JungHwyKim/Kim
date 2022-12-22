@@ -16,8 +16,8 @@ public class Passenger {
 	private String ppnation;
 	
 	public Passenger() {}
-	public Passenger(String bookingReference, String korname, String engsur, String engname, Date birthday, String mf,
-			String ppnumber, Date ppexpire, String nation, String ppnation) {
+	public Passenger(String bookingReference, String korname, String engsur, String engname, String birthday, String mf,
+			String ppnumber, String ppexpire, String nation, String ppnation) {
 		this.bookingReference = bookingReference;
 		this.korname = korname;
 		this.engsur = engsur;
@@ -53,10 +53,10 @@ public class Passenger {
 	public void setEngname(String engname) {
 		this.engname = engname;
 	}
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public String getMf() {
@@ -71,10 +71,10 @@ public class Passenger {
 	public void setPpnumber(String ppnumber) {
 		this.ppnumber = ppnumber;
 	}
-	public Date getPpexpire() {
+	public String getPpexpire() {
 		return ppexpire;
 	}
-	public void setPpexpire(Date ppexpire) {
+	public void setPpexpire(String ppexpire) {
 		this.ppexpire = ppexpire;
 	}
 	public String getNation() {

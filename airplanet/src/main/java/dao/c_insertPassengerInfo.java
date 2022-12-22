@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import vo.DB;
 import vo.MyPassengerInfo;
 
 public class c_insertPassengerInfo {
@@ -20,7 +21,7 @@ public class c_insertPassengerInfo {
 		try {
 			// MyPassengerInfo(String email, String korname, String engsur, String engname, String birthday, String mf,
 			// 					String ppnumber, String ppexpire, String nation, String ppnation)
-			con = cgv_DB.con();
+			con = DB.con();
 			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, pi.getEmail());
@@ -51,7 +52,7 @@ public class c_insertPassengerInfo {
 		} catch(Exception e) {
 			System.out.println("일반 에러: "+e.getMessage());
 		} finally {
-			cgv_DB.close(rs, pstmt, con);
+			DB.close(rs, pstmt, con);
 		}
 	}
 	
