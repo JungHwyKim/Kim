@@ -262,7 +262,6 @@ function setLeftValue(){
   thumbLeft.style.left = percent + "%";
   range.style.left = percent + "%";
   printTime()
-  console.log(inputLeft.value+" : "+inputRight.value)
 };
 
 function setRightValue (){
@@ -272,7 +271,6 @@ function setRightValue (){
   thumbRight.style.right = 100 - percent + "%";
   range.style.right = 100 - percent + "%";
   printTime()
-  console.log(inputLeft.value+" : "+inputRight.value)
 };
 printTime()
 inputLeft.oninput=setLeftValue
