@@ -15,8 +15,8 @@ public class c_insertPassengerInfo {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 마이페이지에서 개인정보(탑승자정보) 저장하는 메소드
 	public void insertMyPassengerInfo(MyPassengerInfo pi) {
-		// 마이페이지에서 개인정보(탑승자정보) 저장하는 메소드
 		String sql = "INSERT INTO MyPassengerInfo values(?,?,?,?,to_date(?,'yyyy-mm-dd'),?,?,to_date(?,'yyyy-mm-dd'),?,?)";
 		try {
 			// MyPassengerInfo(String email, String korname, String engsur, String engname, String birthday, String mf,
