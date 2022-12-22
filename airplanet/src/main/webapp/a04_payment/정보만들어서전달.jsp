@@ -6,7 +6,9 @@
     %>
 <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- scope를 리퀘스트로해서 flightNumber, 인원, 좌석클래스, --> 
+<!-- 사용자가 클릭한 항공편 상세 보여주기 위해서  
+검색결과에서 scope 를 리퀘스트로, Flight객체, ticketOption(좌석선택했으니까??),Airport객체, Airline객체 전달 받아서??하면되나???
+ --> 
 
 
 <%
