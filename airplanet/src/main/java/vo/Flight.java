@@ -1,7 +1,5 @@
 package vo;
 
-import java.util.Date;
-
 //vo.Flight
 public class Flight {
 	private String flightNumber;

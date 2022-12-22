@@ -26,7 +26,7 @@ form{
 <%@ include file="4001_scheduleDetail.jsp" %>
 
 <div class="row">
-<h5 class="col-1 p-0" >조건 선택</h5>
+<h5 class="col-2 p-0" >조건 선택</h5>
 <div class="col" ><button type="button" class="btn btn-primary showswitch" style="width: 100%">가는 편</button></div>
 <div class="col" ><button type="button" class="btn btn-secondary showswitch" style="width: 100%">오는 편</button></div></div>
 <form class="form-group">

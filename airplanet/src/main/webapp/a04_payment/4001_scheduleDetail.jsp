@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
+<%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 .listAlignCenter{
 	display:block;
@@ -19,16 +20,13 @@
 </style>
 
 <div class="row card-group bg-primary text-white">
+<c:forEach var="ff" items="${flist}" varStatus="i">
 	  <div class="card bg-transparent">
 	    <div class="card-body mx-auto">
-	    <h5>인천 PUS</h5><h6>2023.03.25(토) 17:55</h6>
+	    <h5>공항명 ${ ff.departAirport}</h5><h6>${ ff.departDate}</h6>
 	    </div>
 	  </div>
-	  <div class="card bg-transparent">
-	    <div class="card-body mx-auto">
-	     <h5>후쿠오카 FUK</h5><h6>2023.03.25(토) 23:50</h6>
-	    </div>
- 	</div>
+</c:forEach>	  
  <div>
  <ul class="listAlignCenter">
   <li>왕복</li>

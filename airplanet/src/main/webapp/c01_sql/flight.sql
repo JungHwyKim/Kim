@@ -20,7 +20,7 @@ ALTER TABLE airline
 	);
 	
 INSERT INTO airline values('KE','대한항공','/b01_img/ke.png');
-SELECT * FROM airline;
+SELECT airlinecode FROM airline;
 
 -- 공항정보
 ALTER TABLE airport
@@ -45,7 +45,7 @@ ALTER TABLE airport
 	airportCode -- 공항코드
 	);
 	
-SELECT * FROM airport;
+SELECT apphoto FROM airport;
 INSERT INTO airport values('ICN', '대한민국', '인천', 17, '/b01_img/ICN.png');  
 INSERT INTO airport values('LAX', '미국', 'LA', -8, '/b01_img/LA.png');
 INSERT INTO airport values('SFO', '미국', '샌프란시스코', -8, '/b01_img/SFO.png');
@@ -126,7 +126,7 @@ DROP TABLE ticketOption;
 CREATE TABLE ticketOption (
 	optionCode varchar2(20) NOT NULL,
 	flightNumber varchar2(20) NULL,
-	class number NULL,
+	classFee number NULL,
 	baggage number NULL,
 	stock number NULL
 );

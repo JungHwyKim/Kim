@@ -77,3 +77,18 @@ function bringcardinfo(self){
 		document.querySelector('[name=cardinstallment]').disabled=false;
 	}
 }
+
+/* 탑승자정보 불러오기 */
+function bringPassengerinfo(){	//db에서 정보 불러와서 넣기
+ 	let psginputs =document.querySelectorAll('#passengerinfoset input')
+ 	psginputs[0].value='김박박';
+ 	psginputs[1].value='Kim';
+ 	psginputs[2].value='bakbak';
+ 	psginputs[3].value='2222-10-01';
+ 	if('m'=='f'){psginputs[4].checked=true;}
+ 	if('f'=='f'){psginputs[5].checked=true;}
+ 	psginputs[6].value='m485465312';
+ 	psginputs[7].value='2023-10-01';
+ 	psginputs[8].value='한국';
+ 	psginputs[9].value='북한';
+ }
