@@ -107,20 +107,19 @@ btnOb.onclick=function(){
 		idOb.style.borderColor="red"
 		idOb.focus();
 		idD.innerText="아이디를 입력해주세요"
-		console.log("1")
 		return;
 	}else if(idOb.value != "" && pwOb.value == ""){
 		idD.innerText=""
 		idOb.style.borderColor="#cccccc"
-			console.log("2")
 		pwOb.style.borderColor="red"
 		pwOb.focus()
 		pwD.innerText="비밀번호를 입력해주세요"
 		return;
 	}else{
+		idD.innerText=""
+		idOb.style.borderColor="#cccccc"
 		pwD.innerText=""
 		pwOb.style.borderColor="#cccccc"
-			console.log("3")
 		return;
 	}
 }
