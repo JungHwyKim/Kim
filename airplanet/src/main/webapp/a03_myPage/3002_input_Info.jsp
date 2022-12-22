@@ -12,7 +12,7 @@
 img.user{
 	width:70%;
 }
-a{
+.astyle{
 	color:black;
 	text-decoration-line: none;
 }
@@ -66,10 +66,10 @@ a{
 	     	<h1><b>안녕하세요!</b></h1>
 	     	<p>XXXX@email.com<p>
 	     </div>
-	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp">여행객 정보 입력</a></div><hr>
-	     <div class="border-0 bg-white"><a href="3009_cardInfo_input.jsp">결제 정보 입력</a></div><hr>
-	     <div class="border-0 bg-white"><a href="3004_show_Info.jsp">내 예약</a></div><hr>
-	     <div class="border-0 bg-white"><a href="#">가격 변동 알림</a></div><hr>
+	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp" class="astyle">여행객 정보 입력</a></div><hr>
+	     <div class="border-0 bg-white"><a href="3009_cardInfo_input.jsp" class="astyle">결제 정보 입력</a></div><hr>
+	     <div class="border-0 bg-white"><a href="3004_show_Info.jsp" class="astyle">내 예약</a></div><hr>
+	     <div class="border-0 bg-white"><a href="#" class="astyle">가격 변동 알림</a></div><hr>
 	     <div class="border-0 bg-white">계정</div><hr>
 	     <input class="btnOut" type="button" value="로그아웃" onclick="logout()"/>
 	    </div>
