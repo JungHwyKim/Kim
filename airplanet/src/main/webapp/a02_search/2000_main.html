@@ -492,8 +492,7 @@ $searchInput1.addEventListener("input", (e) => {
 	var gradenumOb = document.querySelector("[name=gradenum]")
 	var sendgAnOb = document.querySelector(".sendgAn")
 	var optOb = document.querySelector(".opt")
-	var gradenumOb = document.querySelector("[name=gradenum]")
-	
+
 	gradenumOb.onclick=function(){
 		document.querySelector(".balloon").style.display="block"
 	}
@@ -504,8 +503,14 @@ $searchInput1.addEventListener("input", (e) => {
 		document.querySelector(".balloon").style.display="none"
 	}
 	
-	
-	
+	gradenumOb.onblur=function(){
+		if(event.relatedTarget == null) {
+			document.querySelector(".balloon").style.display="none"
+		}
+	} 
+	document.querySelector(".gAn").onblur=function(){
+		document.querySelector(".balloon").style.display="none"
+	}
 	
 	
 

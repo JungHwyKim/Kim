@@ -52,7 +52,7 @@
 				<div class="regFlex"><span class="textS" style="margin-top:50px;width:15%;">비밀번호</span></div>
 				<div class="regFlex" style="display:flex;"><input type="password" name="pw" style="width:100%;"></div>
 				<div class="chgType" style="position:relative;margin:-30px 0 0 55%;padding-bottom:10px;">
-					<img src="img/view.png" style="width:13px;height:9px;">
+					<img src="/b01_img/view.png" style="width:13px;height:9px;">
 				</div>
 				<div style="width:60%">
 					<div class="pwcontainer" style="font-size:xx-small;"></div>
@@ -63,7 +63,7 @@
 				<div class="regFlex"><span class="textS" style="margin-top:50px;width:15%;">비밀번호 확인</span></div>
 				<div class="regFlex"><input type="password" name="pwck" style="width:100%;"></div>
 				<div class="chgType" style="position:relative;margin:-30px 0 0 55%;padding-bottom:10px;">
-					<img src="img/view.png" style="width:13px;height:10px;padding-bottom:2px;">
+					<img src="/b01_img/view.png" style="width:13px;height:10px;padding-bottom:2px;">
 				</div>
 				<div style="width:60%">
 					<div class="pwckcontainer" style="font-size:xx-small;"></div>
@@ -130,23 +130,29 @@ pwOb.onblur=pwCheck
 pwckOb.onblur=pwDbCheck
 telOb.onblur=telCheck
 
+var idcontainerOb = document.querySelector(".idcontainer")
+
 /* 아이디 유효성(영문,숫자만 허용 / 아직 DB랑 연결 안함) */
 function idCheck(){
 	if(pattern5.test(idOb.value)){
-		document.querySelector(".idcontainer").innerText = "5~20자의 영문 소문자, 숫자만 사용 가능합니다."
-		document.querySelector(".idcontainer").style.color="red"
+		idcontainerOb.innerText = "5~20자의 영문 소문자, 숫자만 사용 가능합니다."
+		idcontainerOb.style.color="red"
 		idOb.style.borderColor="red"
 		return;
 	}else if(!pattern3.test(idOb.value) && idOb.value.length >= 5 && idOb.value.length <= 20){
-		document.querySelector(".idcontainer").innerText = "멋진 아이디이군요!"
-		document.querySelector(".idcontainer").style.color="green"
+		idcontainerOb.innerText = "멋진 아이디이군요!"
+		idcontainerOb.style.color="green"
 		idOb.style.borderColor="green"
 		emailId = idOb.value+"@"+emailOb.value
 		console.log(emailId)
 		return;
+	}else if(idOb.value == ""){
+		idcontainerOb.innerText = ""
+		idOb.style.borderColor="#cccccc"
+		return;
 	}else{
-		document.querySelector(".idcontainer").innerText = "5~20자의 영문 소문자, 숫자만 사용 가능합니다."
-		document.querySelector(".idcontainer").style.color="red"
+		idcontainerOb.innerText = "5~20자의 영문 소문자, 숫자만 사용 가능합니다."
+		idcontainerOb.style.color="red"
 		idOb.style.borderColor="red"
 		return;
 	}
@@ -199,13 +205,13 @@ pwV.forEach(function(i){
 	pwV[0].onclick=function(){
 		if(pwViewBoolean0){
 			pwOb.type="text"
-			pwV[0].innerHTML = "<img src='img/unview.png' style='width:13px;height:11px;margin-top:1px;'/>"	
+			pwV[0].innerHTML = "<img src='/b01_img/unview.png' style='width:13px;height:11px;margin-top:1px;'/>"	
 			console.log(pwOb.type)
 			pwViewBoolean0 = false
 		}
 		else{
 			pwOb.type="password"
-			pwV[0].innerHTML = "<img src='img/view.png' style='width:13px;height:9px;padding-bottom:1px;'/>"
+			pwV[0].innerHTML = "<img src='/b01_img/view.png' style='width:13px;height:9px;padding-bottom:1px;'/>"
 			console.log(pwOb.type)
 			pwViewBoolean0 = true
 		}
@@ -213,13 +219,13 @@ pwV.forEach(function(i){
 	pwV[1].onclick=function(){
 		if(pwViewBoolean1){
 			pwckOb.type="text"
-			pwV[1].innerHTML = "<img src='img/unview.png' style='width:13px;height:11px;margin-top:1px;'/>"	
+			pwV[1].innerHTML = "<img src='/b01_img/unview.png' style='width:13px;height:11px;margin-top:1px;'/>"	
 			console.log(pwOb.type)
 			pwViewBoolean1 = false
 		}
 		else{
 			pwckOb.type="password"
-			pwV[1].innerHTML = "<img src='img/view.png' style='width:13px;height:10px;padding-bottom:2px;'>"
+			pwV[1].innerHTML = "<img src='/b01_img/view.png' style='width:13px;height:10px;padding-bottom:2px;'>"
 			console.log(pwOb.type)
 			pwViewBoolean1 = true
 		}
