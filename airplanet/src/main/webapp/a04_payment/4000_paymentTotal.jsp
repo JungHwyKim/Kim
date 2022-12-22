@@ -20,7 +20,7 @@ a:link {
 }
 </style>
 
-<link href="bs-custom.css" rel="stylesheet" >
+<link href="/bs-custom.css" rel="stylesheet" >
 <meta charset="UTF-8">
 <title>결제</title>
 </head>

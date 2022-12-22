@@ -7,13 +7,13 @@ public class Flight {
 	private String flightNumber;
 	private String airlineCode;
 	private String departAirport;
-	private Date departDate;
+	private String departDate;
 	private String arriveAirport;
 	private float flightHours;
 	private int standardFee;
 	
 	public Flight() {}
-	public Flight(String flightNumber, String airlineCode, String departAirport, Date departDate, String arriveAirport,
+	public Flight(String flightNumber, String airlineCode, String departAirport, String departDate, String arriveAirport,
 			float flightHours, int standardFee) {
 		this.flightNumber = flightNumber;
 		this.airlineCode = airlineCode;
@@ -41,10 +41,10 @@ public class Flight {
 	public void setDepartAirport(String departAirport) {
 		this.departAirport = departAirport;
 	}
-	public Date getDepartDate() {
+	public String getDepartDate() {
 		return departDate;
 	}
-	public void setDepartDate(Date departDate) {
+	public void setDepartDate(String departDate) {
 		this.departDate = departDate;
 	}
 	public String getArriveAirport() {

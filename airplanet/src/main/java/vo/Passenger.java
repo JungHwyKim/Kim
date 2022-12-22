@@ -8,10 +8,10 @@ public class Passenger {
 	private String korname;
 	private String engsur;
 	private String engname;
-	private Date birthday;
+	private String birthday;
 	private String mf;
 	private String ppnumber;
-	private Date ppexpire;
+	private String ppexpire;
 	private String nation;
 	private String ppnation;
 	

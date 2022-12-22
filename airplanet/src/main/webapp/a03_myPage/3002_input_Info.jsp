@@ -62,7 +62,7 @@ img.user{
 	  	<div class="col-1"></div>
 	    <div class="col-3" style="text-align:center;font-size:25px;">
 	     <div class="p-3 border-0 bg-white">
-	     	<img src="/b01_img/user.PNG" class="user"><br>
+	     	<img src="b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
 	     	<p>XXXX@email.com<p>
 	     </div>
@@ -77,35 +77,43 @@ img.user{
 	    <div class="col-5" style="font-size:25px;">
 	    	<div class="p-3 border-0 bg-white" style="text-align:center;"><h1><b>상세 개인 정보</b></h1></div><br>
 	     	<div class="field p-3 border-0 bg-white">
-	     		<label for="exampleFormControlInput1" class="form-label">직함</label>
-  				<input type="text" name="job">	
+	     		<label for="exampleFormControlInput1" class="form-label">이메일</label>
+  				<input type="text" name="email">	
   			</div>
   			<div class="field p-3 border-0 bg-white">
-	     		<label for="exampleFormControlInput1" class="form-label">이름</label>
-  				<input type="text" name="name">	
+	     		<label for="exampleFormControlInput1" class="form-label">한글이름</label>
+  				<input type="text" name="korname">	
   				<div style="width:60%">
 					<div class="namecontainer" style="font-size:15px;"></div>
 				</div>
   			</div>
   			<div class="field p-3 border-0 bg-white">
-	     		<label for="exampleFormControlInput1" class="form-label">성</label>
-  				<input type="text" name="firstName">	
+	     		<label for="exampleFormControlInput1" class="form-label">영문 성</label>
+  				<input type="text" name="engsur">	
   				<p style="font-size:15px">여행 증명서와 일치해야 합니다.</p>
   				<div style="width:60%">
-					<div class="firstNamecontainer" style="font-size:15px;"></div>
+					<div class="engsurcontainer" style="font-size:15px;"></div>
+				</div>
+  			</div>
+  			<div class="field p-3 border-0 bg-white">
+	     		<label for="exampleFormControlInput1" class="form-label">영문 이름</label>
+  				<input type="text" name="engname">	
+  				<p style="font-size:15px">여행 증명서와 일치해야 합니다.</p>
+  				<div style="width:60%">
+					<div class="engNamecontainer" style="font-size:15px;"></div>
 				</div>
   			</div>
   			<div class="field p-3 border-0 bg-white">
   				<label for="exampleFormControlInput1" class="form-label">성별</label>
-	     		<select class="form-select" aria-label="Default select example">
+	     		<select name="mf" class="form-select" aria-label="Default select example">
 					<option selected>응답안함</option>
 				  	<option value="1">남자</option>
 				  	<option value="2">여자</option>
 				</select>
   			</div>
   			<div class="p-3 border-0 bg-white">
-  				<label for="exampleFormControlInput1" class="form-label">국가/지역</label>
-	     		<select class="form-select" aria-label="Default select example">
+  				<label for="exampleFormControlInput1" class="form-label">국적</label>
+	     		<select name="nation" class="form-select" aria-label="Default select example">
 					<option>대한민국</option>
 					<option>일본</option>
 					<option>스페인</option>
@@ -117,9 +125,32 @@ img.user{
   			</div>
   			<div class="p-3 border-0 bg-white">
 	     		<label for="exampleFormControlInput1" class="form-label">생년월일</label>
-  				<input type="date" class="form-control" id="exampleFormControlInput1">	
+  				<input name="birthday" type="date" class="form-control" id="exampleFormControlInput1">	
   			</div>
-			<input id="save" type="button" value="승객 저장" class="btnSave"/>
+			<div class="field p-3 border-0 bg-white">
+	     		<label for="exampleFormControlInput1" class="form-label">여권번호</label>
+  				<input type="text" name="ppnumber">	
+  				<div style="width:60%">
+					<div class="ppnumbercontainer" style="font-size:15px;"></div>
+				</div>
+  			</div>
+  			<div class="p-3 border-0 bg-white">
+	     		<label for="exampleFormControlInput1" class="form-label">여권만료일</label>
+  				<input name="ppexpire" type="date" class="form-control" id="exampleFormControlInput1">	
+  			</div>
+  			<div class="p-3 border-0 bg-white">
+  				<label for="exampleFormControlInput1" class="form-label">여권발행국</label>
+	     		<select name="ppnation" class="form-select" aria-label="Default select example">
+					<option>대한민국</option>
+					<option>일본</option>
+					<option>스페인</option>
+					<option>필리핀</option>
+					<option>프랑스</option>
+					<option>태국</option>
+					<option>포르투갈</option>
+				</select>
+  			</div>
+  			<input id="save" type="button" value="승객 저장" class="btnSave"/>
 	    <div class="col-1"></div>
 	  </div>
 	</div>
@@ -134,8 +165,10 @@ function logout(){
 }
 
 // 유효성 검사
-var nameOb = document.querySelector("[name=name]")
-var firstNameOb = document.querySelector("[name=firstName]")
+var nameOb = document.querySelector("[name=korname]")
+var engsurOb = document.querySelector("[name=engsur]")
+var engnameOb = document.querySelector("[name=engname]")
+var ppnumberOb = document.querySelector("[name=ppnumber]")
 var saveOb = document.querySelector("#save")
 
 nameOb.onblur=function(){
@@ -146,21 +179,40 @@ nameOb.onblur=function(){
 		document.querySelector(".namecontainer").innerText = ""
 	}
 }
-firstNameOb.onblur=function(){
-	if(firstNameOb.value==""){
-		document.querySelector(".firstNamecontainer").innerText = "성을 반드시 입력해야 합니다"
-		document.querySelector(".firstNamecontainer").style.color="red"
+engsurOb.onblur=function(){
+	if(engsurOb.value==""){
+		document.querySelector(".engsurcontainer").innerText = "영문 성을 반드시 입력해야 합니다"
+		document.querySelector(".engsurcontainer").style.color="red"
 	}else{
-		document.querySelector(".firstNamecontainer").innerText = ""
+		document.querySelector(".engsurcontainer").innerText = ""
+	}
+}
+engnameOb.onblur=function(){
+	if(engsurOb.value==""){
+		document.querySelector(".engNamecontainer").innerText = "영문 이름을 반드시 입력해야 합니다"
+		document.querySelector(".engNamecontainer").style.color="red"
+	}else{
+		document.querySelector(".engNamecontainer").innerText = ""
+	}
+}
+ppnumberOb.onblur=function(){
+	if(ppnumberOb.value==""){
+		document.querySelector(".ppnumbercontainer").innerText = "여권번호를 반드시 입력해야 합니다"
+		document.querySelector(".ppnumbercontainer").style.color="red"
+	}else{
+		document.querySelector(".ppnumbercontainer").innerText = ""
 	}
 }
 
 // 버튼 활성화
 saveOb.disabled = true;
 nameOb.addEventListener("change", stateHandle);
-firstNameOb.addEventListener("change", stateHandle);
+engsurOb.addEventListener("change", stateHandle);
+engnameOb.addEventListener("change", stateHandle);
+ppnumberOb.addEventListener("change", stateHandle);
+
 function stateHandle() {
-  if (nameOb.value == "" && firstNameOb.value=="") {
+  if (nameOb.value == "" || engsurOb.value=="" || engnameOb.value=="" || ppnumberOb.value=="") {
 	 saveOb.disabled = true; 
   } else {
 	 saveOb.disabled = false;

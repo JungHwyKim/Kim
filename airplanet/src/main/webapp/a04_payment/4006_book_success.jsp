@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="bs-custom.css" rel="stylesheet" >
+<link href="/bs-custom.css" rel="stylesheet" >
 <style>
 .imgbookingisdone{
 	background-image: url("https://wallpaperaccess.com/full/58330.jpg");
@@ -32,7 +32,7 @@ text-shadow: 1px 1px 3px steelblue ;}
 <body>
 
 <main class="container">
-<%@ include file="/header.jsp" %>
+<%@ include file="/header_logout.jsp" %>
 <h2>해외항공권 예약</h2>
 <div class="imgbookingisdone">
 <div class="text-white"><span class="shadow-primary">예약이 완료되었습니다</span></div>

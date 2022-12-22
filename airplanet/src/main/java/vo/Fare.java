@@ -7,14 +7,14 @@ public class Fare {
 	private String bookingReference;
 	private String optionCode;
 	private String email;
-	private Date resDate;
+	private String resDate;
 	private String resState;
 	private String cardInfo;
 	private int cnt;
 	private int totalPrice;
 	
 	public Fare() {}
-	public Fare(String bookingReference, String optionCode, String email, Date resDate, String resState,
+	public Fare(String bookingReference, String optionCode, String email, String resDate, String resState,
 			String cardInfo, int cnt, int totalPrice) {
 		this.bookingReference = bookingReference;
 		this.optionCode = optionCode;
@@ -43,10 +43,10 @@ public class Fare {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getResDate() {
+	public String getResDate() {
 		return resDate;
 	}
-	public void setResDate(Date resDate) {
+	public void setResDate(String resDate) {
 		this.resDate = resDate;
 	}
 	public String getResState() {
