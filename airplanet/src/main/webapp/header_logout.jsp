@@ -4,7 +4,7 @@
     import="jspexp.vo.*" 
   	import="jspexp.a13_database.*"
    %>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/bs-custom.css" rel="stylesheet">
 <style>
 header{
 	margin-bottom: 50px;
