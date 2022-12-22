@@ -19,7 +19,14 @@ public class c_selectFare {
 	// 마이페이지에서 예약번호 검색시 일치하는 예약내역 조회 메소드
 	public List<Fare> getFareList(Fare sch) {
 		List<Fare> flist = new ArrayList<Fare>();
-		String sql = "SELECT * FROM fare WHERE bookingReference = ?";
+		// LISTAGG 함수 사용하여 동일한 항공편에 탑승자 정보를 ,로 구분하여 한 결과로 나타내게 함
+		// 항공노선, 옵션별상품, fare, 탑승자 정보 테이블 join
+		String sql = "SELECT f.bookingReference, f.resDate, f.resState, fl.departAirport, fl.arriveAirport, fl.flightNumber, fl.departDate, fl.flightHours, LISTAGG(p.korname, ',') WITHIN GROUP(ORDER BY korname) AS korname\r\n"
+				+ "FROM fare f, passenger p, flight fl, ticketOption ti\r\n"
+				+ "WHERE f.bookingReference = p.bookingReference AND fl.flightNumber = ti.flightNumber AND \r\n"
+				+ "ti.optionCode = f.optionCode and\r\n"
+				+ "f.bookingReference = ? \r\n"
+				+ "GROUP BY f.bookingReference, f.resDate, f.resState, fl.departAirport, fl.arriveAirport, fl.flightNumber, fl.departDate, fl.flightHours";
 		try {
 			con = DB.con();
 			pstmt = con.prepareStatement(sql);
