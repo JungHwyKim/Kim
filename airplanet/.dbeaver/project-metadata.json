@@ -1,1 +1,1 @@
-{"resources":{"src/main/webapp/c01_sql/d_selectTicketOption.sql":{"default-datasource":"oracle_thin-18537f45192-40c50bd2bf5bf712","default-schema":"SCOTT"},"src/main/webapp/c01_sql/flight.sql":{"default-schema":"SCOTT","default-datasource":"oracle_thin-18537f45192-40c50bd2bf5bf712"}}}
+{"resources":{"src/main/webapp/c01_sql/d_TicketOption.sql":{"default-datasource":"oracle_thin-18537f45192-40c50bd2bf5bf712","default-schema":"SCOTT"},"src/main/webapp/c01_sql/flight.sql":{"default-schema":"SCOTT","default-datasource":"oracle_thin-18537f45192-40c50bd2bf5bf712"}}}
