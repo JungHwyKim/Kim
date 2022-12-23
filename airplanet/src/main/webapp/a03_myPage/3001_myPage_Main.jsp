@@ -37,12 +37,12 @@ img.user{
 </style>
 <body >
 	<div class="container-fluid">
-	<%@ include file="/header_logout.html" %>
+	<%@ include file="/header_logout.jsp" %>
 	  <div class="row no-gutters">
 	  	<div class="col-1"></div>
 	    <div class="col-3" style="text-align:center;font-size:25px;">
 	     <div class="p-3 border-0 bg-white">
-	     	<img src="/b01_img/user.PNG" class="user"><br>
+	     	<img src="../b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
 	     	<p>XXXX@email.com<p>
 	     </div>
@@ -73,9 +73,9 @@ img.user{
 	     	</div>
 	     	<hr style="margin-top:50px;">
 	     	<div class="p-3 border-0 bg-secondary bg-opacity-50" style="text-align:float;">계정</div>
-	     	<div class="p-3 border-0 bg-white"><a href="#">데이터 다운로드</a></div>
+	     	<div class="p-3 border-0 bg-white"><a href="#" class="astyle">데이터 다운로드</a></div>
 	     	<hr>
-	     	<div class="p-3 border-0 bg-white"><a href="#">계정 삭제</a></div>
+	     	<div class="p-3 border-0 bg-white"><a href="#" class="astyle">계정 삭제</a></div>
 	    </div>
 	    <div class="col-1"></div>
 	  </div>

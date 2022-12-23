@@ -10,7 +10,7 @@ import java.util.List;
 import vo.DB;
 import vo.Fare;
 
-public class c_selectFare {
+public class C_selectFare {
 	// DB 연결 필드 선언
 	private Connection con;
 	private PreparedStatement pstmt;

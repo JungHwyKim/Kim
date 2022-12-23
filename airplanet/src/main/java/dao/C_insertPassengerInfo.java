@@ -9,7 +9,7 @@ import java.util.Date;
 import vo.DB;
 import vo.MyPassengerInfo;
 
-public class c_insertPassengerInfo {
+public class C_insertPassengerInfo {
 	// DB 연결 필드 선언
 	private Connection con;
 	private PreparedStatement pstmt;

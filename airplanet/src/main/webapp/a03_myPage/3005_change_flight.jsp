@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="container-fluid">
-	<%@ include file="/header_logout.html" %>
+	<%@ include file="/header_logout.jsp" %>
 		<div class="row p-3 mt-5 border-0 bg-secondary bg-opacity-50">
 			<h2>My page > 내 예약 > 변경 요청</h2>
 		</div>
