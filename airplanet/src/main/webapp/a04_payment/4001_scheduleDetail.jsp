@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
+    import="vo.FlightAll"
+    import="java.util.*"
     %>
 <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
@@ -23,18 +25,19 @@
 <c:forEach var="ff" items="${flist}" varStatus="i">
 	  <div class="card bg-transparent">
 	    <div class="card-body mx-auto">
-	    <h5>공항명 ${ ff.departAirport}</h5><h6>${ ff.departDate}</h6>
+	    <h5>${ ff.departApcity} ${ ff.departAirportcode}</h5><h6>${ ff.departDate}</h6>
 	    </div>
 	  </div>
-</c:forEach>	  
+</c:forEach>
+ 
  <div>
  <ul class="listAlignCenter">
-  <li>왕복</li>
-  <li>직항</li>
-  <li>55분</li>
-  <li>인원 : 성인 1, 아동 1</li>
-  <li>좌석등급 : 일반석</li>
-  <li><img class="listlogo" src="https://blog.kakaocdn.net/dn/kZ08q/btqzbFuEnjY/kKF8BlKYXScpm93sGuRxeK/img.jpg"> &nbsp; 부산항공</li>
+  <li>${summary[0] }</li>
+  <li>${summary[1] }</li>
+  <li>${summary[2] }</li>
+  <li>인원 : ${summary[3] }</li>
+  <li>좌석등급 : ${summary[4] }</li>
+  <li><img class="listlogo" src="${summary[5] }"> &nbsp; ${summary[6] }</li>
 </ul></div>
 </div>
 <h5>상세 비행 스케줄</h5>
@@ -49,20 +52,17 @@
 	</tr>
 </thead>
 <tbody>
-<tr>
-<td rowspan="1"> 인천 →방콕(수완나품)</td>
-<td><strong>인천</strong> 2023.02.16 (목) 21:20</td>
-<td><strong>방콕(수완나품)</strong> 2023.02.17(금) 	01:25</td>
-<td>06시간 05분 </td>
-<td><strong>(7C) 제주항공</strong> 2205편
-</tr>
-<tr>
-<td rowspan="1">방콕(수완나품) → 인천</td>
-<td><strong>방콕(수완나품)</strong>2023.02.18 (토)  01:00</td>
-<td><strong>인천</strong>2023.02.18 (토) 08:25</td>
-<td> 05시간 25분</td>
-<td><strong>(7C) 제주항공</strong> 2204편
-</tr>
+
+	<c:forEach var="ff" items="${flist}" varStatus="i">
+	<tr>
+	<td rowspan="1"> ${ff.departLocation } → ${ff.arriveLocation }</td>
+	<td><strong>${ff.departApcity }</strong> ${ff.departDate }</td>
+	<td><strong>${ff.arriveApcity}</strong> 도착일자시간</td>
+	<td>${ff.flightHours } </td>
+	<td><strong>${ff.airlineName }</strong><span style="font-size:0.8em">${ff.flightNumber }</span>
+	</tr>
+	</c:forEach>
+
 </tbody>
 </table>
 <br>

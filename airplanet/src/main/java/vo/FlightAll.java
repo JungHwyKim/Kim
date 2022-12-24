@@ -11,20 +11,26 @@ public class FlightAll {
 	private float flightHours;
 	private int standardFee;
 	private int classfee;
-	private String optioncode;
+	private String optioncode;		
 	private String arriveApnation;
 	private String arriveApcity;
 	private int arrivePacifictime;
 	private String arriveAirportcode;
 	private String arriveApphoto;
 	private String airlinelogo;
-	private String classStr; // 검색(좌석)
-	private String departLocation; // 검색(출발지)
-	private String arriveLocation; // 검색(도착지)
+	private String classStr; // 검색(좌석)		//ec,bs코드로??
+	private String departLocation; // 검색(출발지) //+최초출발지
+	private String arriveLocation; // 검색(도착지) //+최종도착지
+	
+	//세영추가
+	private String airlineCode;
+	private String airlineName;
+	private int baggage;	//결제선택단계에서 추가
+	//도착현지시간 계산해서 넣는게 좋은가??
+	//인원 1인 이상 구분하게 되면 필드 추가
 	
 	public FlightAll() {}
 
-	
 	
 	
 	public FlightAll( String departLocation, String arriveLocation,String departDate, String classStr) {
@@ -33,8 +39,6 @@ public class FlightAll {
 		this.departLocation = departLocation;
 		this.arriveLocation = arriveLocation;
 	}
-
-
 
 
 	public FlightAll(String departApnation, String departApcity, int departPacifictime, String departAirportcode,
@@ -59,7 +63,18 @@ public class FlightAll {
 		this.airlinelogo = airlinelogo;
 	}
 
-
+	
+	//Flight생성자랑 동일하게(세영)
+	public FlightAll(String flightNumber, String airlineCode, String departAirport, String departDate, String arriveAirport,
+			float flightHours, int standardFee) {
+		this.flightNumber = flightNumber;
+		this.airlineCode = airlineCode;
+		this.departAirportcode = departAirport;
+		this.departDate = departDate;
+		this.arriveAirportcode = arriveAirport;
+		this.flightHours = flightHours;
+		this.standardFee = standardFee;
+	}
 
 
 	public String getClassStr() {
@@ -206,7 +221,35 @@ public class FlightAll {
 	public void setAirlinelogo(String airlinelogo) {
 		this.airlinelogo = airlinelogo;
 	}
-	
-	
+
+
+//////////////////////////세영추가
+	public String getAirlineCode() {
+		return airlineCode;
+	}
+
+	public void setAirlineCode(String airlineCode) {
+		this.airlineCode = airlineCode;
+	}
+
+	public String getAirlineName() {
+		return airlineName;
+	}
+
+	public void setAirlineName(String airlineName) {
+		this.airlineName = airlineName;
+	}
+
+
+
+	public int getBaggage() {
+		return baggage;
+	}
+
+
+
+	public void setBaggage(int baggage) {
+		this.baggage = baggage;
+	}
 	
 }

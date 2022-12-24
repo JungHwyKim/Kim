@@ -46,5 +46,24 @@ public class TicketOption {
 		this.stock = stock;
 	}
 	
+	//추가기능
+	public String getClassStr() {
+		String classStr="일반석";
+		if(this.optionCode.substring(14, 16).equals("bs")){
+			classStr="비즈니스석";
+		}else if(this.optionCode.substring(14, 16).equals("fs")){
+			classStr="일등석";
+		}
+		return classStr;
+	}
+	public String getBaggageStr() {
+		String baggageStr="없음";
+		if(this.optionCode.substring(16, 17).equals("1")){
+			baggageStr="-";
+		}else if(this.optionCode.substring(16, 17).equals("2")){
+			baggageStr="수하물 추가";
+		}
+		return baggageStr;
+	}
 	
 }
