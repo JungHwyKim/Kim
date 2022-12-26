@@ -36,19 +36,12 @@ form{
 <colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 <tr class="table-secondary"><th rowspan="4">성인</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 	<c:forEach var="eachticket" items="${tlist1 }" >
-	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td><td><input type="radio" name="passenger1go" checked></td></tr>
+	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td>
+	<td><input type="radio" name="passenger1go" value="${eachticket.optionCode }" checked></td></tr>
 	</c:forEach>
 </table>
-
-
-<table class="table table-bordered">
-<colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
-<tr class="table-secondary"><th rowspan="4">아동</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
-<tr><td>1명</td><td>비즈니스석</td><td>수하물 추가</td><td>980,000</td><td><input type="radio" name="passenger2go" checked></td></tr>
-<tr><td>1명</td><td>비즈니스석</td><td>-</td><td>960,000</td><td><input type="radio" name="passenger2go"></td></tr>
-<tr><td>1명</td><td>일반석</td><td>-</td><td>380,000</td><td><input type="radio" name="passenger2go"></td></tr>
-</table>
 </div>
+
 
 <c:if test="${not empty tlist2 }">
 <div class="showswitchtarget" style="display:none">	<!-- 오는편 선택 -->
@@ -56,7 +49,8 @@ form{
 	<colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 	<tr class="table-secondary"><th rowspan="4">성인</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 		<c:forEach var="eachticket" items="${tlist2 }" >
-		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td><td><input type="radio" name="passenger1back" checked></td></tr>
+		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td>
+		<td><input type="radio" name="passenger1back" value="${eachticket.optionCode }" checked></td></tr>
 		</c:forEach>
 	</table>
 
