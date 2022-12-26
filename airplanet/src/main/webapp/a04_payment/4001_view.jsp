@@ -28,15 +28,20 @@ form{
 <h5 class="col-2 p-0" >조건 선택</h5>
 <div class="col" ><button type="button" class="btn btn-primary showswitch" style="width: 100%">가는 편</button></div>
 	<c:if test="${not empty tlist2 }">
-<div class="col" ><button type="button" class="btn btn-secondary showswitch" style="width: 100%">오는 편</button></div></div>
+	<div class="col" ><button type="button" class="btn btn-secondary showswitch" style="width: 100%">오는 편</button></div></div>
 	</c:if>
+	
+	
+	
 <form class="form-group">
 <div class="showswitchtarget">
 <table class="table table-bordered">	<!-- 반복문으로 판매할수있는 상품들 출력해서 고르게 -->
 <colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 <tr class="table-secondary"><th rowspan="4">성인</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 	<c:forEach var="eachticket" items="${tlist1 }" >
-	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td><td><input type="radio" name="passenger1go" checked></td></tr>
+	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${flist.get(0).standardFee+eachticket.classFee+eachticket.baggage }</td>
+	<td><input type="radio" name="passenger1go" checked></td></tr>
 	</c:forEach>
 </table>
 
@@ -56,14 +61,16 @@ form{
 	<colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 	<tr class="table-secondary"><th rowspan="4">성인</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 		<c:forEach var="eachticket" items="${tlist2 }" >
-		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td><td><input type="radio" name="passenger1back" checked></td></tr>
+		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${flist.get(1).standardFee+eachticket.classFee+eachticket.baggage }</td>
+		<td><input type="radio" name="passenger1back" checked></td></tr>
 		</c:forEach>
 	</table>
 
 </div>
 </c:if>
 
-<input type="submit" class="btn btn-primary" value="예약하기">
+<input type="submit" class="btn btn-primary" value="예약하기" name="submitting" >
 </form>
 </main>
 
@@ -80,6 +87,20 @@ btns[1].addEventListener('click',function(){
 	showswitching('0','1','none','','','')
 })
 </c:if>
+
+var sbt=document.querySelector('[name=submitting]')
+sbt.onclick=function(){
+	this.value="true"
+	<%
+	Object flist=request.getAttribute("flist");
+	Object summary=request.getAttribute("summary");
+	request.setAttribute("flist", flist);
+	request.setAttribute("summary", summary);
+	String submitting=request.getParameter("submitting");
+	if(submitting!=null&&submitting!=""){
+	if(submitting.equals("true")){	request.getRequestDispatcher("4000_paymentTotal.jsp").forward(request, response);}}
+	%>
+}
 </script>
 
 </body>

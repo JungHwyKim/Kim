@@ -13,7 +13,7 @@
 
 <%
 //가는편
-FlightAll flight1 = new FlightAll("ICNLAX22122115","KE","ICN","2022-12-21 15:00","LAX",8,180000);
+FlightAll flight1 = new FlightAll("ICNLAX22122115","KE","ICN","2022-12-21 15:00","LAX",8,999999);
 flight1.setDepartApcity("인천");flight1.setArriveApcity("LA");
 flight1.setAirlineName("대한항공");flight1.setAirlinelogo("/b01_img/ke.PNG");
 flight1.setDepartLocation("인천");flight1.setArriveLocation("LA");flight1.setClassStr("bs");
@@ -47,9 +47,9 @@ for(FlightAll ff:flist){
 	if(ff.getDepartLocation()!=ff.getDepartApcity()){
 		summary[1]="경유";
 	}
-	if(ff.getOptioncode().substring(14, 16).equals("bs")){
+	if(ff.getOptioncode().indexOf("bs")!=-1){
 		summary[4]="비즈니스석";
-	}else if(ff.getOptioncode().substring(14, 16).equals("fs")){
+	}else if(ff.getOptioncode().indexOf("fs")!=-1){
 		summary[4]="일등석";
 	}
 }
@@ -79,5 +79,6 @@ request.setAttribute("flist", flist);
 request.setAttribute("summary", summary);
 
 %>
+
 
 <jsp:forward page="4001_view.jsp" />
