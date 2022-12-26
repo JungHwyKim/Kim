@@ -61,18 +61,31 @@
   		${schE.setDepartDate("2022-12-21") } ${schE.setDepartLocation("인천") }
   		
   		<c:forEach var="byNation" items="${daoE.getMinfeeE(schE) }">
+  		
+  		  	<%-- dao.B_searcheverywherereturn  returnMinfeeE  왕복시 리턴 --%>
+		  	<jsp:useBean id="daoR" class="dao.B_searcheverywherereturn"/>
+		  	<jsp:useBean id="schR" class="vo.FlightAll"/>
+		  	<jsp:setProperty property="*" name="schR"/>
+		  	${schR.setDepartDate("2022-12-30") } ${schR.setDepartLocation(byNation.arriveApcity) }${schR.setArriveLocation("ICN") }
+		    
+  		
   		<div class="accodion-item d-grid gap-2">
   		
   		 <button class="btn btn-light" type="button">
   			<div class="accodion-header d-flex">
-  				<span class="p-2 flex-grow-1">${byNation.arriveApcity }</span><span class="p-2">${byNation.standardFee }부터</span><span class="material-symbols-outlined p-2">expand_more</span>
+  				<span class="p-2 flex-grow-1">${byNation.arriveApcity }</span>
+  				<c:forEach var="rPrice" items="${daoR.returnMinfeeE(schR) }" >
+  		<%-- 편도가격 + 왕복 리턴가격 --%>
+  				<c:set var= "total1" value="${rPrice.standardFee + byNation.standardFee}"/> 
+  				<span class="p-2"><fmt:formatNumber value="${total1 }"/>부터</span></c:forEach>
+  				<span class="material-symbols-outlined p-2">expand_more</span>
   			</div></button>
   			
-    <jsp:useBean id="daoN" class="dao.B_searchnation"/>
-	<jsp:useBean id="schN" class="vo.FlightAll"/>
-	<jsp:setProperty property="*" name="schN"/>
-  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("인천") }${schN.setArriveLocation("미국") }
-  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
+		    <jsp:useBean id="daoN" class="dao.B_searchnation"/>
+			<jsp:useBean id="schN" class="vo.FlightAll"/>
+			<jsp:setProperty property="*" name="schN"/>
+		  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("인천") } ${schN.setArriveLocation(byNation.arriveApcity) }
+		  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
   	
   			<button type="button" class="accodion-con-btn">
   			<div class="accodion-body">

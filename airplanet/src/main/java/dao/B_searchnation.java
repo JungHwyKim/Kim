@@ -29,7 +29,8 @@ public class B_searchnation {
 				+ "AND f.flightnumber = t.flightnumber\r\n"
 				+ "AND (a1.apcity=? OR a1.apnation=?) \r\n"
 				+ "AND t.stock>=1\r\n"
-				+ "AND a2.apnation=? ";
+				+ "AND a2.apnation=?"
+				+ "ORDER BY f.standardfee ";
 		try {
 			con=DB.con();
 			pstmt=con.prepareStatement(sql);

@@ -47,17 +47,21 @@
 	
 	<p class="text-md-end">예상 최저 가격일 뿐입니다. 최근 8일 내에 검색한 결과입니다.</p>
 	<div class="list-group">
-	<%--dao.B_searchnation  getMinfeeN --%>
+	<%--dao.B_searchnation  getMinfeeN 편도--%>
 	<jsp:useBean id="daoN" class="dao.B_searchnation"/>
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
   	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("인천") }${schN.setArriveLocation("미국") }
-  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
   	
-	<button type="button" class="btn">
+  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
+
+  	
+  	
+	<button type="button" class="btn" value="${byCity.arriveApcity }">
     <div class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">${byCity.arriveApcity }</h5>
+      	
       <medium class="list-content-price">${byCity.standardFee }부터 ></medium>
     </div>
     <p class="list-content-bottom">1회 이상 경유(직항이용가능)</p>
@@ -76,6 +80,15 @@
 </body>
 
 <script type="text/javascript">
+var btnarr = document.querySelectorAll("[type=button]")
+btnarr.forEach(function(btn){
+	btn.onclick=function(){
+		var city = this.value
+		
+	}
+})
+
+
 
 </script>
 </html>

@@ -42,7 +42,7 @@
 				  			<div class="col-3"><img src="/b01_img/ke.PNG" width="100%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
-				  					<div class="col-4 topleft">${f.departDate }</div>
+				  					<div class="col-4 topleft"></div>
 				  					<div class="col-4 topcenter">${f.flightHours }</div>
 				  					<div class="col-4 topright">도착시간</div>
 				  				</div>
@@ -83,6 +83,9 @@ arr2.forEach(function(a){
 console.log(arr3[0])
 console.log(arr3[1])
 // 태평양 표준시로 바꿔서 계산하기..
-
+var topleftarr = document.querySelectorAll(".topleft")
+for(var i=0;i<=arr3.length;i++){
+	topleftarr[i].innerText= arr3[i]
+}
 </script>
 </html>

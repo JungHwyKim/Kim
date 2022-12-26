@@ -18,7 +18,7 @@ public class B_search_detail {
 	
 	public List<FlightAll> getMinfeeC(FlightAll fa){
 		List<FlightAll> flist = new ArrayList<FlightAll>();
-		String sql="SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, \r\n"
+		String sql="SELECT DISTINCT  f.flightnumber, f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, \r\n"
 				+ "a1.PACIFICTIME , a2.PACIFICTIME, ar.AIRLINELOGO, f.STANDARDFEE , t.CLASS  \r\n"
 				+ "FROM FLIGHT f, airport a2, airport a1, ticketOption t, AIRLINE ar \r\n"
 				+ "WHERE a1.AIRPORTCODE =f.DEPARTAIRPORT \r\n"
@@ -42,8 +42,8 @@ public class B_search_detail {
 		pstmt.setString(6, fa.getClassStr());
 		rs=pstmt.executeQuery();
 		while(rs.next()) {
-			flist.add(new FlightAll(rs.getString(1),rs.getString(2),rs.getString(3),rs.getFloat(4),
-					rs.getInt(5),rs.getInt(6),rs.getString(7),rs.getInt(8),rs.getInt(9)));
+			flist.add(new FlightAll(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getFloat(5),
+					rs.getInt(6),rs.getInt(7),rs.getString(8),rs.getInt(9),rs.getInt(10)));
 		}
 	
 	
