@@ -12,6 +12,55 @@ INSERT INTO ticketOption VALUES('ICNLAX22122120ec0','ICNLAX22122120',0,0,100);
 INSERT INTO ticketOption VALUES('ICNLAX22122221ec0','ICNLAX22122221',0,0,180);
 INSERT INTO ticketOption VALUES('ICNLAX22122123ec1','ICNLAX22122123',0,0,180);
 
+
+
+-- everywhere로 검색
+SELECT DISTINCT a2.apnation, f.STANDARDFEE 
+FROM(SELECT a.apnation, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
+WHERE ff.ARRIVEAIRPORT =a.AIRPORTCODE 
+AND TO_CHAR(ff.departdate,'yyyy-mm-dd')= '2022-12-21'
+GROUP BY a.APNATION) cm, airport a2, flight f , airport a1, ticketOption t
+WHERE cm.minfee = f.STANDARDFEE 
+AND f.ARRIVEAIRPORT = a2.airportcode
+AND f.DEPARTAIRPORT =a1.airportcode
+AND f.flightnumber = t.flightnumber
+AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND t.stock>=1
+;
+
+-- 나라명으로 검색
+SELECT DISTINCT  a2.apcity, f.standardfee, a2.apphoto
+FROM ( SELECT a.apcity, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
+WHERE ff.ARRIVEAIRPORT =a.AIRPORTCODE 
+AND TO_CHAR(ff.departdate,'yyyy-mm-dd')= '2022-12-21'
+GROUP BY  a.apcity) cm, FLIGHT F, airport a2, airport a1, ticketOption t
+WHERE f.standardfee = cm.minfee
+AND a2.apcity = cm.apcity
+AND f.arriveairport = a2.airportcode
+AND f.DEPARTAIRPORT =a1.airportcode
+AND f.flightnumber = t.flightnumber
+AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND t.stock>=1
+AND a2.apnation='미국'
+;
+
+-- 도시명 / 공항으로 검색
+SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
+a1.PACIFICTIME , a2.PACIFICTIME, ar.AIRLINELOGO, f.STANDARDFEE , t.CLASS  
+FROM FLIGHT f, airport a2, airport a1, ticketOption t, AIRLINE ar 
+WHERE a1.AIRPORTCODE =f.DEPARTAIRPORT 
+AND a2.AIRPORTCODE =f.ARRIVEAIRPORT 
+AND t.FLIGHTNUMBER =f.FLIGHTNUMBER 
+AND ar.AIRLINECODE =f.AIRLINECODE 
+AND t.stock>=1
+AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21'
+AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND (a2.APCITY='후쿠오카' OR a2.AIRPORTCODE='일본')
+AND substr(t.optioncode,15,2)='ec'
+;
+
+
+
 -- 국가이름으로 검색했을 때 결과 (중휘씨한테 국가검색/나라검색했을 때 구분하는거 어떻게 하는지 물어보기) // 직항
 -- 코드에서 앞뒤 국가명만 바꿔서 넣으면 왕복에서 돌아오는 티켓 알 수 있음 // 직항
 SELECT ap1.apnation, ap1.apcity,ap1.PACIFICTIME , f.flightnumber, f.departdate,f.flighthours,f.standardfee, t.CLASS, 
