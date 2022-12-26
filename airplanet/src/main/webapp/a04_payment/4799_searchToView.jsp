@@ -32,7 +32,6 @@ flist.add(flight2);
 //여기까지 넘겨받을 데이터들
 
 
-
 //스케줄디테일에 출력될 서머리 json으로 만들기(가는표 기준)
 String [] summary= new String[7];
 summary[0]=flist.get(0).getDepartLocation()==flist.get(flist.size()-1).getDepartLocation()?"편도":"왕복";
@@ -77,8 +76,7 @@ request.setAttribute("tlist2", tlist2);
 request.setAttribute("tlist1", tlist1);
 request.setAttribute("flist", flist);
 request.setAttribute("summary", summary);
-
 %>
 
 
-<jsp:forward page="4001_view.jsp" />
+<jsp:forward page="4800_view.jsp" />

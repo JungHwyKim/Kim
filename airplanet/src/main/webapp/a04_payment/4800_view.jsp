@@ -41,7 +41,7 @@ form{
 	<c:forEach var="eachticket" items="${tlist1 }" >
 	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
 		<td>${flist.get(0).standardFee+eachticket.classFee+eachticket.baggage }</td>
-	<td><input type="radio" name="passenger1go" checked></td></tr>
+	<td><input value="${eachticket.optionCode }" type="radio" name="passenger1go" checked></td></tr>
 	</c:forEach>
 </table>
 
@@ -63,7 +63,7 @@ form{
 		<c:forEach var="eachticket" items="${tlist2 }" >
 		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
 		<td>${flist.get(1).standardFee+eachticket.classFee+eachticket.baggage }</td>
-		<td><input type="radio" name="passenger1back" checked></td></tr>
+		<td><input value="${eachticket.optionCode }" type="radio" name="passenger1back" checked></td></tr>
 		</c:forEach>
 	</table>
 
@@ -73,6 +73,8 @@ form{
 <input type="submit" class="btn btn-primary" value="예약하기" name="submitting" >
 </form>
 </main>
+
+<%@ include file="/0000_footer.html" %>
 
 <script type="text/javascript" src="4000_switchInfo.js">/*버튼눌러서 가는편 오는편 바꾸기*/</script>
 <script>
@@ -98,7 +100,7 @@ sbt.onclick=function(){
 	request.setAttribute("summary", summary);
 	String submitting=request.getParameter("submitting");
 	if(submitting!=null&&submitting!=""){
-	if(submitting.equals("true")){	request.getRequestDispatcher("4000_paymentTotal.jsp").forward(request, response);}}
+	if(submitting.equals("true")){	request.getRequestDispatcher("4899_viewToTotal.jsp").forward(request, response);}}
 	%>
 }
 </script>
