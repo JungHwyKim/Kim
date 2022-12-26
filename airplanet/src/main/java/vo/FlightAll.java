@@ -33,12 +33,53 @@ public class FlightAll {
 
 	
 	
-	public FlightAll( String departLocation, String arriveLocation,String departDate, String classStr) {
+	public FlightAll( String departDate,String departLocation, String arriveLocation, String classStr) {
 		this.departDate = departDate;
 		this.classStr = classStr;
 		this.departLocation = departLocation;
 		this.arriveLocation = arriveLocation;
 	}
+	
+	//원주 evrywhere 검색 결과
+	public FlightAll(String arriveApnation,int standardFee) {
+		this.standardFee = standardFee;
+		this.arriveApcity = arriveApnation;
+	}
+	//원주 evrywhere 검색어
+	public FlightAll(String departDate, String departLocation) {
+		this.departDate = departDate;
+		this.departLocation = departLocation;
+	}
+	
+	// 원주 nation 검색 결과
+	public FlightAll( String arriveApcity,int standardFee, String arriveApphoto) {
+		this.standardFee = standardFee;
+		this.arriveApcity = arriveApcity;
+		this.arriveApphoto = arriveApphoto;
+	}
+
+	// 원주 nation 검색어
+	public FlightAll(String departDate, String departLocation, String arriveLocation) {
+		this.departDate = departDate;
+		this.departLocation = departLocation;
+		this.arriveLocation = arriveLocation;
+	}
+	
+
+
+	public FlightAll(String departDate,  String departAirportcode, String arriveAirportcode, float flightHours,int departPacifictime,  
+			int arrivePacifictime, String airlinelogo, int standardFee, int classfee) {
+		this.departPacifictime = departPacifictime;
+		this.departAirportcode = departAirportcode;
+		this.departDate = departDate;
+		this.flightHours = flightHours;
+		this.standardFee = standardFee;
+		this.classfee = classfee;
+		this.arrivePacifictime = arrivePacifictime;
+		this.arriveAirportcode = arriveAirportcode;
+		this.airlinelogo = airlinelogo;
+	}
+
 
 
 	public FlightAll(String departApnation, String departApcity, int departPacifictime, String departAirportcode,
