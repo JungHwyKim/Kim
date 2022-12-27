@@ -41,6 +41,29 @@ public class D_selectTicketOption {
 		return optionlist;
 	}
 	
+	//티켓옵션으로 특정 티켓 검색
+	public TicketOption selectOneSpecific(String optioncode) {
+		TicketOption thisticket =  new TicketOption();
+		try {
+			con=DB.con();
+			String sql="SELECT * FROM ticketOption WHERE optioncode LIKE '%'||?||'%'";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, optioncode);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+			thisticket = new TicketOption(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5));}
+			
+		}  catch (SQLException e) {
+			System.out.println("selectOneSpecific SQL예외: "+e.getMessage());
+			}catch(Exception e) {
+				System.out.println("일반예외:"+e.getMessage());
+			}
+			finally {
+				DB.close(rs, pstmt, con);
+			}
+		return thisticket;
+	}
+	
 	public boolean updateStock(String flightNumber, int sold) {	//표 팔렸을때
 		boolean done=false;
 		try {

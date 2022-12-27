@@ -8,6 +8,7 @@ public class TicketOption {
 	private int stock;
 	
 	public TicketOption() {}
+	
 	public TicketOption(String optionCode, String flightNumber, int classFee, int baggage, int stock) {
 		this.optionCode = optionCode;
 		this.flightNumber = flightNumber;
@@ -15,6 +16,7 @@ public class TicketOption {
 		this.baggage = baggage;
 		this.stock = stock;
 	}
+	
 	public String getOptionCode() {
 		return optionCode;
 	}
@@ -56,6 +58,7 @@ public class TicketOption {
 		}
 		return classStr;
 	}
+	
 	public String getBaggageStr() {
 		String baggageStr="없음";
 		if(this.optionCode.substring(16, 17).equals("1")){

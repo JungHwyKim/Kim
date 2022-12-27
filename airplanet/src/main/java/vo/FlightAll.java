@@ -26,6 +26,7 @@ public class FlightAll {
 	private String airlineCode;
 	private String airlineName;
 	private int baggage;	//결제선택단계에서 추가
+	private String baggageStr;	//결제선택단계에서 추가
 	//도착현지시간 계산해서 넣는게 좋은가??
 	//인원 1인 이상 구분하게 되면 필드 추가
 	
@@ -105,7 +106,7 @@ public class FlightAll {
 	}
 
 	
-	//Flight생성자랑 동일하게(세영)
+	//세영: Flight생성자랑 동일하게
 	public FlightAll(String flightNumber, String airlineCode, String departAirport, String departDate, String arriveAirport,
 			float flightHours, int standardFee) {
 		this.flightNumber = flightNumber;
@@ -115,6 +116,14 @@ public class FlightAll {
 		this.arriveAirportcode = arriveAirport;
 		this.flightHours = flightHours;
 		this.standardFee = standardFee;
+	}
+	
+	//세영: 티켓생성자랑 동일(stock빼고)
+	public FlightAll(String optionCode, String flightNumber, int classFee, int baggage) {
+		this.optioncode = optionCode;
+		this.flightNumber = flightNumber;
+		this.classfee = classFee;
+		this.baggage = baggage;
 	}
 
 
@@ -281,16 +290,21 @@ public class FlightAll {
 		this.airlineName = airlineName;
 	}
 
-
-
 	public int getBaggage() {
 		return baggage;
 	}
 
-
-
 	public void setBaggage(int baggage) {
 		this.baggage = baggage;
 	}
+
+	public String getBaggageStr() {
+		return baggageStr;
+	}
+
+	public void setBaggageStr(String baggageStr) {
+		this.baggageStr = baggageStr;
+	}
+	
 	
 }

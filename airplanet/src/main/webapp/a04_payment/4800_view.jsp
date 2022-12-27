@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"
     import="java.util.*"
     %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,12 +35,27 @@ form{
 <div class="showswitchtarget">
 <table class="table table-bordered">	<!-- 반복문으로 판매할수있는 상품들 출력해서 고르게 -->
 <colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
-<tr class="table-secondary"><th rowspan="4">성인</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
+<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist1.get(0).optionCode,0,3) }➡${fn:substring(tlist1.get(0).optionCode,3,6) } </th>
+	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 	<c:forEach var="eachticket" items="${tlist1 }" >
 	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td>
 	<td><input type="radio" name="passenger1go" value="${eachticket.optionCode }" checked></td></tr>
 	</c:forEach>
 </table>
+
+<c:if test="${not empty tlist11 }">
+
+	<table class="table table-bordered">
+	<colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
+	<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist11.get(0).optionCode,0,3) }➡${fn:substring(tlist11.get(0).optionCode,3,6) } </th>
+	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
+		<c:forEach var="eachticket" items="${tlist11 }" >
+		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>110,000</td>
+		<td><input type="radio" name="passenger1layover" value="${eachticket.optionCode }" checked></td></tr>
+		</c:forEach>
+	</table>
+</c:if>
+
 </div>
 
 
@@ -47,13 +63,25 @@ form{
 <div class="showswitchtarget" style="display:none">	<!-- 오는편 선택 -->
 	<table class="table table-bordered">	<!-- 반복문으로 판매할수있는 상품들 출력해서 고르게 -->
 	<colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
-	<tr class="table-secondary"><th rowspan="4">성인</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
+	<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist2.get(0).optionCode,0,3) }➡${fn:substring(tlist2.get(0).optionCode,3,6) } </th>
+	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 		<c:forEach var="eachticket" items="${tlist2 }" >
 		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>960,000</td>
 		<td><input type="radio" name="passenger1back" value="${eachticket.optionCode }" checked></td></tr>
 		</c:forEach>
 	</table>
-
+	
+<c:if test="${not empty tlist22 }">
+	<table class="table table-bordered">
+	<colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
+	<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist22.get(0).optionCode,0,3) }➡${fn:substring(tlist22.get(0).optionCode,3,6) } </th>
+	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
+		<c:forEach var="eachticket" items="${tlist22 }" >
+		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td><td>220,000</td>
+		<td><input type="radio" name="passenger1layover" value="${eachticket.optionCode }" checked></td></tr>
+		</c:forEach>
+	</table>
+</c:if>
 </div>
 </c:if>
 
