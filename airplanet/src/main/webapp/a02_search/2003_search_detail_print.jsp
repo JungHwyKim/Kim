@@ -42,32 +42,32 @@
 			    <div class="row">
 				  	<div class="col-8">
 				  		<div class="row">
-				  			<div class="col-3"><img src="${f1.airlinelogo }" width="70%"></div>
+				  			<div class="col-3"><img class="airlinelogo1" src="" width="70%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
-				  					<div class="col-4 topleft">${f1.departDate }</div>
-				  					<div class="col-4 topcenter">${f1.flightHours }</div>
-				  					<div class="col-4 topright">도착시간</div>
+				  					<div class="col-4 topleft dDate1"></div>
+				  					<div class="col-4 topcenter fHour1"></div>
+				  					<div class="col-4 topright aDate1">도착시간</div>
 				  				</div>
 				  				<div class="row">
-				  					<div class="col-4 botleft">${f1.departAirportcode }</div>
+				  					<div class="col-4 botleft dCode1"></div>
 				  					<div class="col-4 botcenter">직항/경유</div>
-				  					<div class="col-4 botright">${f1.arriveAirportcode }</div>
+				  					<div class="col-4 botright aCode1"></div>
 				  				</div>				  				
 				  			</div>
 				  		</div>
 				  		<div class="row">
-				  			<div class="col-3"><img src="${f2.airlinelogo }" width="70%"></div>
+				  			<div class="col-3"><img class="airlinelogo2" src="${f2.airlinelogo }" width="70%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
-				  					<div class="col-4 topleft">${f2.departDate }</div>
-				  					<div class="col-4 topcenter">${f2.flightHours }</div>
-				  					<div class="col-4 topright">도착시간</div>
+				  					<div class="col-4 topleft dDate2">${f2.departDate }</div>
+				  					<div class="col-4 topcenter fHour2">${f2.flightHours }</div>
+				  					<div class="col-4 topright aDate2">도착시간</div>
 				  				</div>
 				  				<div class="row">
-				  					<div class="col-4 botleft">${f2.departAirportcode }</div>
+				  					<div class="col-4 botleft dCode2">${f2.departAirportcode }</div>
 				  					<div class="col-4 botcenter">직항/경유</div>
-				  					<div class="col-4 botright">${f2.arriveAirportcode }</div>
+				  					<div class="col-4 botright aCode2">${f2.arriveAirportcode }</div>
 				  				</div>						  			
 				  			</div>
 				  		</div>				  		
@@ -85,6 +85,62 @@
 		</c:forEach></c:forEach>
 </body>
 <script type="text/javascript">
+
+var flightOb1 = []
+<c:forEach var="f" items="${dao1.getMinfeeC(sch1)}">
+	var fa={}
+	fa.flightnumber = "${f.flightNumber}"
+	fa.departDate = new Date("${f.departDate}}".substring(0,19))
+	fa.departAirportcode = "${f.departAirportcode}"
+	fa.arrivetAirportcode = "${f.arriveAirportcode}"
+	fa.flightHours = Number.parseFloat("${f.flightHours}")
+	fa.departPacifictime = Number.parseInt("${f.departPacifictime}")
+	fa.arrivePacifictime = Number.parseInt("${f.arrivePacifictime}")
+	fa.airlinelogo = "${f.airlinelogo}"
+	fa.standardFee = Number.parseInt("${f.standardFee}")
+	fa.classFee = Number.parseInt("${f.classfee}")
+	flightOb1.push(fa)
+	//console.log(fa.flightnumber+" "+fa.departDate+" "+fa.departAirportcode+" "+fa.arrivetAirportcode+" "+fa.flightHours+" "+fa.departPacifictime
+		//	+" "+fa.arrivePacifictime+" "+fa.airlinelogo+" "+fa.standardFee+" "+fa.classFee)
+</c:forEach>
+	
+	
+// 태평양 표준시로 바꿔서 계산하기..
+var dDate1 = document.querySelectorAll(".dDate1")
+var fHour1 = document.querySelectorAll(".fHour1")
+var airlinelogo1 = document.querySelectorAll(".airlinelogo1")
+var dCode1 = document.querySelectorAll(".dCode1")
+var aCode1 = document.querySelectorAll(".aCode1") 
+//var totprice = document.querySelectorAll(".totprice")
+var i=0;
+flightOb1.forEach(function(fa){
+	dDate1[i].innerText= fa.departDate.toTimeString().split(' ')[0].slice(0,5)
+	fHour1[i].innerText= parseInt(fa.flightHours)+"시간 "+(fa.flightHours%1)*60+"분" // 왜 첫번째만 출력될까,,
+	airlinelogo1[i].src=fa.airlinelogo
+	dCode1[i].innerText = fa.departAirportcode
+	aCode1[i].innerText = fa.arrivetAirportcode
+	//totprice[i].innerText = fa.standardFee + fa.classFee
+	i++;
+})
+
+//  왕복시 리턴
+var flightOb2 = []
+<c:forEach var="f" items="${dao2.getMinfeeC(sch2)}">
+	var fa={}
+	fa.flightnumber = "${f.flightNumber}"
+	fa.departDate = new Date("${f.departDate}}".substring(0,19))
+	fa.departAirportcode = "${f.departAirportcode}"
+	fa.arrivetAirportcode = "${f.arriveAirportcode}"
+	fa.flightHours = Number.parseFloat("${f.flightHours}")
+	fa.departPacifictime = Number.parseInt("${f.departPacifictime}")
+	fa.arrivePacifictime = Number.parseInt("${f.arrivePacifictime}")
+	fa.airlinelogo = "${f.airlinelogo}"
+	fa.standardFee = Number.parseInt("${f.standardFee}")
+	fa.classFee = Number.parseInt("${f.classfee}")
+	flightOb1.push(fa)
+	console.log(fa.flightnumber+" "+fa.departDate+" "+fa.departAirportcode+" "+fa.arrivetAirportcode+" "+fa.flightHours+" "+fa.departPacifictime
+			+" "+fa.arrivePacifictime+" "+fa.airlinelogo+" "+fa.standardFee+" "+fa.classFee)
+</c:forEach>
 
 </script>
 </html>

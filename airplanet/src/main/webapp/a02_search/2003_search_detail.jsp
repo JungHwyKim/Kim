@@ -122,7 +122,7 @@
 		<div class="d-flex w-100 justify-content-between">	
 		<span>1231개의 결과</span>
 		<label>정렬기준   <select class="form-select">
-		  		 	<option>추천순</option>
+		  		 	<option selected>추천순</option>
 		  		 	<option>최저가순</option>
 		  		 	<option>최단여행시간순</option>
 		  		 	<option>출국:출발시간</option>
@@ -157,10 +157,14 @@
 				  </div>		  
 			  </label>
 			</div>
+			
+			
 		</div>
-	
-	
-		<div id = "print-search"></div>
+		
+		<div class="row">
+		<%@ include file="2003_search_detail_print_Oneway.jsp" %>
+		</div>
+		<%--<div id = "print-search"></div> --%>
 			
 	
 	
@@ -195,7 +199,7 @@ btnradio.forEach(function(btn){
 })
 
 
-printSearch()
+//printSearch()
 // print-search에 값 출력
 function printSearch(){
 	var xhr = new XMLHttpRequest()

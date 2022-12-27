@@ -74,7 +74,8 @@ public class FlightAll {
 
 
 
-	public FlightAll(String flightNumber, String departDate,  String departAirportcode, String arriveAirportcode, float flightHours,int departPacifictime,  
+	public FlightAll(String flightNumber, String departDate,  String departAirportcode, String arriveAirportcode, 
+			float flightHours,int departPacifictime,  
 			int arrivePacifictime, String airlinelogo, int standardFee, int classfee) {
 		this.flightNumber=flightNumber;
 		this.departPacifictime = departPacifictime;
