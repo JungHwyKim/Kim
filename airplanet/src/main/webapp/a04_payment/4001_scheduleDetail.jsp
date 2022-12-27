@@ -22,12 +22,14 @@
 </style>
 
 <div class="row card-group bg-primary text-white">
-<c:forEach var="ff" items="${flist}" varStatus="i">
+<c:forEach var="ff" items="${flist}" varStatus="i" >
+<c:if test="${i.first || i.last}">
 	  <div class="card bg-transparent">
 	    <div class="card-body mx-auto">
 	    <h5>${ ff.departApcity} ${ ff.departAirportcode}</h5><h6>${ ff.departDate}</h6>
 	    </div>
 	  </div>
+</c:if>
 </c:forEach>
  
  <div>
@@ -41,7 +43,7 @@
 </ul></div>
 </div>
 <h5>상세 비행 스케줄</h5>
-<table class="table table-bordered">
+<table id="scheduleDetailetable" class="table table-bordered">
 <thead>
 	<tr>
 	<th>구간</th>
@@ -56,8 +58,8 @@
 	<c:forEach var="ff" items="${flist}" varStatus="i">
 	<tr>
 	<td rowspan="1"> ${ff.departLocation } → ${ff.arriveLocation }</td>
-	<td><strong>${ff.departApcity }</strong> ${ff.departDate }</td>
-	<td><strong>${ff.arriveApcity}</strong> 도착일자시간</td>
+	<td><strong>${ff.departApcity }</strong> <span style="font-size:0.9em"> ${ff.departDate }</span></td>
+	<td><strong>${ff.arriveApcity}</strong> <span style="font-size:0.9em"> 현지도착시간</span></td>
 	<td>${ff.flightHours } </td>
 	<td><strong>${ff.airlineName }</strong><span style="font-size:0.8em">${ff.flightNumber }</span>
 	</tr>
@@ -66,3 +68,18 @@
 </tbody>
 </table>
 <br>
+
+<script>
+var tds=document.querySelectorAll('#scheduleDetailetable td')
+for(var i in tds){
+	var j=Number(i+5)
+	if(j<tds.length){
+		var t1=tds[i].innerText
+		var t2=tds[j].innerText
+		if(t1==t2){
+			tds[i].setAttribute('rowspan','2');
+			tds[j].remove();
+		}
+	}
+}
+</script>

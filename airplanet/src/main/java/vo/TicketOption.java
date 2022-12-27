@@ -8,6 +8,7 @@ public class TicketOption {
 	private int stock;
 	
 	public TicketOption() {}
+	
 	public TicketOption(String optionCode, String flightNumber, int classFee, int baggage, int stock) {
 		this.optionCode = optionCode;
 		this.flightNumber = flightNumber;
@@ -15,6 +16,7 @@ public class TicketOption {
 		this.baggage = baggage;
 		this.stock = stock;
 	}
+	
 	public String getOptionCode() {
 		return optionCode;
 	}
@@ -49,13 +51,14 @@ public class TicketOption {
 	//추가기능
 	public String getClassStr() {
 		String classStr="일반석";
-		if(this.optionCode.substring(14, 16).equals("bs")){
+		if(this.optionCode.indexOf("bs")!=-1){
 			classStr="비즈니스석";
-		}else if(this.optionCode.substring(14, 16).equals("fs")){
+		}else if(this.optionCode.indexOf("fs")!=-1){
 			classStr="일등석";
 		}
 		return classStr;
 	}
+	
 	public String getBaggageStr() {
 		String baggageStr="없음";
 		if(this.optionCode.substring(16, 17).equals("1")){
