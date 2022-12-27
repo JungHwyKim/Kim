@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="java.util.*"    
+    import="airplanet.vo.*" 
+  	import="airplanet.dao.*"
+   %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:requestEncoding value="utf-8"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,6 +121,11 @@
 }
 </style>
 </head>
+
+<jsp:useBean id="dao" class="dao.A_main"/>
+<jsp:useBean id="vo" class="vo.Airport"/>
+<jsp:setProperty property="*" name="ap"/>
+
 <body>
 	<div class="col">
 		<div style="display:flex;">
@@ -193,11 +207,15 @@
 			</div>
 		</div>
 	</div>
+	<c:if test="${not empty dao.getAirport()}">
+      <c:set var="ap" scope="session" 
+         value="${dao.getAirport()}"/> 
+    </c:if>
 	<div id="footer" style="margin-top:160px;"></div>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>	
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	<script>
 const $searchInput = document.querySelector("[name=departure]");
 const $searchInput1 = document.querySelector("[name=arrival]");
 const $wordList = document.querySelector(".wordList");
@@ -416,14 +434,18 @@ $searchInput1.addEventListener("input", (e) => {
 	adateOb.value = (d.getMonth()+1)+"-"+d.getDate()
 	
 	ddateOb.onchange=function(){
-		const ddate = new Date(ddateOb.value)		
+		const ddate = new Date(ddateOb.value)
+		console.log(ddateOb.value)		
 		if(ddateOb.value >= adateOb.value){
+			alert("도착일이 출발일보다 빠를 수 없습니다.")
 			adateOb.value = ddateOb.value 
 		}
 	}	
 	adateOb.onchange=function(){
 		const adate = new Date(adateOb.value)
+		console.log(adateOb.value)	
 		if(ddateOb.value >= adateOb.value){
+			alert("도착일이 출발일보다 빠를 수 없습니다.")
 			adateOb.value = ddateOb.value 
 		}	
 	}
@@ -521,23 +543,27 @@ $searchInput1.addEventListener("input", (e) => {
 	var tripArr = document.querySelectorAll("[name=trip]")
 	var adateB = false
 	
-	var adateOb = document.querySelector("[name=adate]")
-	
 	for(var idx=0;idx<tripArr.length;idx++){
 		tripArr[idx].onclick=function(){
 			if(this.value == 1){ 
 				adateB = true
-				adateOb.readOnly=adateB
-				adateOb.style.border="1px solid #252525"
-				adateOb.style.background="#dddddd"
-				adateOb.style.height="32px"
-				adateOb.style.width="127px"
+				console.log(adateB)
+				document.querySelector("[name=adate]").readOnly=adateB
+				document.querySelector("[name=adate]").style.border="1px solid #252525"
+				document.querySelector("[name=adate]").style.background="#dddddd"
+				document.querySelector("[name=adate]").style.height="32px"
+				document.querySelector("[name=adate]").style.width="127px"
 				$("[name=adate]").datepicker('disable');
+				console.log(this.value)
+				console.log(document.querySelector("[name=adate]").readOnly)
 			}else{
 				adateB = false
-				adateOb.readOnly=adateB
-				adateOb.style.background="white"
+				console.log(adateB)
+				document.querySelector("[name=adate]").readOnly=adateB
+				document.querySelector("[name=adate]").style.background="white"
 				$("[name=adate]").datepicker('enable');
+				console.log(this.value)
+				console.log(document.querySelector("[name=adate]").readOnly)
 			}
 		}
 	}
