@@ -10,7 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/a00_com/a01_common.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link href="bs-custom.css" rel="stylesheet" >
@@ -123,7 +122,7 @@
 		<div class="d-flex w-100 justify-content-between">	
 		<span>1231개의 결과</span>
 		<label>정렬기준   <select class="form-select">
-		  		 	<option>추천순</option>
+		  		 	<option selected>추천순</option>
 		  		 	<option>최저가순</option>
 		  		 	<option>최단여행시간순</option>
 		  		 	<option>출국:출발시간</option>
@@ -148,7 +147,7 @@
 				    <h5 class="card-title">530,300</h5>
 				    <h6 class="card-subtitle mb-2 text-muted">2시간25분(평균)</h6>
 				  </div>		  
-			  </label>
+			  </label> 
 			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="최단여행시간">
 			  <label class="btn btn-outline-primary" for="btnradio3">
 				  <div class="card-body">
@@ -158,10 +157,14 @@
 				  </div>		  
 			  </label>
 			</div>
+			
+			
 		</div>
-	
-	
-		<div id = "print-search"></div>
+		
+		<div class="row">
+		<%@ include file="2003_search_detail_print_Oneway.jsp" %>
+		</div>
+		<%--<div id = "print-search"></div> --%>
 			
 	
 	
@@ -196,7 +199,7 @@ btnradio.forEach(function(btn){
 })
 
 
-printSearch()
+//printSearch()
 // print-search에 값 출력
 function printSearch(){
 	var xhr = new XMLHttpRequest()

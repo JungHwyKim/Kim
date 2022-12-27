@@ -27,8 +27,9 @@ public class B_searcheverywhere {
 				+ "AND f.ARRIVEAIRPORT = a2.airportcode\r\n"
 				+ "AND f.DEPARTAIRPORT =a1.airportcode\r\n"
 				+ "AND f.flightnumber = t.flightnumber\r\n"
-				+ "AND (a1.apcity=? OR a1.apnation=?) \r\n"
-				+ "AND t.stock>=1";
+				+ "AND (a1.apcity=? OR a1.AIRPORTCODE=?) \r\n"
+				+ "AND t.stock>=1"
+				+ "ORDER BY f.standardfee";
 		try {
 			con=DB.con();
 			pstmt=con.prepareStatement(sql);

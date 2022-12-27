@@ -66,10 +66,19 @@ public class FlightAll {
 		this.arriveLocation = arriveLocation;
 	}
 	
+	// 원주 everywhere 왕복시 돌아오는 편
+	public FlightAll( String flightNumber, String departApnation, int standardFee) {
+		this.departApnation = departApnation;
+		this.flightNumber = flightNumber;
+		this.standardFee = standardFee;
+	}
 
 
-	public FlightAll(String departDate,  String departAirportcode, String arriveAirportcode, float flightHours,int departPacifictime,  
+
+	public FlightAll(String flightNumber, String departDate,  String departAirportcode, String arriveAirportcode, 
+			float flightHours,int departPacifictime,  
 			int arrivePacifictime, String airlinelogo, int standardFee, int classfee) {
+		this.flightNumber=flightNumber;
 		this.departPacifictime = departPacifictime;
 		this.departAirportcode = departAirportcode;
 		this.departDate = departDate;

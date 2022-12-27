@@ -1,20 +1,42 @@
 SELECT * FROM airport;
 SELECT * FROM airline;
+UPDATE AIRLINE SET airlinelogo='/b01_img/ke.PNG' WHERE AIRLINECODE ='KE';
 INSERT INTO airline VALUES ('RS','에어서울','/b01_img/logo_airseoul.jpg');
 SELECT * FROM flight;
 INSERT INTO flight values('ICNLAX22122214','RS','ICN',to_date('2022-12-22 14:00','YYYY-MM-DD HH24:mi'),'LAX',9,700000);
 INSERT INTO flight values('ICNLAX22122120','RS','ICN',to_date('2022-12-21 20:00','YYYY-MM-DD HH24:mi'),'LAX',9.5,720000);
 INSERT INTO flight values('ICNLAX22122221','KE','ICN',to_date('2022-12-22 21:00','YYYY-MM-DD HH24:mi'),'LAX',10,820000);
 INSERT INTO flight values('ICNLAX22122123','KE','ICN',to_date('2022-12-21 23:30','YYYY-MM-DD HH24:mi'),'LAX',9.5,850000);
+
+INSERT INTO flight values('LAXICN22123011','KE','LAX',to_date('2022-12-30 11:00','YYYY-MM-DD HH24:mi'),'ICN',9.5,820000);
+INSERT INTO flight values('SFOICN22123013','KE','SFO',to_date('2022-12-30 13:00','YYYY-MM-DD HH24:mi'),'ICN',9,800000);
+INSERT INTO flight values('SFOICN22123020','KE','SFO',to_date('2022-12-30 20:00','YYYY-MM-DD HH24:mi'),'ICN',9.5,850000);
+INSERT INTO flight values('FUKICN22123012','KE','FUK',to_date('2022-12-30 12:00','YYYY-MM-DD HH24:mi'),'ICN',2.5,250000);
+INSERT INTO flight values('FUKICN22123015','RS','FUK',to_date('2022-12-30 15:00','YYYY-MM-DD HH24:mi'),'ICN',2.5,190000);
+INSERT INTO flight values('NRTICN22123018','KE','NRT',to_date('2022-12-30 18:00','YYYY-MM-DD HH24:mi'),'ICN',3,280000);
+INSERT INTO flight values('NRTICN22123008','RS','NRT',to_date('2022-12-30 08:00','YYYY-MM-DD HH24:mi'),'ICN',3,300000);
+INSERT INTO flight values('CJUICN22123006','RS','CJU',to_date('2022-12-30 06:00','YYYY-MM-DD HH24:mi'),'ICN',2,80000);
+INSERT INTO flight values('CJUICN22123009','RS','CJU',to_date('2022-12-30 09:00','YYYY-MM-DD HH24:mi'),'ICN',2,100000);
 SELECT * FROM ticketOption;
 INSERT INTO ticketOption VALUES('ICNLAX22122214ec1','ICNLAX22122214',0,50000,100);
 INSERT INTO ticketOption VALUES('ICNLAX22122120ec0','ICNLAX22122120',0,0,100);
 INSERT INTO ticketOption VALUES('ICNLAX22122221ec0','ICNLAX22122221',0,0,180);
 INSERT INTO ticketOption VALUES('ICNLAX22122123ec1','ICNLAX22122123',0,0,180);
 
+INSERT INTO ticketOption VALUES('LAXICN22123011bs1','LAXICN22123011',230000,0,50);
+INSERT INTO ticketOption VALUES('SFOICN22123013ec0','SFOICN22123013',0,0,180);
+INSERT INTO ticketOption VALUES('SFOICN22123020ec1','SFOICN22123020',0,0,180);
+INSERT INTO ticketOption VALUES('FUKICN22123012ec1','FUKICN22123012',0,0,100);
+INSERT INTO ticketOption VALUES('FUKICN22123015ec2','FUKICN22123015',0,50000,120);
+INSERT INTO ticketOption VALUES('NRTICN22123018ec0','NRTICN22123018',0,0,100);
+INSERT INTO ticketOption VALUES('NRTICN22123008ec1','NRTICN22123008',0,0,100);
+INSERT INTO ticketOption VALUES('CJUICN22123006ec0','CJUICN22123006',0,0,80);
+INSERT INTO ticketOption VALUES('CJUICN22123009ec1','CJUICN22123009',0,0,80);
 
 
--- everywhere로 검색
+
+
+-- everywhere로 검색(편도)
 SELECT DISTINCT a2.apnation, f.STANDARDFEE 
 FROM(SELECT a.apnation, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
 WHERE ff.ARRIVEAIRPORT =a.AIRPORTCODE 
@@ -24,11 +46,30 @@ WHERE cm.minfee = f.STANDARDFEE
 AND f.ARRIVEAIRPORT = a2.airportcode
 AND f.DEPARTAIRPORT =a1.airportcode
 AND f.flightnumber = t.flightnumber
-AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
 AND t.stock>=1
 ;
 
--- 나라명으로 검색
+-- everywhere로 검색(왕복, 돌아오는편) 나라별 최저가
+SELECT DISTINCT f.flightnumber,a1.apnation, f.STANDARDFEE
+FROM(SELECT a.apnation, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
+WHERE ff.departAIRPORT =a.AIRPORTCODE 
+AND TO_CHAR(ff.departdate,'yyyy-mm-dd')= '2022-12-30'
+GROUP BY a.APNATION) cm, airport a2, flight f , airport a1, ticketOption t
+WHERE cm.minfee = f.STANDARDFEE 
+AND f.ARRIVEAIRPORT = a2.airportcode
+AND f.DEPARTAIRPORT =a1.airportcode
+AND f.flightnumber = t.flightnumber
+AND a1.apnation='일본'
+AND a2.airportcode='ICN'
+AND t.stock>=1
+;
+
+SELECT f.* FROM FLIGHT f 
+WHERE TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-30'
+ORDER BY STANDARDFEE ;
+
+-- 나라명으로 검색(편도)
 SELECT DISTINCT  a2.apcity, f.standardfee, a2.apphoto
 FROM ( SELECT a.apcity, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
 WHERE ff.ARRIVEAIRPORT =a.AIRPORTCODE 
@@ -39,12 +80,30 @@ AND a2.apcity = cm.apcity
 AND f.arriveairport = a2.airportcode
 AND f.DEPARTAIRPORT =a1.airportcode
 AND f.flightnumber = t.flightnumber
-AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
 AND t.stock>=1
 AND a2.apnation='미국'
+ORDER BY f.standardfee
 ;
 
--- 도시명 / 공항으로 검색
+-- 나라명으로 검색(왕복 리턴) 도시별 최저가
+SELECT DISTINCT  a1.apcity, f.standardfee, f.flightnumber
+FROM ( SELECT a.apcity, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
+WHERE ff.DEPARTAIRPORT =a.AIRPORTCODE 
+AND TO_CHAR(ff.departdate,'yyyy-mm-dd')= '2022-12-30'
+GROUP BY  a.apcity) cm, FLIGHT F, airport a2, airport a1, ticketOption t
+WHERE f.standardfee = cm.minfee
+AND a1.apcity = cm.apcity
+AND f.arriveairport = a2.airportcode
+AND f.DEPARTAIRPORT =a1.airportcode
+AND f.flightnumber = t.flightnumber
+AND a1.apcity='후쿠오카'
+AND a2.airportcode='ICN'
+AND t.stock>=1
+;
+
+
+-- 도시명 / 공항으로 검색(편도)
 SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
 a1.PACIFICTIME , a2.PACIFICTIME, ar.AIRLINELOGO, f.STANDARDFEE , t.CLASS  
 FROM FLIGHT f, airport a2, airport a1, ticketOption t, AIRLINE ar 
@@ -53,9 +112,9 @@ AND a2.AIRPORTCODE =f.ARRIVEAIRPORT
 AND t.FLIGHTNUMBER =f.FLIGHTNUMBER 
 AND ar.AIRLINECODE =f.AIRLINECODE 
 AND t.stock>=1
-AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21'
-AND (a1.apcity='인천' OR a1.apnation='인천') 
-AND (a2.APCITY='후쿠오카' OR a2.AIRPORTCODE='일본')
+AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-30'
+AND (a1.apcity='LA' OR a1.airportcode='LA') 
+AND (a2.APCITY='인천' OR a2.AIRPORTCODE='인천')
 AND substr(t.optioncode,15,2)='ec'
 ;
 

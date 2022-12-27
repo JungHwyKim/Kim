@@ -47,18 +47,28 @@
 	
 	<p class="text-md-end">예상 최저 가격일 뿐입니다. 최근 8일 내에 검색한 결과입니다.</p>
 	<div class="list-group">
-	<%--dao.B_searchnation  getMinfeeN --%>
+	<%--dao.B_searchnation  getMinfeeN 편도--%>
 	<jsp:useBean id="daoN" class="dao.B_searchnation"/>
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
-  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("인천") }${schN.setArriveLocation("미국") }
-  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
+  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") }${schN.setArriveLocation("일본") }
   	
-	<button type="button" class="btn">
+  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
+
+  	
+  	
+	<button type="button" class="btn" value="${byCity.arriveApcity }">
     <div class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">${byCity.arriveApcity }</h5>
-      <medium class="list-content-price">${byCity.standardFee }부터 ></medium>
+      	  <%--도시별 최저가격(왕복)   dao.B_returnprice  returnMinfeeN   --%>  
+		 <jsp:useBean id="daoRC" class="dao.B_returnprice"/>
+		 <jsp:useBean id="schRC" class="vo.FlightAll"/>
+		 <jsp:setProperty property="*" name="schRC"/>
+		  ${schRC.setDepartDate("2022-12-30") } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation("ICN") }
+		  <c:forEach var="rcPrice" items="${daoRC.returnMinfeeN(schRC) }" >  
+		  <c:set var= "total2" value="${rcPrice.standardFee + byCity.standardFee}"/>      
+      <medium class="list-content-price"><fmt:formatNumber value="${total2 }"/>부터 ></medium></c:forEach>
     </div>
     <p class="list-content-bottom">1회 이상 경유(직항이용가능)</p>
   </div></button>
@@ -76,6 +86,15 @@
 </body>
 
 <script type="text/javascript">
+var btnarr = document.querySelectorAll("[type=button]")
+btnarr.forEach(function(btn){
+	btn.onclick=function(){
+		var city = this.value
+		
+	}
+})
+
+
 
 </script>
 </html>

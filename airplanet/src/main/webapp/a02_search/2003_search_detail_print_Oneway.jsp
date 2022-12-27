@@ -31,7 +31,7 @@
 	<jsp:useBean id="dao" class="dao.B_search_detail"/>
 	<jsp:useBean id="sch" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch"/>
-	${sch.setDepartDate("2022-12-21") } ${sch.setDepartLocation("인천") } ${sch.setArriveLocation("LA") } ${sch.setClassStr("ec") }
+	${sch.setDepartDate("2022-12-30") } ${sch.setDepartLocation("NRT") } ${sch.setArriveLocation("ICN") } ${sch.setClassStr("ec") }
 	<c:forEach var="f" items="${dao.getMinfeeC(sch)}">
 		<div class="row">	
 			<div class="card">
@@ -39,17 +39,17 @@
 			    <div class="row">
 				  	<div class="col-8">
 				  		<div class="row">
-				  			<div class="col-3"><img src="/b01_img/ke.PNG" width="100%"></div>
+				  			<div class="col-3"><img class="airlinelogo" src="" width="100%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
-				  					<div class="col-4 topleft">${f.departDate }</div>
-				  					<div class="col-4 topcenter">${f.flightHours }</div>
+				  					<div class="col-4 topleft"></div>
+				  					<div class="col-4 topcenter"></div>
 				  					<div class="col-4 topright">도착시간</div>
 				  				</div>
 				  				<div class="row">
-				  					<div class="col-4 botleft">${f.departAirportcode }</div>
+				  					<div class="col-4 botleft"></div>
 				  					<div class="col-4 botcenter">직항/경유</div>
-				  					<div class="col-4 botright">${f.arriveAirportcode }</div>
+				  					<div class="col-4 botright"></div>
 				  				</div>				  				
 				  			</div>
 
@@ -58,7 +58,7 @@
 				     </div>
 				     <div class="col-4 schedule-right">
 						<p class="text-center topcenter">오늘 예약하기</p>
-						<p class="text-center fw-semibold">${f.standardFee }+${f.classfee }</p>
+						<p class="text-center fw-semibold totprice"></p>
 						<button type="button" class="btn btn-secondary"><span>선택</span><span class="material-symbols-outlined align-middle">arrow_forward</span></button>
 				     </div>
 			     </div>
@@ -68,21 +68,47 @@
 		</c:forEach>	
 </body>
 <script type="text/javascript">
-var arr = new Array();
+// 항공권 배열에 저장
+var flightOb = []
 <c:forEach var="f" items="${dao.getMinfeeC(sch)}">
-	arr.push("${f.departDate}")
+	var fa={}
+	fa.flightnumber = "${f.flightNumber}"
+	fa.departDate = new Date("${f.departDate}}".substring(0,19))
+	fa.departAirportcode = "${f.departAirportcode}"
+	fa.arrivetAirportcode = "${f.arriveAirportcode}"
+	fa.flightHours = Number.parseFloat("${f.flightHours}")
+	fa.departPacifictime = Number.parseInt("${f.departPacifictime}")
+	fa.arrivePacifictime = Number.parseInt("${f.arrivePacifictime}")
+	fa.airlinelogo = "${f.airlinelogo}"
+	fa.standardFee = Number.parseInt("${f.standardFee}")
+	fa.classFee = Number.parseInt("${f.classfee}")
+	flightOb.push(fa)
+	//console.log(fa.flightnumber+" "+fa.departDate+" "+fa.departAirportcode+" "+fa.arrivetAirportcode+" "+fa.flightHours+" "+fa.departPacifictime
+		//	+" "+fa.arrivePacifictime+" "+fa.airlinelogo+" "+fa.standardFee+" "+fa.classFee)
 </c:forEach>
-var arr2 = new Array();
-arr.forEach(function(a){
-	arr2.push(a.substring(0,19))
-})
-var arr3 = new Array();
-arr2.forEach(function(a){
-	arr3.push(new Date(a))
-})
-console.log(arr3[0])
-console.log(arr3[1])
+	
+	
 // 태평양 표준시로 바꿔서 계산하기..
+var topleftarr = document.querySelectorAll(".topleft")
+var topcenterarr = document.querySelectorAll(".topcenter")
+var airlinelogo = document.querySelectorAll(".airlinelogo")
+var botleft = document.querySelectorAll(".botleft")
+var botright = document.querySelectorAll(".botright") 
+var totprice = document.querySelectorAll(".totprice")
+var i=0;
+flightOb.forEach(function(fa){
+	topleftarr[i].innerText= fa.departDate.toTimeString().split(' ')[0].slice(0,5)
+	topcenterarr[i].innerText= parseInt(fa.flightHours)+"시간 "+(fa.flightHours%1)*60+"분" // 왜 첫번째만 출력될까,,
+	airlinelogo[i].src=fa.airlinelogo
+	botleft[i].innerText = fa.departAirportcode
+	botright[i].innerText = fa.arrivetAirportcode
+	totprice[i].innerText = fa.standardFee + fa.classFee
+	i++;
+})
+
+console.log(topcenterarr[1].innerText)
+	
+
 
 </script>
 </html>
