@@ -26,7 +26,7 @@
 	height: 500px;
 	margin:auto;
 }
-[name=signin]:hover, [name=signup]:hover{
+[name=signin]:hover, [name=signup]:hover, [name=searchBtn]{
 	cursor:pointer;
 }
 .hidden {
@@ -133,34 +133,14 @@
 					<div><span style="font-weight:600;font-size:small;">출발지</span></div>
 					<div><input style="width:250px;height:30px;" type="text" name="departure"/></div>
 					<div style="position:absolute;">
-						<div class="wordList" tabindex="0">
-							  <div class="des">서울</div>
-							  <div class="des">부산</div>
-							  <div class="des">인천</div>
-							  <div class="des">런던</div>
-							  <div class="des">뉴욕</div>
-							  <div class="des">워싱턴</div>
-							  <div class="des">LA</div>
-							  <div class="des">뉴델리</div>
-							  <div class="des">파리</div>
-						 </div>
+						<div class="wordList" tabindex="0"></div>
 					</div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span style="font-weight:600;font-size:small;">도착지</span></div>
 					<div><input style="width:250px;height:30px;" type="text" name="arrival"/></div>
 					<div style="position:absolute;">
-						<div class="wordList1" tabindex="0">
-							  <div class="arv">서울</div>
-							  <div class="arv">부산</div>
-							  <div class="arv">인천</div>
-							  <div class="arv">런던</div>
-							  <div class="arv">뉴욕</div>
-							  <div class="arv">워싱턴</div>
-							  <div class="arv">LA</div>
-							  <div class="arv">뉴델리</div>
-							  <div class="arv">파리</div>
-						 </div>
+						<div class="wordList1" tabindex="0"></div>
 					</div>
 				</div>
 				<div style="flex-direction:column;">
@@ -208,7 +188,7 @@
 				</div>
 			</div>
 			<div><input style="z-index:1;position:absolute;width:30px;height:25px;margin:-30px 0 0 250px;background:white;border:none;font-size:20px;color:steelblue" type="button" name="switch" value="⇄"/></div>
-			<div><input style="margin:20px 0 0 915px;width:150px;height:50px;font-size:large;font-weight:700;background:NavajoWhite;border:1px solid moccasin;color:white;border-radius:10px;" type="button" value="항공권 검색 →"></div>
+			<div><input style="margin:20px 0 0 915px;width:150px;height:50px;font-size:large;font-weight:700;background:NavajoWhite;border:1px solid moccasin;color:white;border-radius:10px;" name="searchBtn" type="button" value="항공권 검색 →"></div>
 			
 			</div>
 		</div>
@@ -222,6 +202,25 @@ const $searchInput = document.querySelector("[name=departure]");
 const $searchInput1 = document.querySelector("[name=arrival]");
 const $wordList = document.querySelector(".wordList");
 const $wordList1 = document.querySelector(".wordList1");
+
+var tplace = [
+	["대한민국","서울"],["대한민국","부산"],["대한민국","인천"],["영국","런던"],["미국","뉴욕"],
+	["미국","워싱턴"],["미국","LA"],["인도","뉴델리"],["프랑스","파리"]
+	]
+var show = ""
+tplace.forEach(function(e){
+	show += "<div class='des'>"+e[1]+", "+e[0]+"</div>"
+})
+$wordList.innerHTML = show
+var tplace1 = [
+	["대한민국","서울"],["대한민국","부산"],["대한민국","인천"],["영국","런던"],["미국","뉴욕"],
+	["미국","워싱턴"],["미국","LA"],["인도","뉴델리"],["프랑스","파리"]
+	]
+var show1 = ""
+tplace1.forEach(function(a){
+	show1 += "<div class='arv'>"+a[1]+", "+a[0]+"</div>"
+})
+$wordList1.innerHTML = show1
 
 $searchInput.onkeyup=a
 $searchInput1.onkeyup=b
@@ -237,6 +236,7 @@ $searchInput1.onblur=function(){
 	}
 }
 var place = document.querySelectorAll(".des")
+
 place.forEach(function(d){
 	for(var i=0;i<place.length;i++){
 		place[i].onclick=function(){
@@ -416,18 +416,14 @@ $searchInput1.addEventListener("input", (e) => {
 	adateOb.value = (d.getMonth()+1)+"-"+d.getDate()
 	
 	ddateOb.onchange=function(){
-		const ddate = new Date(ddateOb.value)
-		console.log(ddateOb.value)		
+		const ddate = new Date(ddateOb.value)		
 		if(ddateOb.value >= adateOb.value){
-			alert("도착일이 출발일보다 빠를 수 없습니다.")
 			adateOb.value = ddateOb.value 
 		}
 	}	
 	adateOb.onchange=function(){
 		const adate = new Date(adateOb.value)
-		console.log(adateOb.value)	
 		if(ddateOb.value >= adateOb.value){
-			alert("도착일이 출발일보다 빠를 수 없습니다.")
 			adateOb.value = ddateOb.value 
 		}	
 	}
@@ -525,28 +521,31 @@ $searchInput1.addEventListener("input", (e) => {
 	var tripArr = document.querySelectorAll("[name=trip]")
 	var adateB = false
 	
+	var adateOb = document.querySelector("[name=adate]")
+	
 	for(var idx=0;idx<tripArr.length;idx++){
 		tripArr[idx].onclick=function(){
 			if(this.value == 1){ 
 				adateB = true
-				console.log(adateB)
-				document.querySelector("[name=adate]").readOnly=adateB
-				document.querySelector("[name=adate]").style.border="2px solid #606060"
-				document.querySelector("[name=adate]").style.background="#cccccc"
+				adateOb.readOnly=adateB
+				adateOb.style.border="1px solid #252525"
+				adateOb.style.background="#dddddd"
+				adateOb.style.height="32px"
+				adateOb.style.width="127px"
 				$("[name=adate]").datepicker('disable');
-				console.log(this.value)
-				console.log(document.querySelector("[name=adate]").readOnly)
 			}else{
 				adateB = false
-				console.log(adateB)
-				document.querySelector("[name=adate]").readOnly=adateB
-				document.querySelector("[name=adate]").style.background="white"
+				adateOb.readOnly=adateB
+				adateOb.style.background="white"
 				$("[name=adate]").datepicker('enable');
-				console.log(this.value)
-				console.log(document.querySelector("[name=adate]").readOnly)
 			}
 		}
 	}
+	
+	
+	
+	
+	
 
 </script>
 </body>

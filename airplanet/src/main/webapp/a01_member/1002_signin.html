@@ -42,7 +42,7 @@
 		<div style="margin:auto;"><img src="/b01_img/airplanet_logo.png" width="300px" height="120px" onclick="location.href='/a02_search/2000_main.html'" class="logo"/></div>
 		<div><br></div>
 		<div class="colFlex" style="margin:auto;border:1px solid steelblue;width:40%;height:430px;border-radius:10px;align-items:center;">
-			<form style="width:60%;">
+			<form style="width:60%;" method="get">
 				<!-- 아이디 -->
 				<div style="width:100%;margin-top:60px;">
 					<input type="text" name="id" placeholder="아이디 입력"/>
@@ -84,7 +84,7 @@
 			</div>
 			<!-- 기타 기능 -->
 			<div style="display:flex;width:60%;">
-				<div class="signup" onclick="location.href='1001_signup.html'">회원가입</div>
+				<div class="signup" onclick="location.href='/a01_member/1001_signup.jsp'">회원가입</div>
 				<div class="findId" onclick="''"><span>아이디찾기</span></div>
 				<div style="margin-top:1%;"><hr style="height:50%;"></div>
 				<div class="findPw" onclick="''"><span>비밀번호찾기</span></div>
@@ -120,10 +120,13 @@ btnOb.onclick=function(){
 		idOb.style.borderColor="#cccccc"
 		pwD.innerText=""
 		pwOb.style.borderColor="#cccccc"
+		var xhr = new XMLHttpRequest()
+		var qstr = "?email="+idOb.value+"&pw="+pwOb.value
+		console.log(qstr)
 		return;
 	}
 }
-$("#footers").load("footer.html");
+$("#footers").load("/a02_search/footer.html");
 
 
 </script>

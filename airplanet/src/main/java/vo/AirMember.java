@@ -9,6 +9,18 @@ public class AirMember {
 	private String cardInfo;
 	
 	public AirMember() {}
+	
+	public AirMember(String email) {
+		this.email = email;
+	}
+	
+	public AirMember(String email, String pass, String name, String phoneNumber) {
+		this.email = email;
+		this.pass = pass;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+	}
+
 	public AirMember(String email, String pass, String name, String phoneNumber, int mileage, String cardInfo) {
 		this.email = email;
 		this.pass = pass;

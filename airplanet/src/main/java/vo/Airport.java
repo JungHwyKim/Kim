@@ -8,6 +8,12 @@ public class Airport {
 	private String asPhoto;
 	
 	public Airport() {}
+	
+	public Airport(String apNation, String apCity) {
+		this.apNation = apNation;
+		this.apCity = apCity;
+	}
+
 	public Airport(String airportCode, String apNation, String apCity, float pacificTime, String asPhoto) {
 		this.airportCode = airportCode;
 		this.apNation = apNation;
