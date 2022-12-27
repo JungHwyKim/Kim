@@ -51,7 +51,7 @@
 	<jsp:useBean id="daoN" class="dao.B_searchnation"/>
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
-  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("인천") }${schN.setArriveLocation("미국") }
+  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") }${schN.setArriveLocation("일본") }
   	
   	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
 
@@ -61,8 +61,14 @@
     <div class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">${byCity.arriveApcity }</h5>
-      	
-      <medium class="list-content-price">${byCity.standardFee }부터 ></medium>
+      	  <%--도시별 최저가격(왕복)   dao.B_returnprice  returnMinfeeN   --%>  
+		 <jsp:useBean id="daoRC" class="dao.B_returnprice"/>
+		 <jsp:useBean id="schRC" class="vo.FlightAll"/>
+		 <jsp:setProperty property="*" name="schRC"/>
+		  ${schRC.setDepartDate("2022-12-30") } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation("ICN") }
+		  <c:forEach var="rcPrice" items="${daoRC.returnMinfeeN(schRC) }" >  
+		  <c:set var= "total2" value="${rcPrice.standardFee + byCity.standardFee}"/>      
+      <medium class="list-content-price"><fmt:formatNumber value="${total2 }"/>부터 ></medium></c:forEach>
     </div>
     <p class="list-content-bottom">1회 이상 경유(직항이용가능)</p>
   </div></button>

@@ -1,5 +1,6 @@
 SELECT * FROM airport;
 SELECT * FROM airline;
+UPDATE AIRLINE SET airlinelogo='/b01_img/ke.PNG' WHERE AIRLINECODE ='KE';
 INSERT INTO airline VALUES ('RS','에어서울','/b01_img/logo_airseoul.jpg');
 SELECT * FROM flight;
 INSERT INTO flight values('ICNLAX22122214','RS','ICN',to_date('2022-12-22 14:00','YYYY-MM-DD HH24:mi'),'LAX',9,700000);
@@ -45,7 +46,7 @@ WHERE cm.minfee = f.STANDARDFEE
 AND f.ARRIVEAIRPORT = a2.airportcode
 AND f.DEPARTAIRPORT =a1.airportcode
 AND f.flightnumber = t.flightnumber
-AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
 AND t.stock>=1
 ;
 
@@ -79,11 +80,28 @@ AND a2.apcity = cm.apcity
 AND f.arriveairport = a2.airportcode
 AND f.DEPARTAIRPORT =a1.airportcode
 AND f.flightnumber = t.flightnumber
-AND (a1.apcity='인천' OR a1.apnation='인천') 
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
 AND t.stock>=1
 AND a2.apnation='미국'
 ORDER BY f.standardfee
 ;
+
+-- 나라명으로 검색(왕복 리턴) 도시별 최저가
+SELECT DISTINCT  a1.apcity, f.standardfee, f.flightnumber
+FROM ( SELECT a.apcity, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff 
+WHERE ff.DEPARTAIRPORT =a.AIRPORTCODE 
+AND TO_CHAR(ff.departdate,'yyyy-mm-dd')= '2022-12-30'
+GROUP BY  a.apcity) cm, FLIGHT F, airport a2, airport a1, ticketOption t
+WHERE f.standardfee = cm.minfee
+AND a1.apcity = cm.apcity
+AND f.arriveairport = a2.airportcode
+AND f.DEPARTAIRPORT =a1.airportcode
+AND f.flightnumber = t.flightnumber
+AND a1.apcity='후쿠오카'
+AND a2.airportcode='ICN'
+AND t.stock>=1
+;
+
 
 -- 도시명 / 공항으로 검색(편도)
 SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
@@ -94,9 +112,9 @@ AND a2.AIRPORTCODE =f.ARRIVEAIRPORT
 AND t.FLIGHTNUMBER =f.FLIGHTNUMBER 
 AND ar.AIRLINECODE =f.AIRLINECODE 
 AND t.stock>=1
-AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21'
-AND (a1.apcity='인천' OR a1.apnation='인천') 
-AND (a2.APCITY='후쿠오카' OR a2.AIRPORTCODE='일본')
+AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-30'
+AND (a1.apcity='LA' OR a1.airportcode='LA') 
+AND (a2.APCITY='인천' OR a2.AIRPORTCODE='인천')
 AND substr(t.optioncode,15,2)='ec'
 ;
 

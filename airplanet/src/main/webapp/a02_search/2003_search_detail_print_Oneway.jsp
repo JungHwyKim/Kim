@@ -31,7 +31,7 @@
 	<jsp:useBean id="dao" class="dao.B_search_detail"/>
 	<jsp:useBean id="sch" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch"/>
-	${sch.setDepartDate("2022-12-21") } ${sch.setDepartLocation("인천") } ${sch.setArriveLocation("LA") } ${sch.setClassStr("ec") }
+	${sch.setDepartDate("2022-12-21") } ${sch.setDepartLocation("인천") } ${sch.setArriveLocation("LA") } ${sch.setClassStr("bs") }
 	<c:forEach var="f" items="${dao.getMinfeeC(sch)}">
 		<div class="row">	
 			<div class="card">
@@ -39,7 +39,7 @@
 			    <div class="row">
 				  	<div class="col-8">
 				  		<div class="row">
-				  			<div class="col-3"><img src="/b01_img/ke.PNG" width="100%"></div>
+				  			<div class="col-3"><img src="${f.airlinelogo }" width="100%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
 				  					<div class="col-4 topleft"></div>
@@ -58,7 +58,8 @@
 				     </div>
 				     <div class="col-4 schedule-right">
 						<p class="text-center topcenter">오늘 예약하기</p>
-						<p class="text-center fw-semibold">${f.standardFee }+${f.classfee }</p>
+						<c:set var= "total" value="${f.classfee + f.standardFee}"/> 
+						<p class="text-center fw-semibold"><fmt:formatNumber value="${total}"/></p>
 						<button type="button" class="btn btn-secondary"><span>선택</span><span class="material-symbols-outlined align-middle">arrow_forward</span></button>
 				     </div>
 			     </div>
@@ -78,10 +79,9 @@ arr.forEach(function(a){
 })
 var arr3 = new Array();
 arr2.forEach(function(a){
-	arr3.push(new Date(a))
+	arr3.push(new Date(a).toTimeString().split(' ')[0].slice(0,5))
 })
-console.log(arr3[0])
-console.log(arr3[1])
+
 // 태평양 표준시로 바꿔서 계산하기..
 var topleftarr = document.querySelectorAll(".topleft")
 for(var i=0;i<=arr3.length;i++){

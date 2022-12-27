@@ -27,9 +27,10 @@ public class B_search_detail {
 				+ "AND ar.AIRLINECODE =f.AIRLINECODE \r\n"
 				+ "AND t.stock>=1\r\n"
 				+ "AND TO_CHAR(f.departdate,'yyyy-mm-dd')= ?\r\n"
-				+ "AND (a1.apcity=? OR a1.apnation=?) \r\n"
+				+ "AND (a1.apcity=? OR a1.AIRPORTCODE=?) \r\n"
 				+ "AND (a2.APCITY=? OR a2.AIRPORTCODE=?)\r\n"
-				+ "AND substr(t.optioncode,15,2)=? ";
+				+ "AND substr(t.optioncode,15,2)=?"
+				+ "ORDER BY f.STANDARDFEE ";
 	
 	try {
 		con = DB.con();
@@ -63,7 +64,7 @@ public class B_search_detail {
 		FlightAll fa = new FlightAll("2022-12-21","인천","LA","ec");
 		List<FlightAll> flist = b.getMinfeeC(fa);
 		for(FlightAll f:flist) {
-			System.out.println(f.getDepartDate());
+			System.out.println(f.getAirlinelogo());
 		}
 		
 

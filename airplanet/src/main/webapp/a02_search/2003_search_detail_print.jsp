@@ -23,52 +23,66 @@
 </head>
 <body>
 
+<%--  --%>
+	<jsp:useBean id="dao1" class="dao.B_search_detail"/>
+	<jsp:useBean id="sch1" class="vo.FlightAll"/>
+	<jsp:setProperty property="*" name="sch1"/>
+	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("FUK") } ${sch1.setClassStr("ec") }
+	<c:forEach var="f1" items="${dao1.getMinfeeC(sch1)}">
+<%-- Return --%>	
+	<jsp:useBean id="dao2" class="dao.B_search_detail"/>
+	<jsp:useBean id="sch2" class="vo.FlightAll"/>
+	<jsp:setProperty property="*" name="sch2"/>
+	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("FUK") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
+	<c:forEach var="f2" items="${dao2.getMinfeeC(sch2)}">
+	
 		<div class="row">	
 			<div class="card">
 			  <div class="card-body schedule">
 			    <div class="row">
 				  	<div class="col-8">
 				  		<div class="row">
-				  			<div class="col-3"><img src="/b01_img/logo_airseoul.jpg" width="100%"></div>
+				  			<div class="col-3"><img src="${f1.airlinelogo }" width="70%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
-				  					<div class="col-4 topleft">출발시간</div>
-				  					<div class="col-4 topcenter">비행시간</div>
+				  					<div class="col-4 topleft">${f1.departDate }</div>
+				  					<div class="col-4 topcenter">${f1.flightHours }</div>
 				  					<div class="col-4 topright">도착시간</div>
 				  				</div>
 				  				<div class="row">
-				  					<div class="col-4 botleft">출발공항코드</div>
+				  					<div class="col-4 botleft">${f1.departAirportcode }</div>
 				  					<div class="col-4 botcenter">직항/경유</div>
-				  					<div class="col-4 botright">도착공항코드</div>
+				  					<div class="col-4 botright">${f1.arriveAirportcode }</div>
 				  				</div>				  				
 				  			</div>
 				  		</div>
 				  		<div class="row">
-				  			<div class="col-3"><img src="/b01_img/logo_airseoul.jpg" width="100%"></div>
+				  			<div class="col-3"><img src="${f2.airlinelogo }" width="70%"></div>
 				  			<div class="col-9">
 				  				<div class="row">
-				  					<div class="col-4 topleft">출발시간</div>
-				  					<div class="col-4 topcenter">비행시간</div>
+				  					<div class="col-4 topleft">${f2.departDate }</div>
+				  					<div class="col-4 topcenter">${f2.flightHours }</div>
 				  					<div class="col-4 topright">도착시간</div>
 				  				</div>
 				  				<div class="row">
-				  					<div class="col-4 botleft">출발공항코드</div>
+				  					<div class="col-4 botleft">${f2.departAirportcode }</div>
 				  					<div class="col-4 botcenter">직항/경유</div>
-				  					<div class="col-4 botright">도착공항코드</div>
+				  					<div class="col-4 botright">${f2.arriveAirportcode }</div>
 				  				</div>						  			
 				  			</div>
 				  		</div>				  		
 				     </div>
 				     <div class="col-4 schedule-right">
-						<p class="text-center topcenter">총 9건중 최저가</p>
-						<p class="text-center fw-semibold">530,300</p>
+						<p class="text-center topcenter">오늘 예약하기</p>
+						<c:set var= "total" value="${f1.classfee + f1.standardFee + f2.classfee + f2.standardFee}"/> 
+						<p class="text-center fw-semibold"><fmt:formatNumber value="${total}"/></p>
 						<button type="button" class="btn btn-secondary"><span>선택</span><span class="material-symbols-outlined align-middle">arrow_forward</span></button>
 				     </div>
 			     </div>
 			  </div>
 			</div>	
 		</div>
-
+		</c:forEach></c:forEach>
 </body>
 <script type="text/javascript">
 

@@ -10,7 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/a00_com/a01_common.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link href="bs-custom.css" rel="stylesheet" >
@@ -148,7 +147,7 @@
 				    <h5 class="card-title">530,300</h5>
 				    <h6 class="card-subtitle mb-2 text-muted">2시간25분(평균)</h6>
 				  </div>		  
-			  </label>
+			  </label> 
 			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="최단여행시간">
 			  <label class="btn btn-outline-primary" for="btnradio3">
 				  <div class="card-body">
