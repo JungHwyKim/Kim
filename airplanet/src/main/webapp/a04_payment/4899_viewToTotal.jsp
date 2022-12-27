@@ -7,6 +7,7 @@
     %>
 flightAll클래스랑 선택한 옵션코드 받아서 검색해서 정보 변경하기
 옵션코드 받은걸로 dao검색 돌려서 flightAll객체.setㅁㅁ 하기??
+
 <%
 ArrayList<FlightAll> flist= (ArrayList<FlightAll>)request.getAttribute("flist");
 ArrayList<String> namelist=Collections.list(request.getParameterNames());
@@ -25,5 +26,8 @@ for(int i=0;i<len;i++){
 request.setAttribute("flist", flist);
 %>
 tlist의 티켓마다 옵션코드 적용했음
+
+세션에서 이메일 가져와서 
+회원정보, 저장한 탑승자 정보 리퀘스트 객체로 만들기
 
 <jsp:forward page="4900_paymentTotal.jsp" />

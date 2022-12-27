@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"
     import="java.util.*"
     %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +39,16 @@ a:link {
 </thead>
 <colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 <tbody>
-<tr><td>성인</td><td>1명</td><td>비즈니스석</td><td>수하물 추가</td><td>400,000</td></tr>
-<tr><td>아동</td><td>1명</td><td>비즈니스석</td><td>-</td><td>100,000</td></tr>
-<tr><th class="table-secondary" colspan="2">총 요금(가는 편)</th><td colspan="3">500,000원</td></tr>
+<c:set var="costgo" value="0" />
+<c:forEach var="eachticket" items="${flist }" varStatus="vv" >
+	<c:if test="${flist.get(0).departLocation eq eachticket.departLocation }">
+		<tr><td>${fn:substring(eachticket.optioncode,0,3) }➡${fn:substring(eachticket.optioncode,3,6) }</td>
+		<td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${eachticket.standardFee + eachticket.classfee+ eachticket.baggage}</td>		</tr>
+	<c:set var="costgo" value="${costgo+ eachticket.standardFee + eachticket.classfee+ eachticket.baggage}" />
+	</c:if>
+</c:forEach>
+<tr><th class="table-secondary" colspan="2">총 요금(가는 편)</th><td colspan="3"><c:out value="${costgo }" />원</td></tr>
 </tbody>
 </table>
 
@@ -50,14 +58,21 @@ a:link {
 </thead>
 <colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 <tbody>
-<tr><td>성인</td><td>1명</td><td>일반석</td><td>-</td><td>400,000</td></tr>
-<tr><td>아동</td><td>1명</td><td>일반석</td><td>-</td><td>200,000</td></tr>
-<tr><th class="table-secondary" colspan="2">총 요금(오는 편)</th><td colspan="3">600,000원</td></tr>
+<c:set var="costback" value="0" />
+<c:forEach var="eachticket" items="${flist }" varStatus="vv" >
+	<c:if test="${flist.get(flist.size()-1).departLocation eq eachticket.departLocation }">
+		<tr><td>${fn:substring(eachticket.optioncode,0,3) }➡${fn:substring(eachticket.optioncode,3,6) }</td>
+		<td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${eachticket.standardFee + eachticket.classfee+ eachticket.baggage}</td>		</tr>
+	<c:set var="costback" value="${costback+ eachticket.standardFee + eachticket.classfee+ eachticket.baggage}" />
+	</c:if>
+</c:forEach>
+<tr><th class="table-secondary" colspan="2">총 요금(오는 편)</th><td colspan="3"><c:out value="${costback }" />원</td></tr>
 </tbody>
 </table>
 
 <div class="row justify-content-between">
-<div class="col-4"><h5>총 예상 요금</h5></div><div class="col-4"><h5>1,000,000원</h5></div>
+<div class="col-4"><h5>총 예상 요금</h5></div><div class="col-4"><h5>${costgo+costback }원</h5></div>
 </div>
 
 <ul class="smallinfo"><strong>예약 시 주의사항</strong>

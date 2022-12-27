@@ -28,12 +28,12 @@ flight11.setDepartLocation("인천");flight11.setArriveLocation("샌프란시스
 
 
 //오는편 정보 넘겨받은거
-FlightAll flight2 = new FlightAll("LAXICN22123020","KE","LAX","2022-12-30 20:00","ICN",10,1000000);
-flight2.setDepartApcity("LA");flight2.setArriveApcity("인천");
+FlightAll flight2 = new FlightAll("SFOICN23012011","KE","SFO","2023-01-20 11:00","ICN",10,101000);
+flight2.setDepartApcity("샌프란시스코");flight2.setArriveApcity("인천");
 flight2.setAirlineName("대한항공");flight2.setAirlinelogo(request.getContextPath()+"/b01_img/ke.PNG");
-flight2.setDepartLocation("LA");flight2.setArriveLocation("인천");flight2.setClassStr("ec");
-flight2.setDepartAirportcode("LAX");flight2.setArriveAirportcode("ICN");
-flight2.setOptioncode("LAXICN22123020ec2");flight2.setClassfee(0);flight2.setBaggage(50000);
+flight2.setDepartLocation("샌프란시스코");flight2.setArriveLocation("인천");flight2.setClassStr("ec");
+flight2.setDepartAirportcode("SFO");flight2.setArriveAirportcode("ICN");
+
 
 ArrayList<FlightAll> flist=new ArrayList<FlightAll>();
 flist.add(flight1);
