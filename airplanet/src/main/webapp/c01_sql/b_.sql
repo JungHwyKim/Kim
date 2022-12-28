@@ -112,10 +112,57 @@ AND a2.AIRPORTCODE =f.ARRIVEAIRPORT
 AND t.FLIGHTNUMBER =f.FLIGHTNUMBER 
 AND ar.AIRLINECODE =f.AIRLINECODE 
 AND t.stock>=1
-AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-30'
-AND (a1.apcity='LA' OR a1.airportcode='LA') 
-AND (a2.APCITY='인천' OR a2.AIRPORTCODE='인천')
+AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21'
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
+AND (a2.APCITY='FUK' OR a2.AIRPORTCODE='FUK')
 AND substr(t.optioncode,15,2)='ec'
+;
+
+
+-- 2003 detail 시간 값 조절했을 때
+SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
+a1.PACIFICTIME , a2.PACIFICTIME, ar.AIRLINELOGO, f.STANDARDFEE , t.CLASS  
+FROM FLIGHT f, airport a2, airport a1, ticketOption t, AIRLINE ar 
+WHERE a1.AIRPORTCODE =f.DEPARTAIRPORT 
+AND a2.AIRPORTCODE =f.ARRIVEAIRPORT 
+AND t.FLIGHTNUMBER =f.FLIGHTNUMBER 
+AND ar.AIRLINECODE =f.AIRLINECODE 
+AND t.stock>=1
+AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21'
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
+AND (a2.APCITY='FUK' OR a2.AIRPORTCODE='FUK')
+AND substr(t.optioncode,15,2)='ec'
+AND TO_NUMBER(TO_char(f.departdate,'sssss')) >=0 and TO_NUMBER(TO_char(f.departdate,'sssss')) <=86400
+;
+
+
+
+
+
+
+-- 도시, 공항으로 검색했을 때 /// 경유Exp
+SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
+a1.PACIFICTIME , a2.PACIFICTIME, ar.AIRLINELOGO, f.STANDARDFEE , t.CLASS  
+FROM FLIGHT f, airport a2, airport a1, ticketOption t, AIRLINE ar , airport a3 -- 경유하는 곳
+, FLIGHT f2 , TICKETOPTION t2, AIRLINE ar2
+WHERE a1.AIRPORTCODE =f.DEPARTAIRPORT 
+AND a3.AIRPORTCODE =f.ARRIVEAIRPORT 
+AND a2.AIRPORTCODE =f2.DEPARTAIRPORT 
+AND a2.AIRPORTCODE =f2.ARRIVEAIRPORT 
+AND t.FLIGHTNUMBER =f.FLIGHTNUMBER 
+AND t2.FLIGHTNUMBER =f2.FLIGHTNUMBER
+AND ar.AIRLINECODE =f.AIRLINECODE 
+AND ar2.AIRLINECODE =f2.AIRLINECODE 
+AND t.stock>=1 AND t2.stock>=1
+AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21'
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
+AND (a3.apcity LIKE  OR a1.airportcode='인천') 
+AND (a2.APCITY='SFO' OR a2.AIRPORTCODE='SFO')
+--AND substr(t.optioncode,15,2)='ec'
+;
+
+SELECT f1.flightnumber, f2.flightnumber FROM FLIGHT f1, FLIGHT f2 
+WHERE f1.ARRIVEAIRPORT =f2.DEPARTAIRPORT 
 ;
 
 

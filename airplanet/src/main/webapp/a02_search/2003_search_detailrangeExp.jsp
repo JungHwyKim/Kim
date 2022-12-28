@@ -161,8 +161,8 @@
 			
 		</div>
 		
-		<div class="row">
-		<%@ include file="2003_search_detail_print_Oneway.jsp" %>
+		<div class="row" id="print-search">
+		
 		</div>
 		
 			
@@ -178,6 +178,24 @@
 </body>
 
 <script>
+printSearch()
+//print-search에 값 출력
+function printSearch(){
+	var xhr = new XMLHttpRequest()
+	xhr.open("get","2003_search_detail_printrangeEXP2.jsp",true) 
+	xhr.send()
+	xhr.onreadystatechange = function (){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			console.log(xhr.responseText)
+			document.querySelector("#print-search").innerHTML = xhr.responseText
+			var script = document.querySelector("#inscript") // 자바스크립트 가져오기...
+			eval(script.innerHTML)
+		}
+	}
+}
+
+
+
 // 경유 checkbox value값 추출
 var via = document.querySelectorAll("[name=via]")
 via.forEach(function(v){
@@ -199,19 +217,6 @@ btnradio.forEach(function(btn){
 })
 
 
-//printSearch()
-// print-search에 값 출력
-function printSearch(){
-	var xhr = new XMLHttpRequest()
-	xhr.open("get","2003_search_detail_print.jsp",true) 
-	xhr.send()
-	xhr.onreadystatechange = function (){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			console.log(xhr.responseText)
-			document.querySelector("#print-search").innerHTML = xhr.responseText
-		}
-	}
-}
 
 
 
@@ -327,5 +332,8 @@ function setRightValue2 (){
 printTime2()
 inputLeft2.oninput=setLeftValue2
 inputRight2.oninput=setRightValue2
+
+
+
 </script>
 </html>

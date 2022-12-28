@@ -27,13 +27,13 @@
 	<jsp:useBean id="dao1" class="dao.B_search_detail"/>
 	<jsp:useBean id="sch1" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch1"/>
-	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("FUK") } ${sch1.setClassStr("ec") }
+	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("NRT") } ${sch1.setClassStr("ec") }
 	<c:forEach var="f1" items="${dao1.getMinfeeC(sch1)}">
 <%-- Return --%>	
 	<jsp:useBean id="dao2" class="dao.B_search_detail"/>
 	<jsp:useBean id="sch2" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch2"/>
-	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("FUK") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
+	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("NRT") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
 	<c:forEach var="f2" items="${dao2.getMinfeeC(sch2)}">
 	
 		<div class="row">	
@@ -74,8 +74,7 @@
 				     </div>
 				     <div class="col-4 schedule-right">
 						<p class="text-center topcenter">오늘 예약하기</p>
-						<c:set var= "total" value="${f1.classfee + f1.standardFee + f2.classfee + f2.standardFee}"/> 
-						<p class="text-center fw-semibold"><fmt:formatNumber value="${total}"/></p>
+						<p class="text-center fw-semibold totprice"></p>
 						<button type="button" class="btn btn-secondary"><span>선택</span><span class="material-symbols-outlined align-middle">arrow_forward</span></button>
 				     </div>
 			     </div>
@@ -84,7 +83,7 @@
 		</div>
 		</c:forEach></c:forEach>
 </body>
-<script type="text/javascript">
+<script type="text/javascript" id="inscript">
 
 var flightOb1 = []
 <c:forEach var="f" items="${dao1.getMinfeeC(sch1)}">
@@ -103,26 +102,6 @@ var flightOb1 = []
 	//console.log(fa.flightnumber+" "+fa.departDate+" "+fa.departAirportcode+" "+fa.arrivetAirportcode+" "+fa.flightHours+" "+fa.departPacifictime
 		//	+" "+fa.arrivePacifictime+" "+fa.airlinelogo+" "+fa.standardFee+" "+fa.classFee)
 </c:forEach>
-	
-	
-// 태평양 표준시로 바꿔서 계산하기..
-var dDate1 = document.querySelectorAll(".dDate1")
-var fHour1 = document.querySelectorAll(".fHour1")
-var airlinelogo1 = document.querySelectorAll(".airlinelogo1")
-var dCode1 = document.querySelectorAll(".dCode1")
-var aCode1 = document.querySelectorAll(".aCode1") 
-//var totprice = document.querySelectorAll(".totprice")
-var i=0;
-flightOb1.forEach(function(fa){
-	dDate1[i].innerText= fa.departDate.toTimeString().split(' ')[0].slice(0,5)
-	fHour1[i].innerText= parseInt(fa.flightHours)+"시간 "+(fa.flightHours%1)*60+"분" // 왜 첫번째만 출력될까,,
-	airlinelogo1[i].src=fa.airlinelogo
-	dCode1[i].innerText = fa.departAirportcode
-	aCode1[i].innerText = fa.arrivetAirportcode
-	//totprice[i].innerText = fa.standardFee + fa.classFee
-	i++;
-})
-
 //  왕복시 리턴
 var flightOb2 = []
 <c:forEach var="f" items="${dao2.getMinfeeC(sch2)}">
@@ -138,23 +117,77 @@ var flightOb2 = []
 	fa.standardFee = Number.parseInt("${f.standardFee}")
 	fa.classFee = Number.parseInt("${f.classfee}")
 	flightOb2.push(fa)
+</c:forEach>	
+	
+// 태평양 표준시로 바꿔서 계산하기..
+var dDate1 = document.querySelectorAll(".dDate1")
+var fHour1 = document.querySelectorAll(".fHour1")
+var airlinelogo1 = document.querySelectorAll(".airlinelogo1")
+var dCode1 = document.querySelectorAll(".dCode1")
+var aCode1 = document.querySelectorAll(".aCode1")
 
-</c:forEach>
-	var dDate2 = document.querySelectorAll(".dDate2")
-	var fHour2 = document.querySelectorAll(".fHour2")
-	var airlinelogo2 = document.querySelectorAll(".airlinelogo2")
-	var dCode2 = document.querySelectorAll(".dCode2")
-	var aCode2 = document.querySelectorAll(".aCode2") 
-	//var totprice = document.querySelectorAll(".totprice")
-	var i2=0;
-	flightOb2.forEach(function(fa){
-		dDate2[i2].innerText= fa.departDate.toTimeString().split(' ')[0].slice(0,5)
-		fHour2[i2].innerText= parseInt(fa.flightHours)+"시간 "+(fa.flightHours%1)*60+"분" // 왜 첫번째만 출력될까,,
-		airlinelogo2[i2].src=fa.airlinelogo
-		dCode2[i2].innerText = fa.departAirportcode
-		aCode2[i2].innerText = fa.arrivetAirportcode
-		//totprice[i].innerText = fa.standardFee + fa.classFee
-		i2++;
+var dDate2 = document.querySelectorAll(".dDate2")
+var fHour2 = document.querySelectorAll(".fHour2")
+var airlinelogo2 = document.querySelectorAll(".airlinelogo2")
+var dCode2 = document.querySelectorAll(".dCode2")
+var aCode2 = document.querySelectorAll(".aCode2") 
+var totprice = document.querySelectorAll(".totprice")
+
+var returnJson = []
+flightOb1.forEach(function(fa1){
+	flightOb2.forEach(function(fa2){
+		var rt={}
+		rt.dDate1 = fa1.departDate.toLocaleString()
+		rt.fHour1 = fa1.flightHours
+		rt.airlinelogo1 = fa1.airlinelogo
+		rt.dCode1 = fa1.departAirportcode
+		rt.aCode1 = fa1.arrivetAirportcode
+		rt.dpTime1 = fa1.departPacifictime
+		rt.apTime1 = fa1.arrivePacifictime
+		// 도착 시간 어떻게 할것인지..
+		//rt.aDate1 = fa1.departDate
+		//rt.aDate1.setMinutes(rt.aDate1.getMinutes()+(fa1.departPacifictime-fa1.arrivePacifictime+fa1.flightHours)*60)
+		
+		//console.log(rt.dDate1)
+		//console.log(rt.aDate1)
+
+		rt.dDate2= fa2.departDate.toLocaleString()
+		rt.fHour2= fa2.flightHours
+		rt.airlinelogo2=fa2.airlinelogo
+		rt.dCode2 = fa2.departAirportcode
+		rt.aCode2 = fa2.arrivetAirportcode
+		rt.dpTime2 = fa2.departPacifictime
+		rt.pTime2 = fa2.arrivePacifictime
+		rt.aDate2 = 
+			
+		rt.totprice = fa1.standardFee + fa1.classFee+fa2.standardFee + fa2.classFee		
+		i++;
+		returnJson.push(rt)
 	})
+})
+
+
+// 최저가 순으로 일단 정렬
+returnJson.sort(function(left,right){
+	return left.totprice- right.totprice;
+})
+// 화면에 출력	
+var i=0;
+returnJson.forEach(function(rt){
+	dDate1[i].innerText= rt.dDate1
+	fHour1[i].innerText= parseInt(rt.fHour1)+"시간 "+(rt.fHour1%1)*60+"분"
+	airlinelogo1[i].src= rt.airlinelogo1
+	dCode1[i].innerText = rt.dCode1
+	aCode1[i].innerText = rt.aCode1
+	
+	dDate2[i].innerText= rt.dDate2
+	fHour2[i].innerText= parseInt(rt.fHour2)+"시간 "+(rt.fHour2%1)*60+"분"
+	airlinelogo2[i].src=rt.airlinelogo2
+	dCode2[i].innerText = rt.dCode2
+	aCode2[i].innerText = rt.aCode2
+	totprice[i].innerText = rt.totprice
+	i++;
+})
+
 </script>
 </html>

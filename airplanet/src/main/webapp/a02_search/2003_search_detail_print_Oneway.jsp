@@ -15,9 +15,12 @@
 <link href="2003.css" rel="stylesheet">
 <style>
 .row{
-	margin-left: 16px;
+	margin-left: 0px;
 	margin-right: 16px;
-	align-items: center;
+	
+}
+.card-left{
+	padding-top: 2%
 }
 .schedule-right{
 	padding-top: 1%;
@@ -37,7 +40,7 @@
 			<div class="card">
 			  <div class="card-body schedule">
 			    <div class="row">
-				  	<div class="col-8">
+				  	<div class="col-8 card-left">
 				  		<div class="row">
 				  			<div class="col-3"><img class="airlinelogo" src="" width="100%"></div>
 				  			<div class="col-9">
@@ -91,14 +94,16 @@ var flightOb = []
 // 태평양 표준시로 바꿔서 계산하기..
 var topleftarr = document.querySelectorAll(".topleft")
 var topcenterarr = document.querySelectorAll(".topcenter")
+var toprightarr = document.querySelectorAll(".topright")
 var airlinelogo = document.querySelectorAll(".airlinelogo")
 var botleft = document.querySelectorAll(".botleft")
 var botright = document.querySelectorAll(".botright") 
 var totprice = document.querySelectorAll(".totprice")
 var i=0;
 flightOb.forEach(function(fa){
-	topleftarr[i].innerText= fa.departDate.toTimeString().split(' ')[0].slice(0,5)
+	topleftarr[i].innerText= fa.departDate.toLocaleString().slice(6,21)
 	topcenterarr[i].innerText= parseInt(fa.flightHours)+"시간 "+(fa.flightHours%1)*60+"분" // 왜 첫번째만 출력될까,,
+	
 	airlinelogo[i].src=fa.airlinelogo
 	botleft[i].innerText = fa.departAirportcode
 	botright[i].innerText = fa.arrivetAirportcode

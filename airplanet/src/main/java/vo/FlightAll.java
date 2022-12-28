@@ -30,6 +30,11 @@ public class FlightAll {
 	//도착현지시간 계산해서 넣는게 좋은가??
 	//인원 1인 이상 구분하게 되면 필드 추가
 	
+	
+	
+	//원주 추가
+	private int frRange;
+	private int toRange;
 	public FlightAll() {}
 
 	
@@ -40,7 +45,39 @@ public class FlightAll {
 		this.departLocation = departLocation;
 		this.arriveLocation = arriveLocation;
 	}
+	public FlightAll( String departDate,String departLocation, String arriveLocation, String classStr, int frRange, int toRange) {
+		this.departDate = departDate;
+		this.classStr = classStr;
+		this.departLocation = departLocation;
+		this.arriveLocation = arriveLocation;
+		this.frRange=frRange;
+		this.toRange=toRange;
+	}
 	
+	public int getFrRange() {
+		return frRange;
+	}
+
+
+
+	public void setFrRange(int frRange) {
+		this.frRange = frRange;
+	}
+
+
+
+	public int getToRange() {
+		return toRange;
+	}
+
+
+
+	public void setToRange(int toRange) {
+		this.toRange = toRange;
+	}
+
+
+
 	//원주 evrywhere 검색 결과
 	public FlightAll(String arriveApnation,int standardFee) {
 		this.standardFee = standardFee;
