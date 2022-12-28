@@ -86,7 +86,6 @@ request.setAttribute("tlist2", tlist2);
 //경유일때
 for(int i=1;i<flist.size();i++){
 	if(flist.get(i).getArriveLocation().equals(flist.get(i-1).getArriveLocation())){
-		System.out.println("경유");
 		forSearch= new TicketOption();
 		forSearch.setFlightNumber(flist.get(i).getFlightNumber());
 		forSearch.setOptionCode(flist.get(i).getClassStr());

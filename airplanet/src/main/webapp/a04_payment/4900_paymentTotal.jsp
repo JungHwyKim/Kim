@@ -305,11 +305,11 @@ showswitch[1].addEventListener('click',function(){
 
 /* 지금결제vs나중에 */
 showswitch[2].addEventListener('click',function(){
-	showswitching('2','2','','finalsubmit','결제 완료하기','4006_book_success.jsp');
+	showswitching('2','2','','finalsubmit','결제 완료하기','4006_pay_success.jsp');
 	paynow()
 }) 	
 showswitch[3].addEventListener('click',function(){
-	showswitching('2','3','none','finalsubmit','예약 완료하기','4005_rule3.html');	
+	showswitching('2','3','none','finalsubmit','예약 완료하기','4006_book_success.jsp');	
 	paynow()
 }) 	
 
