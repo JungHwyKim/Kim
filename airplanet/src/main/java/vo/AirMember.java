@@ -14,6 +14,11 @@ public class AirMember {
 		this.email = email;
 	}
 	
+	public AirMember(String email, String pass) {
+		this.email = email;
+		this.pass = pass;
+	}
+
 	public AirMember(String email, String pass, String name, String phoneNumber) {
 		this.email = email;
 		this.pass = pass;

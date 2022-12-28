@@ -72,8 +72,9 @@
 
 </head>
 <body>
+<c:remove var="reg" scope="session"/>
 	<div class="colFlex">
-		<div><img src="/b01_img/logo_l.png" onclick="location.href='/a02_search/2000_main.html'" class="logo"></div>
+		<div><img src="/b01_img/logo_l.png" onclick="location.href='/a02_search/2000_main.jsp'" class="logo"></div>
 		<div class="colFlex" style="height:580px;border:2px solid steelblue;border-radius:10px;margin-top:-5px;">
 			<!-- 아이디 -->
 			<div style="position:absolute;width:35%;">
@@ -138,7 +139,7 @@
 		<div style="margin:5% 0 0 29%;">회원가입이 <span style="font-weight:700;">완료</span> 되었습니다!</div>
 		<div style="display:flex;">
 			<div><input class="toMain" type="button" value="메인화면" style="background:rgb(75,168,229);" onclick="location.href='/a02_search/2000_main.jsp'"></div>
-			<div><input class="toSignin" type="button" value="로그인" style="background:rgb(75,168,229);" onclick="location.href='/a01_member/1002_signin.html'"></div>
+			<div><input class="toSignin" type="button" value="로그인" style="background:rgb(75,168,229);" onclick="location.href='/a01_member/1002_signin.jsp'"></div>
 		</div>
 	</div>
 	<div class="popupBack"></div>

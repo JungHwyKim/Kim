@@ -131,8 +131,10 @@
 		<div style="display:flex;">
 			<div style="margin:5px 0 0 150px;"><img src="/b01_img/airplanet_logo.png" width="100%" height="70px"/></div>
 			<div style="margin:20px 0 0 45%;">
-				<input class="headerRL" style="margin-right:20px;" type="button" name="signup" value="회원가입" onclick="location.href='/a01_member/1001_signup.html'"/>
-				<input class="headerRL" type="button" name="signin" value="로그인" onclick="location.href='/a01_member/1002_signin.html'"/>
+				<input class="headerRL" style="margin-right:20px;" type="button" name="signup" value="회원가입" onclick="location.href='/a01_member/1001_signup.jsp'"/>
+				<input class="headerRL" type="button" name="signin" value="로그인" onclick="location.href='/a01_member/1002_signin.jsp'"/>
+				<div>${reg2.email }</div>
+				<div>${reg2.name }</div>
 			</div>
 		</div>
 		<div class="colD">
@@ -195,7 +197,6 @@
 									<div style="margin:12px 10px 0 10px;color:white;">만 0 - 15세</div>
 								</div>
 								<div style="margin:15px 0 0 200px;"><input class="sendgAn" type="button" style="width:70px;height:25px;background:rgba(250,250,250,0.7);border-radius:5px;border:none;" value="완료"></div>
-								
 							</div>
 						 </div>
 					</div>
@@ -381,7 +382,7 @@ $searchInput1.addEventListener("input", (e) => {
 	    	  showButtonPanel: true, // 캘린더 하단에 버튼 패널을 표시한다. 
 	    	  currentText: '오늘 날짜' , // 오늘 날짜로 이동하는 버튼 패널
 	    	  closeText: '닫기',  // 닫기 버튼 패널
-	    	  dateFormat: "mm-dd", // 텍스트 필드에 입력되는 날짜 형식.
+	    	  dateFormat: "yy-mm-dd", // 텍스트 필드에 입력되는 날짜 형식.
 	    	  showMonthAfterYear: true , // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다. 
 	    	  dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], // 요일의 한글 형식.
 	    	  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], // 월의 한글 형식.
@@ -430,8 +431,8 @@ $searchInput1.addEventListener("input", (e) => {
 	var adateOb = document.querySelector("[name=adate]")
 	
 	var d = new Date()
-	ddateOb.value = (d.getMonth()+1)+"-"+d.getDate()
-	adateOb.value = (d.getMonth()+1)+"-"+d.getDate()
+	ddateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
+	adateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
 	
 	ddateOb.onchange=function(){
 		const ddate = new Date(ddateOb.value)
