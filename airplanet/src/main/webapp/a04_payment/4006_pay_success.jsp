@@ -40,11 +40,19 @@ text-shadow: 1px 1px 3px steelblue ;}
 
 <article class="row" style="min-height: 400px">
 <div class="col">
-<b>예약번호 : adsfasdf</b>
-<p>결제 후 영업일 기준 24시간 동안은 항공사 사정으로 예약사항이 변경될 수 있으니 24시간 이후에 꼭 재확인 해주세요.</p>
+<p style="color:steelblue;font-size:large;font-weight: bold">예약번호 : bookingReference</p>
+<p>결제 후 영업일 기준 24시간 동안은 항공사 사정으로 예약사항이 변경될 수 있으니 24시간 이후에 꼭 재확인 해주세요. 취소/환불은 항공사별 규정이 적용됩니다.</p>
 <div class="row">
-<div class="col-sm-5">총 요금 <p style="color:steelblue;font-size:large;font-weight: bold">1,111,111원</p></div>
-<div class="col-sm-5">결제 정보 <p style="color:steelblue;font-size:large;font-weight: bold">항공권 : </p></div>
+<div class="col-sm-5">최종결제금액 <p style="color:steelblue;font-size:large;font-weight: bold">1,111,111원</p></div>
+<div class="col-sm-5">운임코드 <p style="color:steelblue;font-size:large;font-weight: bold"> optionCode </p></div>
+</div>
+<div class="row">
+<div class="col-sm-5">예약자 <p style="color:steelblue;font-size:large;font-weight: bold">email</p></div>
+<div class="col-sm-5">예약일자 <p style="color:steelblue;font-size:large;font-weight: bold">resDate </p></div>
+</div>
+<div class="row">
+<div class="col-sm-5">예약상태 <p style="color:steelblue;font-size:large;font-weight: bold">resState</p></div>
+<div class="col-sm-5">결제정보 <p style="color:steelblue;font-size:large;font-weight: bold">cardinfo </p></div>
 </div>
 </div>
 

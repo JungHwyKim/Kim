@@ -84,7 +84,7 @@ a:link {
 
 
 
-<form class="needs-validation" action="4005_rule2.html" novalidate>
+<form class="needs-validation" action="4006_pay_success.jsp" novalidate>
 <%@ include file="4004_1_passengerInfo.jsp" %>
 <label><input class="form-check-input" type="checkbox" onchange="bringPassengerinfo()">탑승객 정보 불러오기</label><br>
 <strong>탑승객 영문이름, 생년월일, 성별 기재 시 주의사항</strong>
@@ -134,7 +134,7 @@ a:link {
 <br><br>
 
 <div class="rounded-2 bg-info row">
-<div class="col text-center">총 요금 1,000,000원</div>
+<div class="col text-center align-self-center">총 요금 1,000,000원</div>
 <div class="col">
 	<div class="row">
 		<div class="col">카드할인  -</div>
@@ -143,7 +143,7 @@ a:link {
 		<div class="col">마일리지 -</div>
 		<div class="col" id="finalmileage">548,110</div></div>
 </div>
-<div class="col text-center fs-5">최종결제금액<h2 class="text-primary" id="finalprice">800,000</h2>원</div>
+<div class="col text-center fs-5">최종결제금액 <span class="text-primary h2" id="finalprice"> 800,000</span>원</div>
 </div>
 <br>
 <label><input class="form-check-input" type="checkbox" onchange="bringcardinfo(this)">카드정보 불러오기</label>
