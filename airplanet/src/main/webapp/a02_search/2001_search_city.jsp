@@ -52,12 +52,14 @@
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
   	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") }${schN.setArriveLocation("일본") }
-  	
-  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
 
   	
   	
-	<button type="button" class="btn" value="${byCity.arriveApcity }">
+  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
+
+  	<form action="2003_search_detailrangeExp.jsp">
+  	<input type="hidden" name="city" value="${byCity.arriveApcity }"/>
+	<button type="submit" class="btn form-control form-control-lg">
     <div class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">${byCity.arriveApcity }</h5>
@@ -72,6 +74,8 @@
     </div>
     <p class="list-content-bottom">1회 이상 경유(직항이용가능)</p>
   </div></button>
+  
+  </form>
   
   </c:forEach>
   
@@ -89,7 +93,6 @@
 var btnarr = document.querySelectorAll("[type=button]")
 btnarr.forEach(function(btn){
 	btn.onclick=function(){
-		var city = this.value
 		
 	}
 })

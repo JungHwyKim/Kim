@@ -4,7 +4,8 @@
 <%@ taglib prefix ="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%> 
 <fmt:requestEncoding value="utf-8"/>   
-<% request.setCharacterEncoding("utf-8"); %>       
+<% request.setCharacterEncoding("utf-8"); %>     
+ <%@ page isELIgnored="false" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,10 @@
 	
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
+	<%
+	String city = request.getParameter("city");
+	session.setAttribute("city", city);
+	%>
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
@@ -178,21 +183,7 @@
 </body>
 
 <script>
-printSearch()
-//print-search에 값 출력
-function printSearch(){
-	var xhr = new XMLHttpRequest()
-	xhr.open("get","2003_search_detail_printrangeEXP2.jsp",true) 
-	xhr.send()
-	xhr.onreadystatechange = function (){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			console.log(xhr.responseText)
-			document.querySelector("#print-search").innerHTML = xhr.responseText
-			var script = document.querySelector("#inscript") // 자바스크립트 가져오기...
-			eval(script.innerHTML)
-		}
-	}
-}
+
 
 
 
@@ -270,6 +261,8 @@ function setLeftValue(){
   thumbLeft.style.left = percent + "%";
   range.style.left = percent + "%";
   printTime()
+ 
+ 
 };
 
 function setRightValue (){
@@ -279,10 +272,13 @@ function setRightValue (){
   thumbRight.style.right = 100 - percent + "%";
   range.style.right = 100 - percent + "%";
   printTime()
+ 
 };
 printTime()
-inputLeft.oninput=setLeftValue
-inputRight.oninput=setRightValue
+inputLeft.addEventListener('input', setLeftValue);
+inputLeft.addEventListener('input', printSearch);
+inputRight.addEventListener('input', setRightValue);
+inputRight.addEventListener('input', printSearch);
 
 //출발시간, 도착시간 설정(오는날 출발시간)
 var inputLeft2 = document.querySelector("#input-left2");
@@ -293,11 +289,11 @@ var range2 = document.querySelector(".slider2 > .range2");
 var p2 = document.querySelector(".print-time2")
 
 function printTime2(){
-	var rHour = Math.floor((Math.floor(inputRight.value) > 84600? 86340 : Math.floor(inputRight.value))/3600)
-	var rMin = inputRight.value > 84600 ? 59 : (inputRight.value%3600)/60
-    var lefthour= Math.floor(inputLeft.value/3600)
+	var rHour = Math.floor((Math.floor(inputRight2.value) > 84600? 86340 : Math.floor(inputRight2.value))/3600)
+	var rMin = inputRight2.value > 84600 ? 59 : (inputRight2.value%3600)/60
+    var lefthour= Math.floor(inputLeft2.value/3600)
     var righthour= rHour // 수정한 부분
-    var leftminute = (inputLeft.value%3600)/60
+    var leftminute = (inputLeft2.value%3600)/60
     var rightminute = rMin // 수정한 부분
 	if(leftminute==0&&rightminute==0){
 		p2.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute+"0"
@@ -317,7 +313,7 @@ function setLeftValue2 (){
   thumbLeft2.style.left = percent + "%";
   range2.style.left = percent + "%";
   printTime2()
-  console.log(inputLeft2.value+" : "+inputRight2.value)
+  
 };
 
 function setRightValue2 (){
@@ -327,13 +323,39 @@ function setRightValue2 (){
   thumbRight2.style.right = 100 - percent + "%";
   range2.style.right = 100 - percent + "%";
   printTime2()
-  console.log(inputLeft2.value+" : "+inputRight2.value)
+  console.log(inputLeft.value+":"+inputRight.value+":"+inputLeft2.value+":"+inputRight2.value)
+ 
 };
 printTime2()
-inputLeft2.oninput=setLeftValue2
-inputRight2.oninput=setRightValue2
+
+inputLeft2.addEventListener('input', setLeftValue2);
+inputLeft2.addEventListener('input', printSearch);
+inputRight2.addEventListener('input', setRightValue2);
+inputRight2.addEventListener('input', printSearch);
 
 
+
+
+printSearch()
+//print-search에 값 출력
+function printSearch(){
+	var xhr = new XMLHttpRequest()
+	var lVal = inputLeft.value
+	var rVal = inputRight.value
+	var l2Val = inputLeft2.value
+	var r2Val = inputRight2.value
+	var qstr = "?inputLeft="+lVal+"&inputRight="+rVal+"&inputLeft2="+l2Val+"&inputRight2="+r2Val
+	xhr.open("get","2003_search_detail_printrangeEXP2.jsp"+qstr,true) 
+	xhr.send()
+	xhr.onreadystatechange = function (){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			// console.log(xhr.responseText)
+			document.querySelector("#print-search").innerHTML = xhr.responseText
+			var script = document.querySelector("#inscript") // 자바스크립트 가져오기...
+			eval(script.innerHTML)
+		}
+	}
+}
 
 </script>
 </html>

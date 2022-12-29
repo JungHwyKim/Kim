@@ -18,7 +18,8 @@ public class B_searchnation {
 	public List<FlightAll> getMinfeeN(FlightAll f) {
 		List<FlightAll> flist = new ArrayList<FlightAll>();
 		String sql = "SELECT DISTINCT  a2.apcity, f.standardfee, a2.apphoto\r\n"
-				+ "FROM ( SELECT a.apcity, min(ff.standardfee) AS minfee FROM airport a, FLIGHT ff \r\n"
+				+ "FROM ( SELECT a.apcity, min(ff.standardfee) AS minfee "
+				+ "FROM airport a, FLIGHT ff \r\n"
 				+ "WHERE ff.ARRIVEAIRPORT =a.AIRPORTCODE \r\n"
 				+ "AND TO_CHAR(ff.departdate,'yyyy-mm-dd')= ?\r\n"
 				+ "GROUP BY  a.apcity) cm, FLIGHT F, airport a2, airport a1, ticketOption t\r\n"

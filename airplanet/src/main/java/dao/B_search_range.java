@@ -9,7 +9,7 @@ import java.util.List;
 
 import vo.DB;
 import vo.FlightAll;
-//dao.B_search_detail getMinfeeC
+//dao.B_search_range getRangeticket
 public class B_search_range {
 
 	private Connection con;

@@ -4,6 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%> 
 <fmt:requestEncoding value="utf-8"/>   
 <% request.setCharacterEncoding("utf-8"); %>       
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,18 +24,29 @@
 </head>
 <body>
 
-<%--  --%>
-	<jsp:useBean id="dao1" class="dao.B_search_detail"/>
+<%
+String city = (String) session.getAttribute("city");
+%>
+<%--dao.B_search_range getRangeticket  --%>
+	<jsp:useBean id="dao1" class="dao.B_search_range"/>
 	<jsp:useBean id="sch1" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch1"/>
-	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("NRT") } ${sch1.setClassStr("ec") }
-	<c:forEach var="f1" items="${dao1.getMinfeeC(sch1)}">
+	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation(city) } ${sch1.setClassStr("ec") }
+	<%-- <c:if test="${empty param.inputLeft }"></c:if><c:if test="${empty param.inputRight }"></c:if> --%>
+	${sch1.setFrRange(param.inputLeft) }
+	${sch1.setToRange(param.inputRight) }
+		
+	<c:forEach var="f1" items="${dao1.getRangeticket(sch1)}">
+
 <%-- Return --%>	
-	<jsp:useBean id="dao2" class="dao.B_search_detail"/>
+	<jsp:useBean id="dao2" class="dao.B_search_range"/>
 	<jsp:useBean id="sch2" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch2"/>
-	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("NRT") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
-	<c:forEach var="f2" items="${dao2.getMinfeeC(sch2)}">
+	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation(city) } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
+	<%-- <c:if test="${empty param.inputLeft2 }"></c:if><c:if test="${empty param.inputRight2 }"></c:if> --%>
+	${sch2.setFrRange(param.inputLeft2) }
+	${sch2.setToRange(param.inputRight2) }
+	<c:forEach var="f2" items="${dao2.getRangeticket(sch2)}">
 	
 		<div class="row">	
 			<div class="card">
@@ -86,7 +98,7 @@
 <script type="text/javascript" id="inscript">
 
 var flightOb1 = []
-<c:forEach var="f" items="${dao1.getMinfeeC(sch1)}">
+<c:forEach var="f" items="${dao1.getRangeticket(sch1)}">
 	var fa={}
 	fa.flightnumber = "${f.flightNumber}"
 	fa.departDate = new Date("${f.departDate}}".substring(0,19))
@@ -104,7 +116,7 @@ var flightOb1 = []
 </c:forEach>
 //  왕복시 리턴
 var flightOb2 = []
-<c:forEach var="f" items="${dao2.getMinfeeC(sch2)}">
+<c:forEach var="f" items="${dao2.getRangeticket(sch2)}">
 	var fa={}
 	fa.flightnumber = "${f.flightNumber}"
 	fa.departDate = new Date("${f.departDate}}".substring(0,19))
