@@ -21,7 +21,7 @@ form{
 </head>
 <body>
 <main class="container">
-<%@ include file="/header.jsp" %>
+<jsp:include page="/header.jsp" />
 <h2>선택한 항공 스케줄</h2>
 <%@ include file="4001_scheduleDetail.jsp" %>
 

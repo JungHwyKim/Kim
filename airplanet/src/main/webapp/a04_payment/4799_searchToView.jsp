@@ -110,4 +110,4 @@ request.setAttribute("summary", summary);
 %>
 
 
-<jsp:forward page="time.jsp" />
+<jsp:forward page="4800_view.jsp" />

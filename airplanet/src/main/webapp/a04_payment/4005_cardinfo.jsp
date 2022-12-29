@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <fieldset id="cardinfo">
 <table class="table table-bordered">
 <tr><td>카드구분</td>
@@ -33,3 +35,21 @@
 <li>결제는 탑승객 명의의 카드를 사용해야 하며, 이 외의 카드를 이용하신 경우 항공사에서 요청하는 증빙서류를 제출하셔야 합니다. 증빙서류를 제출하지 않은 경우 발권은 가능하나, 추후 발생되는 문제에 대하여 책임지지 않습니다.
 <li>카드 소유주를 기타로 선택하신 경우 내국인-주민등록상 한글이름 기재, 외국인-외국인 등록증에 나온 영문 이름으로 기재 바랍니다. 명의도용방지 서비스 신청 후 실명인증을 차단하신 경우 카드 정보가 정확히 입력되어도 결제가 진행되지 않으니 확인하시기 바랍니다. 카드 결제 시, 결제금액 사용 한도는 사전에 확인 바랍니다.
 </ul>
+
+<c:if test='${not empty reg2.email }' >
+<c:set var="cardinfo" value='${fn:split(reg2.cardInfo," ")}'  />
+</c:if>
+<script>
+var cardjson={
+		"cardownertype": '${cardinfo[0]}',
+		"cardownernation":'${cardinfo[1]}',
+		"cardcorporate":'${cardinfo[2]}',
+		"cardinstallment":"",
+		"cardnumber":'${cardinfo[3]}',
+		"cardYY":'${cardinfo[4]}',
+		"cardMM":'${cardinfo[5]}',
+		"cardownername":"${cardinfo[6]}",
+		"cardbirthday":"${cardinfo[7]}",
+		"cardpassword":"${cardinfo[8]}",
+		"cardmf":"${cardinfo[9]}"}
+</script>

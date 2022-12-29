@@ -31,3 +31,26 @@
   <div class="col-auto"> <label class="col-form-label">여권발행국</label><input name="ppnation" class="form-control" value= "한국" required></div>
 </div>  
 </fieldset>
+
+
+<jsp:useBean id="dao" class="dao.D_selectMyPassenger" />
+<c:set var="myinfo" value="${dao.select(reg2.email)}" />
+<script>
+/* 탑승자정보 불러오기 */
+function bringPassengerinfo(){	//db에서 정보 불러와서 넣기
+ 	let psginputs =document.querySelectorAll('#passengerinfoset input')
+ 	psginputs[0].value='${myinfo.korname}';
+ 	psginputs[1].value='${myinfo.engsur}';
+ 	psginputs[2].value='${myinfo.engname}';
+ 	var bday=(String)('${myinfo.birthday}'.substr(0,10))
+ 	psginputs[3].value= bday
+ 	if('m'=='${myinfo.mf}'){psginputs[4].checked=true;}
+ 	if('f'=='${myinfo.mf}'){psginputs[5].checked=true;}
+ 	psginputs[6].value='${myinfo.ppnumber}';
+ 	var ppexpire=(String)('${myinfo.ppexpire}'.substr(0,10))
+ 	psginputs[7].value= ppexpire ;
+ 	psginputs[8].value='${myinfo.nation}';
+ 	psginputs[9].value='${myinfo.ppnation}';
+ }
+
+</script>

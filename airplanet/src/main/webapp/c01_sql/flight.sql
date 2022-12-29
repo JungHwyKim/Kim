@@ -178,7 +178,7 @@ ALTER TABLE airMember
 	);
 
 SELECT * FROM airMember;
-INSERT INTO airMember values('t711txt@naver.com','1234', '임창균', '01098765432', 24000, '개인 내국인 1111222233334444 2512 m');
+INSERT INTO airMember values('t711txt@naver.com','1234', '임창균', '01098765432', 24000, '개인 내국인 롯데카드 1111222233334444 25 12 임창균 2001-08-11 23 m');
 
 -- Fare
 ALTER TABLE fare
