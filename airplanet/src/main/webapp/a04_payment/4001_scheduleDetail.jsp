@@ -59,7 +59,7 @@
 	<tr>
 	<td rowspan="1"> ${ff.departLocation } → ${ff.arriveLocation }</td>
 	<td><strong>${ff.departApcity }</strong> <span style="font-size:0.9em"> ${ff.departDate }</span></td>
-	<td><strong>${ff.arriveApcity}</strong> <span style="font-size:0.9em"> 현지도착시간</span></td>
+	<td><strong>${ff.arriveApcity}</strong> <span style="font-size:0.9em"> 현지도착시간 </span></td>
 	<td>${ff.flightHours } </td>
 	<td><strong>${ff.airlineName }</strong><span style="font-size:0.8em">${ff.flightNumber }</span>
 	</tr>

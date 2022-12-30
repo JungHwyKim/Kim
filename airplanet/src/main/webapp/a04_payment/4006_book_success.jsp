@@ -32,7 +32,7 @@ text-shadow: 1px 1px 3px steelblue ;}
 <body>
 
 <main class="container">
-<%@ include file="/header_logout.jsp" %>
+<%@ include file="/header.jsp" %>
 <h2>해외항공권 예약</h2>
 <div class="imgbookingisdone">
 <div class="text-white"><span class="shadow-primary">예약이 완료되었습니다</span></div>

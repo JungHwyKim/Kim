@@ -6,6 +6,10 @@
 header{
 	margin-bottom: 50px;
 }
+.profilepic{
+	display:inline-block;
+	height:50px;
+	}
 </style>
 <header id="header" class="d-flex justify-content-between">
 	
@@ -13,6 +17,7 @@ header{
 		<div style="margin:20px 0 0 45%;">
 			<input style="width:120px;height:50px;background:lightblue;border-radius:10px;border:none;font-size:medium;font-weight:700;color:white;margin-right:20px;" type="button" name="signup" value="회원가입" />
 			<input style="width:120px;height:50px;background:lightblue;border-radius:10px;border:none;font-size:medium;font-weight:700;color:white;" type="button" name="signin" value="로그인" />
+			<img class="profilepic" src="/b01_img/user.PNG" >
 		</div>
 </header>
 
@@ -35,6 +40,15 @@ if(regId==''){	//로그인 안했을때
 	signup.style.display="none";
 	signinout.value="로그아웃"
 	signinout.onclick=function(){location.href="/a01_member/1400_signout.jsp"}
+}
+
+var profilepic=document.querySelector('.profilepic')
+var reg2email='${reg2.email}';
+console.log(reg2email)
+if(reg2email.length>2){
+	profilepic.style.display='inline-block'
+}else{
+	profilepic.style.display='none'
 }
 
 

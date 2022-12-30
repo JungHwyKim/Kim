@@ -115,7 +115,7 @@ a:link {
 	<div class="input-group col" id="mileageinput" required>
 	<input type="number" class="form-control" value="0" min ="0" max="99999999">
 	<span class="input-group-text"> / </span>
-	<input type="number" class="input-group-text" value="1780000" readonly>
+	<input type="number" class="input-group-text" value="${reg2.mileage }" readonly>
 	</div>
 	<div class="col-3"></div>
 </div>
@@ -134,16 +134,16 @@ a:link {
 <br><br>
 
 <div class="rounded-2 bg-info row">
-<div class="col text-center">총 요금 1,000,000원</div>
+<div class="col text-center">총 요금 ${costgo+costback }원</div>
 <div class="col">
 	<div class="row">
 		<div class="col">카드할인  -</div>
-		<div class="col" id="finaldiscountcard">20,000</div></div>
+		<div class="col" id="finaldiscountcard">0</div></div>
 	<div class="row">
 		<div class="col">마일리지 -</div>
-		<div class="col" id="finalmileage">548,110</div></div>
+		<div class="col" id="finalmileage">0</div></div>
 </div>
-<div class="col text-center fs-5">최종결제금액<h2 class="text-primary" id="finalprice">800,000</h2>원</div>
+<div class="col text-center fs-5">최종결제금액<h2 class="text-primary" id="finalprice">${costgo+costback }</h2>원</div>
 </div>
 <br>
 <label><input class="form-check-input" type="checkbox" onchange="bringcardinfo(this)">카드정보 불러오기</label>
@@ -278,6 +278,10 @@ function paynow(){
 	filset[7].required=false;
 	
 }
+
+var originalPrice=${costgo+costback }	
+var myMileage= 0${reg2.mileage }
+
 </script>
 <script type="text/javascript" src="4000_switchInfo.js">/*버튼눌러서 가는편 오는편 바꾸기*/</script>
 <script type="text/javascript" src="4000_bringcardinfo.js">/*카드정보불러오기*/</script>
