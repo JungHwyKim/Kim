@@ -15,6 +15,9 @@
 <link href="/a00_com/a01_common.css" rel="stylesheet">
 </head>
 <body>
+<div style="margin-left:10%;width:80%;">
+		<jsp:include page="/header.jsp" flush="true"/> 	
+</div>
 <%
 	String departlocation = request.getParameter("departlocation");
 	String arrivelocation = request.getParameter("arrivelocation");
