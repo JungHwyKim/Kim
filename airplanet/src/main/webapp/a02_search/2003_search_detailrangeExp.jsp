@@ -166,9 +166,7 @@
 			
 		</div>
 		
-		<div class="row" id="print-search">
-		
-		</div>
+		<div class="row" id="print-search"> </div>
 		
 			
 	

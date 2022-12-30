@@ -19,6 +19,11 @@
 	
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
+	<%
+	String city = request.getParameter("city");
+	session.setAttribute("city", city);
+	%>
+	
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
@@ -69,29 +74,7 @@
 			    </div>
 			  </div>
 			</div><br>
-  		<!--  오는날 출발시간 -->
- 			<div class="time-range">
-  			<p class="time-set-head">오는날 출발시간</p>
-			  <div class="multi-range-slider">
-			    <!-- 진짜 슬라이더 -->
-			    <p class="print-time2"></p>
-			    <input type="range" id="input-left2" min="0" max="86400" step="1800" value="0" />
-			    <input type="range" id="input-right2" min="0" max="86400" step="1800" value="86400" />
-			
-			    <!-- 커스텀 슬라이더 -->
-			    <div class="slider2">
-			      <div class="track2"></div>
-			      <div class="range2"></div>
-			      <div class="thumb left2"></div>
-			      <div class="thumb right2"></div>
-			    </div>
-			  </div>
-			</div>
-		
-		
-		
-		
-  	
+
 	</div>
 	
 	
@@ -161,9 +144,7 @@
 			
 		</div>
 		
-		<div class="row">
-		<%@ include file="2003_search_detail_printrange_oneway.jsp" %>
-		</div>
+		<div class="row" id="print-search"> </div>
 		
 			
 	
@@ -197,22 +178,6 @@ btnradio.forEach(function(btn){
 		})
 	}
 })
-
-
-//printSearch()
-// print-search에 값 출력
-function printSearch(){
-	var xhr = new XMLHttpRequest()
-	xhr.open("get","2003_search_detail_print.jsp",true) 
-	xhr.send()
-	xhr.onreadystatechange = function (){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			console.log(xhr.responseText)
-			document.querySelector("#print-search").innerHTML = xhr.responseText
-		}
-	}
-}
-
 
 
 
@@ -276,56 +241,31 @@ function setRightValue (){
   printTime()
 };
 printTime()
-inputLeft.oninput=setLeftValue
-inputRight.oninput=setRightValue
+inputLeft.addEventListener('input', setLeftValue);
+inputLeft.addEventListener('input', printSearch);
+inputRight.addEventListener('input', setRightValue);
+inputRight.addEventListener('input', printSearch);
 
-//출발시간, 도착시간 설정(오는날 출발시간)
-var inputLeft2 = document.querySelector("#input-left2");
-var inputRight2 = document.querySelector("#input-right2");
-var thumbLeft2 = document.querySelector(".slider2 > .thumb.left2");
-var thumbRight2 = document.querySelector(".slider2 > .thumb.right2");
-var range2 = document.querySelector(".slider2 > .range2");
-var p2 = document.querySelector(".print-time2")
-
-function printTime2(){
-	var rHour = Math.floor((Math.floor(inputRight.value) > 84600? 86340 : Math.floor(inputRight.value))/3600)
-	var rMin = inputRight.value > 84600 ? 59 : (inputRight.value%3600)/60
-    var lefthour= Math.floor(inputLeft.value/3600)
-    var righthour= rHour // 수정한 부분
-    var leftminute = (inputLeft.value%3600)/60
-    var rightminute = rMin // 수정한 부분
-	if(leftminute==0&&rightminute==0){
-		p2.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute+"0"
-	}else if(leftminute==0){
-		p2.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute
-	}else if(rightminute==0){
-		p2.innerText = lefthour+":"+leftminute+" - "+righthour+":"+rightminute+"0"
-	}else{
-		p2.innerText = lefthour+":"+leftminute+" - "+righthour+":"+rightminute
+printSearch()
+//print-search에 값 출력
+function printSearch(){
+	var xhr = new XMLHttpRequest()
+	var lVal = inputLeft.value
+	var rVal = inputRight.value
+	var qstr = "?inputLeft="+lVal+"&inputRight="+rVal
+	xhr.open("get","2003_search_detail_printrange_oneway.jsp"+qstr,true) 
+	xhr.send()
+	xhr.onreadystatechange = function (){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			console.log(xhr.responseText)
+			document.querySelector("#print-search").innerHTML = xhr.responseText
+			var script = document.querySelector("#inscript") // 자바스크립트 가져오기...
+			eval(script.innerHTML)
+		}
 	}
 }
 
-function setLeftValue2 (){	
-  var [min, max] = [parseInt(inputLeft2.min), parseInt(inputLeft2.max)];
-  inputLeft2.value = Math.min(parseInt(inputLeft2.value), parseInt(inputRight2.value) - 1800);
-  var percent = ((inputLeft2.value - min) / (max - min)) * 100;
-  thumbLeft2.style.left = percent + "%";
-  range2.style.left = percent + "%";
-  printTime2()
-  console.log(inputLeft2.value+" : "+inputRight2.value)
-};
 
-function setRightValue2 (){
-  var [min, max] = [parseInt(inputRight2.min), parseInt(inputRight2.max)];  
-  inputRight2.value = Math.max(parseInt(inputRight2.value), parseInt(inputLeft2.value) + 1800);
-  var percent = ((inputRight2.value - min) / (max - min)) * 100;
-  thumbRight2.style.right = 100 - percent + "%";
-  range2.style.right = 100 - percent + "%";
-  printTime2()
-  console.log(inputLeft2.value+" : "+inputRight2.value)
-};
-printTime2()
-inputLeft2.oninput=setLeftValue2
-inputRight2.oninput=setRightValue2
+
 </script>
 </html>
