@@ -9,6 +9,10 @@ public class Airport {
 	
 	public Airport() {}
 	
+	public Airport(String apNation) {
+		this.apNation = apNation;
+	}
+
 	public Airport(String apNation, String apCity) {
 		this.apNation = apNation;
 		this.apCity = apCity;

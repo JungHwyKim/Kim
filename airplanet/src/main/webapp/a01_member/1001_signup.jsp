@@ -431,5 +431,6 @@ regOb.onclick=function(){
 		}
 	}
 }
+
 </script>
 </html>
