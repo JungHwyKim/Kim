@@ -1,4 +1,5 @@
-/*3. 마일리지랑 카드 할인 금액 변경*/
+/*3. 마일리지랑 카드 할인 금액 변경  */
+/*myMileage는 js밖에서 el태그로 불러옴*/
 	var mileageinputs = document.querySelectorAll('#mileageinput input')
  	var finalmileage =document.querySelector('#finalmileage')
  	var finaldiscountcard = document.querySelector('#finaldiscountcard')

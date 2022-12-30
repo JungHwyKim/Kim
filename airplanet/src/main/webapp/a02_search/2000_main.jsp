@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"    
-    import="airplanet.vo.*" 
-  	import="airplanet.dao.*"
+    import="vo.*" 
+  	import="dao.*"
    %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -121,22 +121,9 @@
 }
 </style>
 </head>
-
-<jsp:useBean id="dao" class="dao.A_main"/>
-<jsp:useBean id="vo" class="vo.Airport"/>
-<jsp:setProperty property="*" name="ap"/>
-
 <body>
 	<div class="col">
-		<div style="display:flex;">
-			<div style="margin:5px 0 0 150px;"><img src="/b01_img/airplanet_logo.png" width="100%" height="70px"/></div>
-			<div style="margin:20px 0 0 45%;">
-				<input class="headerRL" style="margin-right:20px;" type="button" name="signup" value="회원가입" onclick="location.href='/a01_member/1001_signup.jsp'"/>
-				<input class="headerRL" type="button" name="signin" value="로그인" onclick="location.href='/a01_member/1002_signin.jsp'"/>
-				<div>${reg2.email }</div>
-				<div>${reg2.name }</div>
-			</div>
-		</div>
+	<jsp:include page="/header.jsp" flush="true"/> 
 		<div class="colD">
 			<div style="margin-top:100px;"><span style="font-size:70px;font-weight:800;color:white;">여행을 시작하세요</span></div>
 			<div style="border:1px solid white;border-radius:20px;height:250px;background:rgba(250,250,250,0.9)">
@@ -145,41 +132,40 @@
 					<input type="radio" name="trip" value="1"/><span style="font-weight:600" > 편도</span>
 				</div>
 			<div style="display:flex;margin:25px 0 0 25px;">
-				<div style="flex-direction:column;">
+				<div style="flex-direction:column;"> 
 					<div><span style="font-weight:600;font-size:small;">출발지</span></div>
-					<div><input style="width:250px;height:30px;" type="text" name="departure"/></div>
+					<div><input style="width:250px;height:35px;" type="text" name="departure"/></div>
 					<div style="position:absolute;">
 						<div class="wordList" tabindex="0"></div>
 					</div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span style="font-weight:600;font-size:small;">도착지</span></div>
-					<div><input style="width:250px;height:30px;" type="text" name="arrival"/></div>
+					<div><input style="width:250px;height:35px;" type="text" name="arrival"/></div>
 					<div style="position:absolute;">
 						<div class="wordList1" tabindex="0"></div>
 					</div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span style="font-weight:600;font-size:small;">가는날</span></div>
-					<div><input style="width:125px;height:30px;" type="text" name="ddate"/></div>
+					<div><input style="width:125px;height:35px;" type="text" name="ddate"/></div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span style="font-weight:600;font-size:small;">오는날</span></div>
-					<div><input style="width:125px;height:30px;" type="text" name="adate"/></div>
+					<div><input style="width:125px;height:35px;" type="text" name="adate"/></div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span style="font-weight:600;font-size:small;">좌석등급 및 승객</span></div>
-					<div><input style="width:250px;height:30px;" type="text" name="gradenum"/></div>
+					<div><input style="width:250px;height:35px;" type="text" name="gradenum"/></div>
 					<div style="position:absolute;">
 						<div class="gAn" tabindex="0">
 							<div class="balloon">
 								<div style="margin-left:30px;padding-top:20px;font-size:small;font-weight:600;color:white;">좌석 등급</div>
 								<div style="margin:-5px 0 0 28px;padding-top:10px;">
 									<select class="opt" style="border-radius:5px;width:240px;height:35px;">
-										<option>일반석</option>
-										<option>프리미엄 일반석</option>
-										<option>비즈니스석</option>
-										<option>일등석</option>
+										<option value="ec">일반석</option>
+										<option value="bs">비즈니스석</option>
+										<option value="fs">일등석</option>
 									</select>
 								</div>
 								<div style="margin-left:30px;padding:10px 0 10px 0;font-size:small;font-weight:600;color:white;">성인</div>
@@ -189,186 +175,48 @@
 									<div><input type="button" class="pBtn1" value="&#43"></div>
 									<div style="margin:12px 10px 0 10px;color:white;">만 16세 이상</div>
 								</div>
-								<div style="margin-left:30px;padding:15px 0 0px 0;font-size:small;font-weight:600;color:white;">유/소아</div>
-								<div style="display:flex;margin:7px 0 0 30px;">
-									<div><input type="button" class="mBtn2" value="&#8722"></div>
-									<div class="adol" style="margin:12px 15px 0 15px;color:white;">0</div>
-									<div><input type="button" class="pBtn2" value="&#43"></div>
-									<div style="margin:12px 10px 0 10px;color:white;">만 0 - 15세</div>
-								</div>
 								<div style="margin:15px 0 0 200px;"><input class="sendgAn" type="button" style="width:70px;height:25px;background:rgba(250,250,250,0.7);border-radius:5px;border:none;" value="완료"></div>
 							</div>
 						 </div>
 					</div>
 				</div>
 			</div>
-			<div><input style="z-index:1;position:absolute;width:30px;height:25px;margin:-30px 0 0 250px;background:white;border:none;font-size:20px;color:steelblue" type="button" name="switch" value="⇄"/></div>
-			<div><input style="margin:20px 0 0 915px;width:150px;height:50px;font-size:large;font-weight:700;background:NavajoWhite;border:1px solid moccasin;color:white;border-radius:10px;" name="searchBtn" type="button" value="항공권 검색 →"></div>
+			<div><input style="z-index:1;position:absolute;width:30px;height:25px;margin:-33px 0 0 240px;background:white;border:none;font-size:20px;color:steelblue" type="button" name="switch" value="⇄"/></div>
+			<div><input style="margin:20px 0 0 900px;width:150px;height:50px;font-size:large;font-weight:700;background:NavajoWhite;border:1px solid moccasin;color:white;border-radius:10px;" name="searchBtn" type="button" value="항공권 검색 →"></div>
 			
 			</div>
 		</div>
 	</div>
-	<c:if test="${not empty dao.getAirport()}">
-      <c:set var="ap" scope="session" 
-         value="${dao.getAirport()}"/> 
-    </c:if>
-	<div id="footer" style="margin-top:160px;"></div>
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-	<script>
-const $searchInput = document.querySelector("[name=departure]");
-const $searchInput1 = document.querySelector("[name=arrival]");
-const $wordList = document.querySelector(".wordList");
-const $wordList1 = document.querySelector(".wordList1");
-
-var tplace = [
-	["대한민국","서울"],["대한민국","부산"],["대한민국","인천"],["영국","런던"],["미국","뉴욕"],
-	["미국","워싱턴"],["미국","LA"],["인도","뉴델리"],["프랑스","파리"]
-	]
-var show = ""
-tplace.forEach(function(e){
-	show += "<div class='des'>"+e[1]+", "+e[0]+"</div>"
-})
-$wordList.innerHTML = show
-var tplace1 = [
-	["대한민국","서울"],["대한민국","부산"],["대한민국","인천"],["영국","런던"],["미국","뉴욕"],
-	["미국","워싱턴"],["미국","LA"],["인도","뉴델리"],["프랑스","파리"]
-	]
-var show1 = ""
-tplace1.forEach(function(a){
-	show1 += "<div class='arv'>"+a[1]+", "+a[0]+"</div>"
-})
-$wordList1.innerHTML = show1
-
-$searchInput.onkeyup=a
-$searchInput1.onkeyup=b
-
-$searchInput.onblur=function(){
-	if(event.relatedTarget === null) {
-		$wordList.style.display="none"
-	}
-}
-$searchInput1.onblur=function(){
-	if(event.relatedTarget === null) {
-		$wordList1.style.display="none"
-	}
-}
-var place = document.querySelectorAll(".des")
-
-place.forEach(function(d){
-	for(var i=0;i<place.length;i++){
-		place[i].onclick=function(){
-			document.querySelector("[name=departure]").value = this.innerText
-			$wordList.style.display="none"
-		}
-	}
-})
-var place1 = document.querySelectorAll(".arv")
-place1.forEach(function(d){
-	for(var i=0;i<place.length;i++){
-		place1[i].onclick=function(){
-			document.querySelector("[name=arrival]").value = this.innerText
-			$wordList1.style.display="none"
-		}
-	}
-})
-function a(){
-	if(document.querySelector("[name=departure]").value.length==0){
-		$wordList.style.display="none"
-	}else{
-		$wordList.style.display="inline"
-	}
-}
-function b(){
-	if(document.querySelector("[name=arrival]").value.length==0){
-		$wordList1.style.display="none"
-	}else{
-		$wordList1.style.display="inline"
-	}
-}
-
-function ch2pattern(ch) {
-  // 사용자가 초성만 입력한 경우
-  if (/[ㄱ-ㅎ]/.test(ch)) {
-    const chToBegin = {
-      ㄱ: "가".charCodeAt(0),
-      ㄲ: "까".charCodeAt(0),
-      ㄴ: "나".charCodeAt(0),
-      ㄷ: "다".charCodeAt(0),
-      ㄸ: "따".charCodeAt(0),
-      ㄹ: "라".charCodeAt(0),
-      ㅁ: "마".charCodeAt(0),
-      ㅂ: "바".charCodeAt(0),
-      ㅃ: "빠".charCodeAt(0),
-      ㅅ: "사".charCodeAt(0),
-      ㅆ: "싸".charCodeAt(0),
-      ㅇ: "아".charCodeAt(0),
-      ㅈ: "자".charCodeAt(0),
-      ㅊ: "차".charCodeAt(0),
-      ㅋ: "카".charCodeAt(0),
-      ㅌ: "타".charCodeAt(0),
-      ㅍ: "파".charCodeAt(0),
-      ㅎ: "하".charCodeAt(0),
-    };
-    const begin = chToBegin[ch];
-    const end = begin + 587;
-    return `[${ch}\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
-  }
-  // 사용자가 초성+중성 또는 초성+중성+종성을 입력한 경우
-  else if (/[가-히]/.test(ch)) {
-    const offset = "가".charCodeAt(0);
-    const chCode = ch.charCodeAt(0) - offset;
-    // 사용자가 초성+중성을 입력한 경우
-    if (chCode % 28 <= 0) {
-      const begin = Math.floor(chCode / 28) * 28 + offset;
-      const end = begin + 27;
-      return `[\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
-    }
-    // 사용자가 초성+중성+종성을 입력한 경우
-    else return ch;
-  }
-}
-
-// 퍼지 문자열 검색을 위한 정규식 생성
-function createFuzzyMatcher(input) {
-  const pattern = input.split("").map(ch2pattern).join(".*?");
-  return new RegExp(pattern);
-}
-
-// 한글 퍼지 문자열 검색
-$searchInput.addEventListener("input", (e) => {
-  const query = e.target.value;
-  const regex = createFuzzyMatcher(query);
-  const words = $wordList.children;
-  for (let i = 0; i < words.length; i++) {
-    if (regex.test(words[i].textContent.toLowerCase())) words[i].classList.remove("hidden");
-    else words[i].classList.add("hidden");
-  }
-});
-// 한글 퍼지 문자열 검색
-$searchInput1.addEventListener("input", (e) => {
-  const query = e.target.value;
-  const regex = createFuzzyMatcher(query);
-  const words = $wordList1.children;
-  for (let i = 0; i < words.length; i++) {
-    if (regex.test(words[i].textContent.toLowerCase())) words[i].classList.remove("hidden");
-    else words[i].classList.add("hidden");
-  }
-});
-	
-	
+	<div id="asd"></div>
+<div id="footer" style="margin-top:160px;"></div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
 	$("#footer").load("footer.html")
-	
+	var place = document.querySelectorAll(".des")
+	var ddateOb = document.querySelector("[name=ddate]")
+	var adateOb = document.querySelector("[name=adate]")
 	var swch = document.querySelector("[name=switch]")
 	var depart = document.querySelector("[name=departure]")
 	var arriv = document.querySelector("[name=arrival]")
+	var mBtn1Ob = document.querySelector(".mBtn1")
+	var pBtn1Ob = document.querySelector(".pBtn1")
+	var adtOb = document.querySelector(".adt")
+	var d = new Date()
+	var gradenumOb = document.querySelector("[name=gradenum]")
+	var sendgAnOb = document.querySelector(".sendgAn")
+	var optOb = document.querySelector(".opt")
+	var tripArr = document.querySelectorAll("[name=trip]")
+	
+	// 출발지/도착지 반전
 	swch.onclick=function(){
 		var departSave = depart.value
 		depart.value = arriv.value
 		arriv.value = departSave
 	}
 
+	// 데이트피커
 	$(function(){
 	    $("[name=ddate], [name=adate]").datepicker({
 	    	  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
@@ -427,18 +275,15 @@ $searchInput1.addEventListener("input", (e) => {
         });    
 	});
 	
-	var ddateOb = document.querySelector("[name=ddate]")
-	var adateOb = document.querySelector("[name=adate]")
-	
-	var d = new Date()
+	// 날짜 디폴트
 	ddateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
 	adateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
 	
+	// 오는날이 가는날보다 빠를때
 	ddateOb.onchange=function(){
 		const ddate = new Date(ddateOb.value)
 		console.log(ddateOb.value)		
 		if(ddateOb.value >= adateOb.value){
-			alert("도착일이 출발일보다 빠를 수 없습니다.")
 			adateOb.value = ddateOb.value 
 		}
 	}	
@@ -446,20 +291,16 @@ $searchInput1.addEventListener("input", (e) => {
 		const adate = new Date(adateOb.value)
 		console.log(adateOb.value)	
 		if(ddateOb.value >= adateOb.value){
-			alert("도착일이 출발일보다 빠를 수 없습니다.")
 			adateOb.value = ddateOb.value 
 		}	
 	}
 	
-	var mBtn1Ob = document.querySelector(".mBtn1")
-	var mBtn2Ob = document.querySelector(".mBtn2")
-	var pBtn1Ob = document.querySelector(".pBtn1")
-	var pBtn2Ob = document.querySelector(".pBtn2")
-	var adtOb = document.querySelector(".adt")
-	var adolOb = document.querySelector(".adol")
-	
+	// 등급 및 인원 디폴트
 	var cnt1 = 1;
-	var cnt2 = 0;
+	gradenumOb.value = "등급: "+$(".opt option:selected").text()
+	gradenumOb.value  += ", "+cnt1+"명"
+	
+	// 등급 및 인원 선택
 	mBtn1Ob.onclick=minus1
 	function minus1(){
 		if(cnt1 >= 2){
@@ -479,28 +320,6 @@ $searchInput1.addEventListener("input", (e) => {
 			alert("성인은 1명 아래로 내려갈 수 없습니다.")
 		}
 	}
-
-	mBtn2Ob.onclick=minus2
-	function minus2(){
-		if(cnt2 >= 1){
-			cnt2--
-			if(cnt2 <= 0){
-				mBtn2Ob.style.background="#cccccc"
-				mBtn2Ob.style.color="#444444"
-				adolOb.innerText=cnt2
-				cnt2++
-			}else{
-				mBtn2Ob.style.background="white"
-				mBtn2Ob.style.color="steelblue"
-				if(cnt2 >= 1){
-					adolOb.innerText=cnt2
-				}
-			}
-		}else{
-			alert("유/소아는 0명 아래로 내려갈 수 없습니다.")
-		}
-	}
-	
 	pBtn1Ob.onclick=function(){
 		cnt1++
 		if(cnt1 >= 2){
@@ -509,29 +328,14 @@ $searchInput1.addEventListener("input", (e) => {
 		}
 		adtOb.innerText=cnt1
 	}
-	pBtn2Ob.onclick=function(){
-		cnt2++
-		if(cnt2 >= 1){
-			mBtn2Ob.style.background="white"
-			mBtn2Ob.style.color="steelblue"
-		}
-		adolOb.innerText=cnt2
-	}
-	
-	var gradenumOb = document.querySelector("[name=gradenum]")
-	var sendgAnOb = document.querySelector(".sendgAn")
-	var optOb = document.querySelector(".opt")
-
 	gradenumOb.onclick=function(){
 		document.querySelector(".balloon").style.display="block"
 	}
 	sendgAnOb.onclick=function(){
-		gradenumOb.value = "등급: "+optOb.value
-		gradenumOb.value  += ", 성인: "+cnt1+"명"
-		if(cnt2 >= 1) gradenumOb.value  += ", 유소아: "+cnt2+"명"
+		gradenumOb.value = "등급: "+$(".opt option:selected").text()
+		gradenumOb.value  += ", "+cnt1+"명"
 		document.querySelector(".balloon").style.display="none"
 	}
-	
 	gradenumOb.onblur=function(){
 		if(event.relatedTarget == null) {
 			document.querySelector(".balloon").style.display="none"
@@ -541,39 +345,178 @@ $searchInput1.addEventListener("input", (e) => {
 		document.querySelector(".balloon").style.display="none"
 	}
 	
-	var tripArr = document.querySelectorAll("[name=trip]")
+	// 왕복/편도 선택
 	var adateB = false
-	
 	for(var idx=0;idx<tripArr.length;idx++){
 		tripArr[idx].onclick=function(){
 			if(this.value == 1){ 
 				adateB = true
-				console.log(adateB)
-				document.querySelector("[name=adate]").readOnly=adateB
-				document.querySelector("[name=adate]").style.border="1px solid #252525"
-				document.querySelector("[name=adate]").style.background="#dddddd"
-				document.querySelector("[name=adate]").style.height="32px"
-				document.querySelector("[name=adate]").style.width="127px"
+				adateOb.readOnly=adateB
+				adateOb.value=""
+				adateOb.style.border="1px solid #252525"
+				adateOb.style.background="#dddddd"
+				adateOb.style.height="35px"
+				adateOb.style.width="125px"
 				$("[name=adate]").datepicker('disable');
-				console.log(this.value)
-				console.log(document.querySelector("[name=adate]").readOnly)
 			}else{
 				adateB = false
-				console.log(adateB)
-				document.querySelector("[name=adate]").readOnly=adateB
-				document.querySelector("[name=adate]").style.background="white"
+				adateOb.readOnly=adateB
+				adateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
+				adateOb.style.background="white"
 				$("[name=adate]").datepicker('enable');
-				console.log(this.value)
-				console.log(document.querySelector("[name=adate]").readOnly)
+			}
+		}
+	}
+	// 공항코드 불러오기
+	var searchBtnOb = document.querySelector("[name=searchBtn]")
+	// 도착지(공백삭제)
+	var arvP = ""
+	// 도착지(공백삭제)
+	var depP = ""
+	var dep0 = "" // 나라
+	// 도착지 항공 코드
+	var arvC = ""
+	// 출발지 항공 코드
+	var depC = ""
+	// 출발지 선택
+	var dcontainer = document.querySelector(".wordList")
+	depart.onkeyup=function(){
+		var xhr = new XMLHttpRequest()
+		var qstr = "?apnation="+depart.value+"&apcity="+depart.value
+		console.log(qstr)
+		xhr.open("get","b01_search.jsp"+qstr,true)
+		xhr.send()
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState == 4 && xhr.status == 200 && depart.length!=0){
+				dcontainer.style.display="block"
+				dcontainer.innerHTML = xhr.responseText
+				call()
+				if(depart.value==""){
+					dcontainer.style.display="none"
+				}
+			}
+		}
+	}
+	// 도착지 선택
+	var d1container = document.querySelector(".wordList1")
+	arriv.onkeyup=function(){
+		var xhr = new XMLHttpRequest()
+		var qstr = "?apnation="+arriv.value+"&apcity="+arriv.value
+		console.log(qstr)
+		xhr.open("get","b01_search.jsp"+qstr,true)
+		xhr.send()
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState == 4 && xhr.status == 200 && depart.length!=0){
+				d1container.style.display="block"
+				d1container.innerHTML = xhr.responseText
+				call1()
+				if(arriv.value==""){
+					d1container.style.display="none"
+				}
+			}
+		}
+	}
+	function call(){
+		var p = document.querySelectorAll(".pList")
+		p.forEach(function(d){
+			for(var i=0;i<p.length;i++){
+				p[i].onclick=function(){
+					depart.value = this.innerText
+					let da = depart.value
+					let darr = da.split(',')
+					depP = darr[1].trim()
+					dep0 = darr[0]
+					var qstr = "?sch="+depP
+					var xhr = new XMLHttpRequest()
+					xhr.open("get","b02_getCode.jsp"+qstr,true)
+					xhr.send()
+					xhr.onreadystatechange=function(){
+						if(xhr.readyState == 4 && xhr.status == 200){
+							depC = xhr.responseText.trim()
+							
+						}
+					}
+					dcontainer.style.display="none";
+				}
+			}
+		})
+	}
+	function call1(){
+		var p = document.querySelectorAll(".pList")
+		p.forEach(function(d){
+			for(var i=0;i<p.length;i++){
+				p[i].onclick=function(){
+					arriv.value = this.innerText
+					let a = arriv.value
+					let aarr = a.split(',')	
+					arvP = aarr[1].trim()
+					var qstr = "?sch="+arvP
+					var xhr = new XMLHttpRequest()
+					xhr.open("get","b02_getCode.jsp"+qstr,true)
+					xhr.send()
+					xhr.onreadystatechange=function(){
+						if(xhr.readyState == 4 && xhr.status == 200){
+							arvC = xhr.responseText.trim()
+							arvS = aarr[0]
+						}
+					}
+					d1container.style.display="none";
+				}
+			}
+		})
+	}
+	depart.onblur=function(){
+		if(event.relatedTarget === null) {
+			dcontainer.style.display="none"
+		}
+	}
+	arriv.onblur=function(){
+		if(event.relatedTarget === null) {
+			d1container.style.display="none"
+		}
+	}
+	
+	// 항공권 검색
+	searchBtnOb.onclick=function(){
+		// 왕복
+		if(tripArr[0].value == 0){
+			if(depC == ""){
+				depart.focus()
+				// 입력해달라는 내용
+			}else{
+				if(arriv.value == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(arvC == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					console.log(qstr)
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					console.log(qstr)
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		// 편도
+		}else{
+			if(depC == ""){
+				depart.focus()
+				// 입력해달라는 내용
+			}else{
+				if(arriv.value == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(arvC == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					location.href="b2000_1_check.jsp"+qstr
+				}
 			}
 		}
 	}
 	
-	
-	
-	
-	
-
 </script>
 </body>
 </html>
