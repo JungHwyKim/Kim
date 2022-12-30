@@ -29,3 +29,4 @@ INSERT INTO TICKETOPTION values('LAXSFO22122123bs1','LAXSFO22122123',200000,1000
 
 SELECT * FROM airmember;
 UPDATE airmember SET cardinfo ='개인 내국인 롯데카드 1111222233334444 25 12 임창균 2001-08-11 23 m' WHERE name='임창균';
+UPDATE airmember SET mileage = 47000 WHERE name='임창균';

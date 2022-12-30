@@ -27,7 +27,7 @@ a:link {
 </head>
 <body>
 <main class="container">
-<%@ include file="/header.jsp" %>
+<jsp:include page="/header.jsp"></jsp:include>
 <h2>선택한 항공 스케줄</h2>
 <%@ include file="4001_scheduleDetail.jsp" %>
 <div class="row">
@@ -134,7 +134,7 @@ a:link {
 <br><br>
 
 <div class="rounded-2 bg-info row">
-<div class="col text-center">총 요금 ${costgo+costback }원</div>
+<div class="col text-center align-self-center ">총 요금 ${costgo+costback }원</div>
 <div class="col">
 	<div class="row">
 		<div class="col">카드할인  -</div>
@@ -143,7 +143,7 @@ a:link {
 		<div class="col">마일리지 -</div>
 		<div class="col" id="finalmileage">0</div></div>
 </div>
-<div class="col text-center fs-5">최종결제금액<h2 class="text-primary" id="finalprice">${costgo+costback }</h2>원</div>
+<div class="col text-center fs-5">최종결제금액<span class="text-primary h2" id="finalprice"> ${costgo+costback } </span>원</div>
 </div>
 <br>
 <label><input class="form-check-input" type="checkbox" onchange="bringcardinfo(this)">카드정보 불러오기</label>
@@ -267,7 +267,6 @@ function paynow(){
 	let form = document.querySelector('form');
 	let filset = document.querySelectorAll('fieldset.showswitchtarget input,fieldset.showswitchtarget select');
 	form.classList.remove('was-validated');
-	console.log(filset)
 	filset.forEach(function(self){
 		if(self.required==true){
 			self.required=false
@@ -279,8 +278,12 @@ function paynow(){
 	
 }
 
-var originalPrice=${costgo+costback }	
-var myMileage= 0${reg2.mileage }
+var originalPrice=${costgo+costback }	;
+var myMileage= '${reg2.mileage}';
+if(myMileage==''){myMileage=0;}else{myMileage=Number(myMileage)}
+
+
+			console.log('js외부 '+myMileage)
 
 </script>
 <script type="text/javascript" src="4000_switchInfo.js">/*버튼눌러서 가는편 오는편 바꾸기*/</script>
