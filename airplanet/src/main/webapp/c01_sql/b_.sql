@@ -1,6 +1,7 @@
 SELECT * FROM airport;
 SELECT * FROM airline;
-UPDATE AIRLINE SET airlinelogo='/b01_img/ke.PNG' WHERE AIRLINECODE ='KE';
+UPDATE AIRLINE SET 
+='/b01_img/ke.PNG' WHERE AIRLINECODE ='KE';
 INSERT INTO airline VALUES ('RS','에어서울','/b01_img/logo_airseoul.jpg');
 SELECT * FROM flight;
 INSERT INTO flight values('ICNLAX22122214','RS','ICN',to_date('2022-12-22 14:00','YYYY-MM-DD HH24:mi'),'LAX',9,700000);
