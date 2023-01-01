@@ -48,7 +48,9 @@
 </head>
 <body>
 	<div class="colFlex">
-		<div style="margin:auto;"><img src="/b01_img/airplanet_logo.png" width="300px" height="120px" onclick="location.href='/a02_search/2000_main.jsp'" class="logo"/></div>
+		<div style="margin:auto;">
+			<img src="/b01_img/airplanet_logo.png" width="300px" height="120px" onclick="location.href='/a02_search/2000_main.jsp'" class="logo"/>
+		</div>
 		<div><br></div>
 		<div class="colFlex" style="margin:auto;border:1px solid steelblue;width:40%;height:430px;border-radius:10px;align-items:center;">
 			<form style="width:60%;" name="signin" action="/a01_member/a03_signinCk.jsp" method="get">
@@ -110,6 +112,8 @@ var idD = document.querySelector(".idcontainer")
 var pwOb = document.querySelector("[name=pass]")
 var pwD = document.querySelector(".pwcontainer")
 var btnOb = document.querySelector(".btn")
+var saveid = document.querySelector("[name=saveid]")
+
 
 idOb.onblur=function(){
 	if(idOb.value!=""){
@@ -149,10 +153,61 @@ function login(){
 		idOb.style.borderColor="#cccccc"
 		pwD.innerText=""
 		pwOb.style.borderColor="#cccccc"
+		// 아이디 저장(쿠키)
+		if(saveid.checked){
+			saveIdCookie()
+		}else{
+			deleteIdCookie()
+		}
+		
 		document.signin.submit();
 		return;
 	}
 }
+
+// 저장된 아이디(쿠키)가 있을 때
+var cookiee = document.cookie.split(";")
+	//console.log(cookiee)
+for(var i=0;i<cookiee.length;i++){
+var nv = cookiee[i].split("=")
+	//console.log(cookiee[i])
+	console.log(nv)
+	for(var j=0;j<nv.length;j++){
+		console.log(nv[0].trim())
+		if(nv[0].trim() == "idCookie"){
+			idOb.value=nv[1].trim()
+			saveid.checked="true"
+		}
+	}
+}
+
+// 아이디 쿠키 생성
+function saveIdCookie(){
+	var date = new Date()
+	date.setDate(date.getDate() + 7)
+	var idCookie = ""
+	idCookie += "idCookie="+idOb.value+";"
+	idCookie += "expires=" + date.toUTCString()
+	document.cookie = idCookie;
+}
+function deleteIdCookie(){
+	var date = new Date()
+	date.setDate(date.getDate() - 1)
+	var idCookie = ""
+	idCookie += "idCookie="+idOb.value+";"
+	idCookie += "expires=" + date.toUTCString()
+	document.cookie = idCookie;
+}
+
+
+
+
+
+
+
+
+
+
 $("#footers").load("/a02_search/footer.html");
 
 

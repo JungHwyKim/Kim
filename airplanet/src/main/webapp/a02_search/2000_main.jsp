@@ -89,25 +89,28 @@
 	 top:-10px;
 	 left:200px;  
 }
-.pBtn1, .pBtn2{
+.pBtn1{
 	border-radius:50%;
 	border:2px solid #cccccc;
-	width:40px;
-	height:40px;
-	font-size:xx-large;
+	width:50px;
+	height:50px;
+	font-size:30px;
 	color:steelblue;
 }
-.mBtn1,.mBtn2{
+.mBtn1{
 	background:#cccccc;
 	color:#444444;
 	border-radius:50%;
 	border:2px solid #cccccc;
-	width:40px;
-	height:40px;
-	font-size:xx-large;
+	width:50px;
+	height:50px;
+	font-size:30px;
 }
-.mBtn1:active, .pBtn1:active,.mBtn2:active, .pBtn2:active{
+.mBtn1:active, .pBtn1:active{
 	border:2px solid steelblue;
+}
+.adt{
+	padding:0 5% 0 5%;
 }
 .headerRL{
 	width:120px;
@@ -123,7 +126,9 @@
 </head>
 <body>
 	<div class="col">
-	<jsp:include page="/header.jsp" flush="true"/> 
+	<div style="margin-left:10%;width:80%;">
+		<jsp:include page="/header.jsp" flush="true"/> 	
+	</div>
 		<div class="colD">
 			<div style="margin-top:100px;"><span style="font-size:70px;font-weight:800;color:white;">여행을 시작하세요</span></div>
 			<div style="border:1px solid white;border-radius:20px;height:250px;background:rgba(250,250,250,0.9)">
@@ -168,14 +173,15 @@
 										<option value="fs">일등석</option>
 									</select>
 								</div>
-								<div style="margin-left:30px;padding:10px 0 10px 0;font-size:small;font-weight:600;color:white;">성인</div>
-								<div style="display:flex;margin-left:30px;">
+								<div style="margin-left:30px;padding:10px 0 10px 0;font-size:small;font-weight:600;color:white;">인원</div>
+								<div style="display:flex;margin:3% 0 0 23%;">
 									<div><input type="button" class="mBtn1" value="&#8722"></div>
 									<div class="adt" style="margin:12px 15px 0 15px;color:white;">1</div>
 									<div><input type="button" class="pBtn1" value="&#43"></div>
-									<div style="margin:12px 10px 0 10px;color:white;">만 16세 이상</div>
 								</div>
-								<div style="margin:15px 0 0 200px;"><input class="sendgAn" type="button" style="width:70px;height:25px;background:rgba(250,250,250,0.7);border-radius:5px;border:none;" value="완료"></div>
+								<div style="margin:17% 0 0 30px;">
+									<input class="sendgAn" type="button" style="width:90%;height:25px;background:rgba(250,250,250,0.7);border-radius:5px;border:none;" value="완료">
+								</div>
 							</div>
 						 </div>
 					</div>
@@ -346,6 +352,7 @@
 	}
 	
 	// 왕복/편도 선택
+	var tripD = ""
 	var adateB = false
 	for(var idx=0;idx<tripArr.length;idx++){
 		tripArr[idx].onclick=function(){
@@ -357,12 +364,14 @@
 				adateOb.style.background="#dddddd"
 				adateOb.style.height="35px"
 				adateOb.style.width="125px"
+				tripD = "1"
 				$("[name=adate]").datepicker('disable');
 			}else{
 				adateB = false
 				adateOb.readOnly=adateB
 				adateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
 				adateOb.style.background="white"
+				tripD = "0"
 				$("[name=adate]").datepicker('enable');
 			}
 		}
@@ -380,7 +389,8 @@
 	var depC = ""
 	// 출발지 선택
 	var dcontainer = document.querySelector(".wordList")
-	depart.onkeyup=function(){
+	depart.oninput=dAjax
+	function dAjax(){
 		var xhr = new XMLHttpRequest()
 		var qstr = "?apnation="+depart.value+"&apcity="+depart.value
 		console.log(qstr)
@@ -397,9 +407,11 @@
 			}
 		}
 	}
+	
 	// 도착지 선택
 	var d1container = document.querySelector(".wordList1")
-	arriv.onkeyup=function(){
+	arriv.oninput=aAjax
+	function aAjax(){
 		var xhr = new XMLHttpRequest()
 		var qstr = "?apnation="+arriv.value+"&apcity="+arriv.value
 		console.log(qstr)
@@ -410,12 +422,14 @@
 				d1container.style.display="block"
 				d1container.innerHTML = xhr.responseText
 				call1()
+				console.log("asdasdasd")
 				if(arriv.value==""){
 					d1container.style.display="none"
 				}
 			}
 		}
 	}
+	
 	function call(){
 		var p = document.querySelectorAll(".pList")
 		p.forEach(function(d){
@@ -436,6 +450,7 @@
 							
 						}
 					}
+					console.log("qweqweqweq")
 					dcontainer.style.display="none";
 				}
 			}
@@ -460,6 +475,7 @@
 							arvS = aarr[0]
 						}
 					}
+					
 					d1container.style.display="none";
 				}
 			}
@@ -475,25 +491,65 @@
 			d1container.style.display="none"
 		}
 	}
+	console.log(depC)
+	
+	
+	// 출발지 쿠키 생성
+	function departCookie(){
+		var date = new Date()
+		date.setDate(date.getDate() + 7)
+		var dCookie = ""
+		dCookie += "depart="+depart.value+";"
+		dCookie += "expires=" + date.toUTCString()
+		var codeCookie = ""
+		codeCookie += "departcode="+depC+";"
+		codeCookie += "expires=" + date.toUTCString()
+		document.cookie = dCookie;
+		document.cookie = codeCookie;
+	}
+	// 도착지 쿠키 생성
+	function arriveCookie(){
+		var date = new Date()
+		date.setDate(date.getDate() + 7)
+		var aCookie = ""
+		aCookie += "arrive="+arriv.value+";"
+		aCookie += "expires=" + date.toUTCString()
+		var codeCookie = ""
+		codeCookie += "arrivecode="+arvC+";"
+		codeCookie += "expires=" + date.toUTCString()
+		document.cookie = aCookie;
+		document.cookie = codeCookie;
+	}
+	
+	
 	
 	// 항공권 검색
 	searchBtnOb.onclick=function(){
 		// 왕복
-		if(tripArr[0].value == 0){
+		if(tripD == 0){
 			if(depC == ""){
 				depart.focus()
 				// 입력해달라는 내용
+				console.log("1")
+				console.log(depC)
+				console.log(arvC)
 			}else{
 				if(arriv.value == ""){
 					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					call()
+					call1()
 					location.href="b2000_1_check.jsp"+qstr
 				}else if(arvC == ""){
 					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					console.log(qstr)
+					departCookie()
+					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					console.log(qstr)
+					departCookie()
+					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
 				}
 			}
@@ -502,20 +558,72 @@
 			if(depC == ""){
 				depart.focus()
 				// 입력해달라는 내용
+				console.log("2")
 			}else{
 				if(arriv.value == ""){
 					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
 				}else if(arvC == ""){
 					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
 				}
 			}
 		}
 	}
+	
+	var a = ""
+	// 출발지(쿠키)
+	var cookiee = document.cookie.split(";")
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "depart"){
+				depart.value = nv[1].trim()
+				a = nv[1].trim()
+			}
+		}
+	}
+	var b = ""
+	// 도착지(쿠키)
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "arrive"){
+				arriv.value = nv[1].trim()
+				b = nv[1].trim()
+			}
+		}
+	}
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "departcode"){
+				depC = nv[1].trim()
+			}
+		}
+	}
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "arrivecode"){
+				arvC = nv[1].trim()
+			}
+		}
+	}
+	
+	console.log(depC)
+	console.log(arvC)
+	
+	
 	
 </script>
 </body>
