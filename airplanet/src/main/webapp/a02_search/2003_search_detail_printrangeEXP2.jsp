@@ -31,10 +31,10 @@ String city = (String) session.getAttribute("city");
 	<jsp:useBean id="dao1" class="dao.B_search_range"/>
 	<jsp:useBean id="sch1" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch1"/>
-	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation(city) } ${sch1.setClassStr("ec") }
+	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("FUK") } ${sch1.setClassStr("ec") }
 	<%-- <c:if test="${empty param.inputLeft }"></c:if><c:if test="${empty param.inputRight }"></c:if> --%>
-	${sch1.setFrRange(param.inputLeft) }
-	${sch1.setToRange(param.inputRight) }
+	${sch1.setFrRange(0) }
+	${sch1.setToRange(86400) }
 		
 	<c:forEach var="f1" items="${dao1.getRangeticket(sch1)}">
 
@@ -42,10 +42,10 @@ String city = (String) session.getAttribute("city");
 	<jsp:useBean id="dao2" class="dao.B_search_range"/>
 	<jsp:useBean id="sch2" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch2"/>
-	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation(city) } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
+	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("FUK") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
 	<%-- <c:if test="${empty param.inputLeft2 }"></c:if><c:if test="${empty param.inputRight2 }"></c:if> --%>
-	${sch2.setFrRange(param.inputLeft2) }
-	${sch2.setToRange(param.inputRight2) }
+	${sch2.setFrRange(0) }
+	${sch2.setToRange(86400) }
 	<c:forEach var="f2" items="${dao2.getRangeticket(sch2)}">
 	
 		<div class="row">	
@@ -152,6 +152,7 @@ var returnJson = []
 flightOb1.forEach(function(fa1){
 	flightOb2.forEach(function(fa2){
 		var rt={}
+		rt.flightnumber1 = fa1.flightnumber
 		rt.dDate1 = fa1.departDate
 		rt.fHour1 = fa1.flightHours
 		rt.airlinelogo1 = fa1.airlinelogo
@@ -161,7 +162,8 @@ flightOb1.forEach(function(fa1){
 		rt.apTime1 = fa1.arrivePacifictime
 		rt.aDate1 = new Date(fa1.departDate.getFullYear(),fa1.departDate.getMonth(),fa1.departDate.getDate(),fa1.departDate.getHours(),fa1.departDate.getMinutes())
 		rt.aDate1.setMinutes(rt.aDate1.getMinutes()+(fa1.departPacifictime-fa1.arrivePacifictime+fa1.flightHours)*60)
-
+		
+		rt.flightnumber2 = fa2.flightnumber
 		rt.dDate2= fa2.departDate
 		rt.fHour2= fa2.flightHours
 		rt.airlinelogo2=fa2.airlinelogo
@@ -202,5 +204,16 @@ returnJson.forEach(function(rt){
 	i++;
 })
 
+var i2=0;
+var secondaryArr = document.querySelectorAll(".btn-secondary")
+secondaryArr.forEach(function(sec,idx){
+	sec.onclick= function(){
+		var qstr = "?flightNumber="+returnJson[idx].flightnumber1+"&flightNumber="+returnJson[idx].flightnumber2+"&departDate="+returnJson[idx].dDate1+
+				"&departDate="+returnJson[idx].dDate2+"&arriveDate="+returnJson[idx].aDate1+"&arriveDate="+returnJson[idx].aDate2+
+				"&departAirportcode="+returnJson[idx].dCode1+"&departAirportcode="+returnJson[idx].dCode2+"&arriveAirportcode="+returnJson[idx].aCode1+
+				"&arriveAirportcode="+returnJson[idx].aCode2+"&airlinelogo="+returnJson[idx].airlinelogo1+"&airlinelogo="+returnJson[idx].airlinelogo2
+		location.href="2999_search_connection.jsp"+qstr
+	}
+})
 </script>
 </html>
