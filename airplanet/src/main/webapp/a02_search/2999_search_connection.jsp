@@ -17,9 +17,13 @@
 
 </head>
 <body>
-<%--
+${param.flightNumber }
+${param.departDate }
+${param.arriveDate }
+${param.departAirportcode }
+${param.arriveAirportcode }
+${param.airlinelogo }
 
- --%>
 
 </body>
 <script type="text/javascript">

@@ -31,10 +31,10 @@ String city = (String) session.getAttribute("city");
 	<jsp:useBean id="dao1" class="dao.B_search_range"/>
 	<jsp:useBean id="sch1" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch1"/>
-	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation(city) } ${sch1.setClassStr("ec") }
+	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("FUK") } ${sch1.setClassStr("ec") }
 	<%-- <c:if test="${empty param.inputLeft }"></c:if><c:if test="${empty param.inputRight }"></c:if> --%>
-	${sch1.setFrRange(param.inputLeft) }
-	${sch1.setToRange(param.inputRight) }
+	${sch1.setFrRange(0) }
+	${sch1.setToRange(86400) }
 		
 	<c:forEach var="f1" items="${dao1.getRangeticket(sch1)}">
 
@@ -42,10 +42,10 @@ String city = (String) session.getAttribute("city");
 	<jsp:useBean id="dao2" class="dao.B_search_range"/>
 	<jsp:useBean id="sch2" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch2"/>
-	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation(city) } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
+	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("FUK") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
 	<%-- <c:if test="${empty param.inputLeft2 }"></c:if><c:if test="${empty param.inputRight2 }"></c:if> --%>
-	${sch2.setFrRange(param.inputLeft2) }
-	${sch2.setToRange(param.inputRight2) }
+	${sch2.setFrRange(0) }
+	${sch2.setToRange(86400) }
 	<c:forEach var="f2" items="${dao2.getRangeticket(sch2)}">
 	
 		<div class="row">	
@@ -59,7 +59,7 @@ String city = (String) session.getAttribute("city");
 				  				<div class="row">
 				  					<div class="col-4 topleft dDate1"></div>
 				  					<div class="col-4 topcenter fHour1"></div>
-				  					<div class="col-4 topright aDate1">도착시간</div>
+				  					<div class="col-4 topright aDate1"></div>
 				  				</div>
 				  				<div class="row">
 				  					<div class="col-4 botleft dCode1"></div>
@@ -74,7 +74,7 @@ String city = (String) session.getAttribute("city");
 				  				<div class="row">
 				  					<div class="col-4 topleft dDate2"></div>
 				  					<div class="col-4 topcenter fHour2"></div>
-				  					<div class="col-4 topright aDate2">도착시간</div>
+				  					<div class="col-4 topright aDate2"></div>
 				  				</div>
 				  				<div class="row">
 				  					<div class="col-4 botleft dCode2"></div>
@@ -137,41 +137,42 @@ var fHour1 = document.querySelectorAll(".fHour1")
 var airlinelogo1 = document.querySelectorAll(".airlinelogo1")
 var dCode1 = document.querySelectorAll(".dCode1")
 var aCode1 = document.querySelectorAll(".aCode1")
+var aDate1 = document.querySelectorAll(".aDate1")
 
 var dDate2 = document.querySelectorAll(".dDate2")
 var fHour2 = document.querySelectorAll(".fHour2")
 var airlinelogo2 = document.querySelectorAll(".airlinelogo2")
 var dCode2 = document.querySelectorAll(".dCode2")
 var aCode2 = document.querySelectorAll(".aCode2") 
+var aDate2 = document.querySelectorAll(".aDate2")
+
 var totprice = document.querySelectorAll(".totprice")
 
 var returnJson = []
 flightOb1.forEach(function(fa1){
 	flightOb2.forEach(function(fa2){
 		var rt={}
-		rt.dDate1 = fa1.departDate.toLocaleString()
+		rt.flightnumber1 = fa1.flightnumber
+		rt.dDate1 = fa1.departDate
 		rt.fHour1 = fa1.flightHours
 		rt.airlinelogo1 = fa1.airlinelogo
 		rt.dCode1 = fa1.departAirportcode
 		rt.aCode1 = fa1.arrivetAirportcode
 		rt.dpTime1 = fa1.departPacifictime
 		rt.apTime1 = fa1.arrivePacifictime
-		// 도착 시간 어떻게 할것인지..
-		//rt.aDate1 = fa1.departDate
-		//rt.aDate1.setMinutes(rt.aDate1.getMinutes()+(fa1.departPacifictime-fa1.arrivePacifictime+fa1.flightHours)*60)
+		rt.aDate1 = new Date(fa1.departDate.getFullYear(),fa1.departDate.getMonth(),fa1.departDate.getDate(),fa1.departDate.getHours(),fa1.departDate.getMinutes())
+		rt.aDate1.setMinutes(rt.aDate1.getMinutes()+(fa1.departPacifictime-fa1.arrivePacifictime+fa1.flightHours)*60)
 		
-		//console.log(rt.dDate1)
-		//console.log(rt.aDate1)
-
-		rt.dDate2= fa2.departDate.toLocaleString()
+		rt.flightnumber2 = fa2.flightnumber
+		rt.dDate2= fa2.departDate
 		rt.fHour2= fa2.flightHours
 		rt.airlinelogo2=fa2.airlinelogo
 		rt.dCode2 = fa2.departAirportcode
 		rt.aCode2 = fa2.arrivetAirportcode
 		rt.dpTime2 = fa2.departPacifictime
 		rt.pTime2 = fa2.arrivePacifictime
-		rt.aDate2 = 
-			
+		rt.aDate2 = new Date(fa2.departDate.getFullYear(),fa2.departDate.getMonth(),fa2.departDate.getDate(),fa2.departDate.getHours(),fa2.departDate.getMinutes())
+		rt.aDate2.setMinutes(rt.aDate2.getMinutes()+(fa2.departPacifictime-fa2.arrivePacifictime+fa2.flightHours)*60)	
 		rt.totprice = fa1.standardFee + fa1.classFee+fa2.standardFee + fa2.classFee		
 		i++;
 		returnJson.push(rt)
@@ -186,20 +187,33 @@ returnJson.sort(function(left,right){
 // 화면에 출력	
 var i=0;
 returnJson.forEach(function(rt){
-	dDate1[i].innerText= rt.dDate1
+	dDate1[i].innerText= rt.dDate1.toLocaleString()
 	fHour1[i].innerText= parseInt(rt.fHour1)+"시간 "+(rt.fHour1%1)*60+"분"
 	airlinelogo1[i].src= rt.airlinelogo1
 	dCode1[i].innerText = rt.dCode1
 	aCode1[i].innerText = rt.aCode1
+	aDate1[i].innerText = rt.aDate1.toLocaleString()
 	
-	dDate2[i].innerText= rt.dDate2
+	dDate2[i].innerText= rt.dDate2.toLocaleString()
 	fHour2[i].innerText= parseInt(rt.fHour2)+"시간 "+(rt.fHour2%1)*60+"분"
 	airlinelogo2[i].src=rt.airlinelogo2
 	dCode2[i].innerText = rt.dCode2
 	aCode2[i].innerText = rt.aCode2
+	aDate2[i].innerText = rt.aDate2.toLocaleString()
 	totprice[i].innerText = rt.totprice
 	i++;
 })
 
+var i2=0;
+var secondaryArr = document.querySelectorAll(".btn-secondary")
+secondaryArr.forEach(function(sec,idx){
+	sec.onclick= function(){
+		var qstr = "?flightNumber="+returnJson[idx].flightnumber1+"&flightNumber="+returnJson[idx].flightnumber2+"&departDate="+returnJson[idx].dDate1+
+				"&departDate="+returnJson[idx].dDate2+"&arriveDate="+returnJson[idx].aDate1+"&arriveDate="+returnJson[idx].aDate2+
+				"&departAirportcode="+returnJson[idx].dCode1+"&departAirportcode="+returnJson[idx].dCode2+"&arriveAirportcode="+returnJson[idx].aCode1+
+				"&arriveAirportcode="+returnJson[idx].aCode2+"&airlinelogo="+returnJson[idx].airlinelogo1+"&airlinelogo="+returnJson[idx].airlinelogo2
+		location.href="2999_search_connection.jsp"+qstr
+	}
+})
 </script>
 </html>
