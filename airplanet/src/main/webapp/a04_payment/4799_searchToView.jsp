@@ -80,7 +80,7 @@ forSearch2.setFlightNumber(flist.get(flist.size()-1).getFlightNumber());
 forSearch2.setOptionCode(flist.get(flist.size()-1).getClassStr());
 forSearch2.setStock(1);
 tlist2=ticketdao.selectAll(forSearch2);
-request.setAttribute("tlist2", tlist2);
+session.setAttribute("tlist2", tlist2);
 }
 
 //경유일때
@@ -95,18 +95,18 @@ for(int i=1;i<flist.size();i++){
 		if(i-1==0){
 			List<TicketOption> tlist11=new ArrayList<TicketOption>();
 			tlist11=ticketdao.selectAll(forSearch);
-			request.setAttribute("tlist11", tlist11);
+			session.setAttribute("tlist11", tlist11);
 		}else if(i==flist.size()-1){
 			List<TicketOption> tlist22=new ArrayList<TicketOption>();
 			tlist22=ticketdao.selectAll(forSearch);
-			request.setAttribute("tlist22", tlist22);
+			session.setAttribute("tlist22", tlist22);
 		}
 	}
 }
 
-request.setAttribute("tlist1", tlist1);
-request.setAttribute("flist", flist);
-request.setAttribute("summary", summary);
+session.setAttribute("tlist1", tlist1);
+session.setAttribute("flist", flist);
+session.setAttribute("summary", summary);
 %>
 
 

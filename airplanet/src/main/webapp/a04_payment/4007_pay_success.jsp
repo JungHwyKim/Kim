@@ -63,7 +63,7 @@ var arriveTimes=[]
 <%@ include file="/header.jsp" %>
 <h2>해외항공권 예약</h2>
 <div class="imgbookingisdone">
-<div class="text-white"><span class="shadow-primary">예약이 완료되었습니다</span></div>
+<div class="text-white"><span class="shadow-primary">예매가 완료되었습니다</span></div>
 </div>
 
 <article class="row" style="min-height: 400px">
@@ -72,7 +72,7 @@ var arriveTimes=[]
 <p>결제마감일 이전에 결제하지 않은 경우 동일요금, 조건으로 항공권 구매가 불가능합니다. 마감일은 항공사 사정으로 변경될 수 있으니 24시간 이내에 꼭 재확인 해주세요.</p>
 <div class="row">
 <div class="col-sm-5">총 요금 <p style="color:steelblue;font-size:large;font-weight: bold"><fmt:formatNumber pattern="0,000원" value="${totalPrice }" /></p></div>
-<div class="col-sm-5">결제 마감일<p style="color:steelblue;font-size:large;font-weight: bold" id="paymentDue"> 까지</p></div>
+<div class="col-sm-5">환불보장 기간<p style="color:steelblue;font-size:large;font-weight: bold" id="paymentDue"> 까지</p></div>
 </div>
 </div>
 
