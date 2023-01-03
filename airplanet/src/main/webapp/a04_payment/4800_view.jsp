@@ -115,16 +115,6 @@ btns[1].addEventListener('click',function(){
 </c:if>
 
 
-
-<% 
-String gogo=request.getParameter("submit");
-if(gogo!=null&&gogo!=""){
-	if(gogo.equals("true")){
-		request.setAttribute("flist", request.getAttribute("flist"));
-		request.getRequestDispatcher("4899_viewToTotal.jsp").forward(request, response); 
-	}
-}
-%>
 </script>
 <br><br><br><br><br>
 <%@ include file="/0000_footer.html" %>

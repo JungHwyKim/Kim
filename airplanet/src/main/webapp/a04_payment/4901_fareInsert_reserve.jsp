@@ -52,10 +52,9 @@ ppassenger.setPpnation (request.getParameter("ppnation"));
 String bkrf = insertFareDao.insertFarePassenger(farelist,ppassenger);
 
 request.setAttribute("bookingReference", bkrf);
-%>
-다음페이지로 리퀘스트 넘겨서 부킹레퍼로 조회해서 정보 보여주기
-	
 
+request.getRequestDispatcher("4006_book_success.jsp").forward(request,response);
+%>
 
 </body>
 </html>

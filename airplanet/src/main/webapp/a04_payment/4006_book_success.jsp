@@ -14,7 +14,7 @@
 <link href="/bs-custom.css" rel="stylesheet" >
 <style>
 .imgbookingisdone{
-	background-image: url("https://wallpaperaccess.com/full/58330.jpg");
+	background-image: url("${flist.get(0).arriveApphoto }");
 	background-repeat: none;
 	background-size: cover;
 	background-position:center;
@@ -30,7 +30,7 @@
 	text-align: center;
 	}
 .shadow-primary{
-text-shadow: 1px 1px 3px steelblue ;}
+text-shadow: 1px 1px 4px black ;}
 
 </style>
 <title>예약 완료</title>
@@ -41,6 +41,7 @@ text-shadow: 1px 1px 3px steelblue ;}
 <script>
 var departTimes=[]
 var arriveTimes=[]
+var paymentDue=new Date()
 </script>
 
 <jsp:useBean id="dao" class="dao.D_selectFareFlight" />
@@ -55,6 +56,10 @@ var arriveTimes=[]
 		arriveTimes.push(new Date('${ii[3]}'.substr(0,4),'${ii[3]}'.substr(5,2)-1,
 				'${ii[3]}'.substr(8,2), Number('${ii[3]}'.substr(11,2))+ Number(${ii[4]})+ Number(${ii[11]}),
 				'${ii[3]}'.substr(14,2),'${ii[3]}'.substr(17,2)))
+		
+	paymentDue=new Date('${ii[1]}'.substr(0,4),'${ii[1]}'.substr(5,2)-1,
+				Number('${ii[1]}'.substr(8,2))+1, '${ii[1]}'.substr(11,2),
+				'${ii[1]}'.substr(14,2),'${ii[1]}'.substr(17,2))
 	</script>
 	<c:set var="totalPrice" value="${totalPrice + ii[9]}" />
 	</c:forEach>
@@ -101,10 +106,11 @@ var arriveTimes=[]
 <script>
 var departTimespan=document.querySelectorAll('.departTimespan')		
 var arriveTimespan=document.querySelectorAll('.arriveTimespan')		
+var paymentDueP=document.querySelector('#paymentDue')		
+paymentDueP.innerHTML=paymentDue.toLocaleString();
 	
 for(let i=0;i<departTimespan.length;i++){
 	departTimespan[i].innerHTML=departTimes[i].toLocaleString()
-	console.log('depart시간 작동 '+departTimes[i].toLocaleString())
 	arriveTimespan[i].innerHTML=arriveTimes[i].toLocaleString()
 }
 
