@@ -31,8 +31,17 @@ public class B_search_range {
 				+ "AND (a2.APCITY=? OR a2.AIRPORTCODE=?)\r\n"
 				+ "AND substr(t.optioncode,15,2)=?"
 				+ "AND TO_NUMBER(TO_char(f.departdate,'sssss')) >= ? and TO_NUMBER(TO_char(f.departdate,'sssss')) <= ?"
-				+ "ORDER BY f.STANDARDFEE ";
-	
+				+ "ORDER BY";
+			if(fa.getSort()==1) {
+				sql+=" f.STANDARDFEE";
+			}else if(fa.getSort()==2) {
+				sql+=" f.FLIGHTHOURS";
+			}else if(fa.getSort()==3) {
+				sql+=" f.DEPARTDATE";
+			}	
+			System.out.println(fa.getSort());
+		//ORDER BY는 PreparedStatement으로 사용 X  f.FLIGHTHOURS --f.DEPARTDATE --f.STANDARDFEE
+
 	try {
 		con = DB.con();
 		pstmt=con.prepareStatement(sql);
@@ -64,10 +73,13 @@ public class B_search_range {
 
 	public static void main(String[] args) {
 		B_search_range b = new B_search_range();
-		FlightAll fa = new FlightAll("2022-12-21","인천","LA","ec");
+		FlightAll fa = new FlightAll("2022-12-21","ICN","FUK","ec",0,86400,2);
 		List<FlightAll> flist = b.getRangeticket(fa);
 		for(FlightAll f:flist) {
-			System.out.println(f.getAirlinelogo());
+			System.out.print(f.getFlightNumber()+"\t");
+			System.out.print(f.getFlightHours()+"\t");
+			System.out.print(f.getDepartDate()+"\t");
+			System.out.print(f.getStandardFee()+"\n");
 		}
 		
 

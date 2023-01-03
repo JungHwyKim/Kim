@@ -103,19 +103,18 @@
 	<div class="col-8"> <!-- 오른쪽 내용 -->
 		<div class="row">
 		<div class="d-flex w-100 justify-content-between">	
-		<span>1231개의 결과</span>
-		<label>정렬기준   <select class="form-select">
-		  		 	<option selected>추천순</option>
-		  		 	<option>최저가순</option>
-		  		 	<option>최단여행시간순</option>
-		  		 	<option>출국:출발시간</option>
-		  		 	<option>귀국:출발시간</option>
+		<span id = totData></span>
+		<label>정렬기준   <select class="form-select" name="selectSort">
+		  		 	<option selected value="1">추천순</option>
+		  		 	<option value="1">최저가순</option>
+		  		 	<option value="2">최단여행시간순</option>
+		  		 	<option value="3">출국:출발시간</option>
 				 </select></label>
 		</div>
 		</div>
 		<div class="row">
 			<div class="btn-group">
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="추천순" checked >
+			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="1" checked >
 			  <label class="btn btn-outline-primary" for="btnradio1">
 				  <div class="card-body">
 				   <p class="card-text">추천순</p>
@@ -123,7 +122,7 @@
 				    <h6 class="card-subtitle mb-2 text-muted">2시간25분(평균)</h6>
 				  </div>
 			  </label>		
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="최저가">
+			  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="1">
 			  <label class="btn btn-outline-primary" for="btnradio2">
 				  <div class="card-body">
 				   <p class="card-text">최저가</p>
@@ -131,7 +130,7 @@
 				    <h6 class="card-subtitle mb-2 text-muted">2시간25분(평균)</h6>
 				  </div>		  
 			  </label> 
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="최단여행시간">
+			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="2">
 			  <label class="btn btn-outline-primary" for="btnradio3">
 				  <div class="card-body">
 				   <p class="card-text">최단여행시간</p>
@@ -169,15 +168,6 @@ via.forEach(function(v){
 	}
 })
 
-// 추천순/최저가/최단여행 변하는것
-var btnradio = document.querySelectorAll("[name=btnradio]")
-btnradio.forEach(function(btn){
-	btn.onchange= function(){
-		btnradio.forEach(function(b){
-			if(b.checked) console.log(b.value)
-		})
-	}
-})
 
 
 
@@ -240,19 +230,36 @@ function setRightValue (){
   range.style.right = 100 - percent + "%";
   printTime()
 };
+
 printTime()
 inputLeft.addEventListener('input', setLeftValue);
 inputLeft.addEventListener('input', printSearch);
 inputRight.addEventListener('input', setRightValue);
 inputRight.addEventListener('input', printSearch);
 
+//정렬 value값 보내기
+var sVal = "1"
+	var selectSortArr = document.querySelectorAll("[name=selectSort],[name=btnradio]")
+	selectSortArr.forEach(function(selectSort){
+		selectSort.onchange=function(){
+			sVal = this.value
+			printSearch()
+		}
+	})
+
+// 총 데이터 조회 건수
+var totData = 0;
+var ptotData = document.querySelector("#totData")
+
+
 printSearch()
+	var rbVal="";
 //print-search에 값 출력
 function printSearch(){
 	var xhr = new XMLHttpRequest()
 	var lVal = inputLeft.value
 	var rVal = inputRight.value
-	var qstr = "?inputLeft="+lVal+"&inputRight="+rVal
+	var qstr = "?inputLeft="+lVal+"&inputRight="+rVal+"&selectSort="+sVal
 	xhr.open("get","2003_search_detail_printrange_oneway.jsp"+qstr,true) 
 	xhr.send()
 	xhr.onreadystatechange = function (){
@@ -261,6 +268,8 @@ function printSearch(){
 			document.querySelector("#print-search").innerHTML = xhr.responseText
 			var script = document.querySelector("#inscript") // 자바스크립트 가져오기...
 			eval(script.innerHTML)
+			ptotData.innerText = returnJson.length+"개의 조회 결과"
+			
 		}
 	}
 }

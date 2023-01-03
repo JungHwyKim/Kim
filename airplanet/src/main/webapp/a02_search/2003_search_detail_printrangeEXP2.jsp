@@ -31,10 +31,10 @@ String city = (String) session.getAttribute("city");
 	<jsp:useBean id="dao1" class="dao.B_search_range"/>
 	<jsp:useBean id="sch1" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch1"/>
-	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation("FUK") } ${sch1.setClassStr("ec") }
+	${sch1.setDepartDate("2022-12-21") } ${sch1.setDepartLocation("ICN") } ${sch1.setArriveLocation(city) } ${sch1.setClassStr("ec") }
 	<%-- <c:if test="${empty param.inputLeft }"></c:if><c:if test="${empty param.inputRight }"></c:if> --%>
-	${sch1.setFrRange(0) }
-	${sch1.setToRange(86400) }
+	${sch1.setFrRange(param.inputLeft) }
+	${sch1.setToRange(param.inputRight) }
 		
 	<c:forEach var="f1" items="${dao1.getRangeticket(sch1)}">
 
@@ -42,10 +42,10 @@ String city = (String) session.getAttribute("city");
 	<jsp:useBean id="dao2" class="dao.B_search_range"/>
 	<jsp:useBean id="sch2" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="sch2"/>
-	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation("FUK") } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
+	${sch2.setDepartDate("2022-12-30") } ${sch2.setDepartLocation(city) } ${sch2.setArriveLocation("ICN") } ${sch2.setClassStr("ec") }
 	<%-- <c:if test="${empty param.inputLeft2 }"></c:if><c:if test="${empty param.inputRight2 }"></c:if> --%>
-	${sch2.setFrRange(0) }
-	${sch2.setToRange(86400) }
+	${sch2.setFrRange(param.inputLeft2) }
+	${sch2.setToRange(param.inputRight2) }
 	<c:forEach var="f2" items="${dao2.getRangeticket(sch2)}">
 	
 		<div class="row">	
@@ -87,7 +87,7 @@ String city = (String) session.getAttribute("city");
 				     <div class="col-4 schedule-right">
 						<p class="text-center topcenter">오늘 예약하기</p>
 						<p class="text-center fw-semibold totprice"></p>
-						<button type="button" class="btn btn-secondary"><span>선택</span><span class="material-symbols-outlined align-middle">arrow_forward</span></button>
+						<button type="button" class="btn btn-secondary btttn"><span>선택</span><span class="material-symbols-outlined align-middle">arrow_forward</span></button>
 				     </div>
 			     </div>
 			  </div>
@@ -111,8 +111,6 @@ var flightOb1 = []
 	fa.standardFee = Number.parseInt("${f.standardFee}")
 	fa.classFee = Number.parseInt("${f.classfee}")
 	flightOb1.push(fa)
-	//console.log(fa.flightnumber+" "+fa.departDate+" "+fa.departAirportcode+" "+fa.arrivetAirportcode+" "+fa.flightHours+" "+fa.departPacifictime
-		//	+" "+fa.arrivePacifictime+" "+fa.airlinelogo+" "+fa.standardFee+" "+fa.classFee)
 </c:forEach>
 //  왕복시 리턴
 var flightOb2 = []
@@ -204,10 +202,11 @@ returnJson.forEach(function(rt){
 	i++;
 })
 
-var i2=0;
-var secondaryArr = document.querySelectorAll(".btn-secondary")
-secondaryArr.forEach(function(sec,idx){
-	sec.onclick= function(){
+
+
+var secondaryArr = document.querySelectorAll(".btttn")
+secondaryArr.forEach(function(btn,idx){
+	btn.onclick= function(){
 		var qstr = "?flightNumber="+returnJson[idx].flightnumber1+"&flightNumber="+returnJson[idx].flightnumber2+"&departDate="+returnJson[idx].dDate1+
 				"&departDate="+returnJson[idx].dDate2+"&arriveDate="+returnJson[idx].aDate1+"&arriveDate="+returnJson[idx].aDate2+
 				"&departAirportcode="+returnJson[idx].dCode1+"&departAirportcode="+returnJson[idx].dCode2+"&arriveAirportcode="+returnJson[idx].aCode1+

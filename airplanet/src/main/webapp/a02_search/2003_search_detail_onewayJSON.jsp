@@ -4,8 +4,7 @@
 <%@ taglib prefix ="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%> 
 <fmt:requestEncoding value="utf-8"/>   
-<% request.setCharacterEncoding("utf-8"); %>     
- <%@ page isELIgnored="false" %>  
+<% request.setCharacterEncoding("utf-8"); %>       
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +14,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link href="bs-custom.css" rel="stylesheet" >
 <link href="2003.css" rel="stylesheet">
+<style>
+.card-body{
+	--bs-card-spacer-y:0.3rem;
+	--bs-card-spacer-x:0.3rem;
+}
+.card{
+	margin-bottom: 3px;
+}
+</style>
 </head>
 <body>
 	
@@ -24,6 +32,7 @@
 	String city = request.getParameter("city");
 	session.setAttribute("city", city);
 	%>
+	
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
@@ -74,29 +83,7 @@
 			    </div>
 			  </div>
 			</div><br>
-  		<!--  오는날 출발시간 -->
- 			<div class="time-range">
-  			<p class="time-set-head">오는날 출발시간</p>
-			  <div class="multi-range-slider">
-			    <!-- 진짜 슬라이더 -->
-			    <p class="print-time2"></p>
-			    <input type="range" id="input-left2" min="0" max="86400" step="1800" value="0" />
-			    <input type="range" id="input-right2" min="0" max="86400" step="1800" value="86400" />
-			
-			    <!-- 커스텀 슬라이더 -->
-			    <div class="slider2">
-			      <div class="track2"></div>
-			      <div class="range2"></div>
-			      <div class="thumb left2"></div>
-			      <div class="thumb right2"></div>
-			    </div>
-			  </div>
-			</div>
-		
-		
-		
-		
-  	
+
 	</div>
 	
 	
@@ -125,27 +112,26 @@
 	<div class="col-8"> <!-- 오른쪽 내용 -->
 		<div class="row">
 		<div class="d-flex w-100 justify-content-between">	
-		<span>1231개의 결과</span>
-		<label>정렬기준   <select name="selectSort" class="form-select">
-		  		 	<option value="1" selected>추천순</option>
+		<span id = totData></span>
+		<label>정렬기준   <select class="form-select" name="selectSort">
+		  		 	<option selected value="1">추천순</option>
 		  		 	<option value="1">최저가순</option>
 		  		 	<option value="2">최단여행시간순</option>
 		  		 	<option value="3">출국:출발시간</option>
-		  		 	<option value="4">귀국:출발시간</option>
 				 </select></label>
 		</div>
 		</div>
 		<div class="row">
 			<div class="btn-group">
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="추천순" checked >
+			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="1" checked >
 			  <label class="btn btn-outline-primary" for="btnradio1">
-				  <div class="card-body">
+				  <div class="card-body">						
 				   <p class="card-text">추천순</p>
 				    <h5 class="card-title">530,300</h5>
 				    <h6 class="card-subtitle mb-2 text-muted">2시간25분(평균)</h6>
 				  </div>
 			  </label>		
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="최저가">
+			  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="1">
 			  <label class="btn btn-outline-primary" for="btnradio2">
 				  <div class="card-body">
 				   <p class="card-text">최저가</p>
@@ -153,7 +139,7 @@
 				    <h6 class="card-subtitle mb-2 text-muted">2시간25분(평균)</h6>
 				  </div>		  
 			  </label> 
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="최단여행시간">
+			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="2">
 			  <label class="btn btn-outline-primary" for="btnradio3">
 				  <div class="card-body">
 				   <p class="card-text">최단여행시간</p>
@@ -162,8 +148,6 @@
 				  </div>		  
 			  </label>
 			</div>
-			
-			
 		</div>
 		
 		<div class="row" id="print-search"> </div>
@@ -181,10 +165,6 @@
 </body>
 
 <script>
-
-
-
-
 // 경유 checkbox value값 추출
 var via = document.querySelectorAll("[name=via]")
 via.forEach(function(v){
@@ -194,18 +174,6 @@ via.forEach(function(v){
 		})
 	}
 })
-
-// 추천순/최저가/최단여행 변하는것
-var btnradio = document.querySelectorAll("[name=btnradio]")
-btnradio.forEach(function(btn){
-	btn.onchange= function(){
-		btnradio.forEach(function(b){
-			if(b.checked) console.log(b.value)
-		})
-	}
-})
-
-
 
 
 
@@ -259,8 +227,6 @@ function setLeftValue(){
   thumbLeft.style.left = percent + "%";
   range.style.left = percent + "%";
   printTime()
- 
- 
 };
 
 function setRightValue (){
@@ -270,71 +236,33 @@ function setRightValue (){
   thumbRight.style.right = 100 - percent + "%";
   range.style.right = 100 - percent + "%";
   printTime()
- 
 };
+
 printTime()
 inputLeft.addEventListener('input', setLeftValue);
 inputLeft.addEventListener('input', printSearch);
 inputRight.addEventListener('input', setRightValue);
 inputRight.addEventListener('input', printSearch);
 
-//출발시간, 도착시간 설정(오는날 출발시간)
-var inputLeft2 = document.querySelector("#input-left2");
-var inputRight2 = document.querySelector("#input-right2");
-var thumbLeft2 = document.querySelector(".slider2 > .thumb.left2");
-var thumbRight2 = document.querySelector(".slider2 > .thumb.right2");
-var range2 = document.querySelector(".slider2 > .range2");
-var p2 = document.querySelector(".print-time2")
-
-function printTime2(){
-	var rHour = Math.floor((Math.floor(inputRight2.value) > 84600? 86340 : Math.floor(inputRight2.value))/3600)
-	var rMin = inputRight2.value > 84600 ? 59 : (inputRight2.value%3600)/60
-    var lefthour= Math.floor(inputLeft2.value/3600)
-    var righthour= rHour // 수정한 부분
-    var leftminute = (inputLeft2.value%3600)/60
-    var rightminute = rMin // 수정한 부분
-	if(leftminute==0&&rightminute==0){
-		p2.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute+"0"
-	}else if(leftminute==0){
-		p2.innerText = lefthour+":"+leftminute+"0 - "+righthour+":"+rightminute
-	}else if(rightminute==0){
-		p2.innerText = lefthour+":"+leftminute+" - "+righthour+":"+rightminute+"0"
-	}else{
-		p2.innerText = lefthour+":"+leftminute+" - "+righthour+":"+rightminute
+/*추천순/최저가/최단여행 변하는것
+var btnradio = document.querySelectorAll("[name=btnradio]")
+btnradio.forEach(function(btn){
+	btn.addEventListener('change', printSearch);
+})*/
+// 정렬 value값 보내기
+var sVal = "1"
+var selectSortArr = document.querySelectorAll("[name=selectSort],[name=btnradio]")
+selectSortArr.forEach(function(selectSort){
+	selectSort.onchange=function(){
+		sVal = this.value
+		printSearch()
 	}
-}
-
-function setLeftValue2 (){	
-  var [min, max] = [parseInt(inputLeft2.min), parseInt(inputLeft2.max)];
-  inputLeft2.value = Math.min(parseInt(inputLeft2.value), parseInt(inputRight2.value) - 1800);
-  var percent = ((inputLeft2.value - min) / (max - min)) * 100;
-  thumbLeft2.style.left = percent + "%";
-  range2.style.left = percent + "%";
-  printTime2()
-  
-};
-
-function setRightValue2 (){
-  var [min, max] = [parseInt(inputRight2.min), parseInt(inputRight2.max)];  
-  inputRight2.value = Math.max(parseInt(inputRight2.value), parseInt(inputLeft2.value) + 1800);
-  var percent = ((inputRight2.value - min) / (max - min)) * 100;
-  thumbRight2.style.right = 100 - percent + "%";
-  range2.style.right = 100 - percent + "%";
-  printTime2()
-  console.log(inputLeft.value+":"+inputRight.value+":"+inputLeft2.value+":"+inputRight2.value)
- 
-};
-printTime2()
-
-inputLeft2.addEventListener('input', setLeftValue2);
-inputLeft2.addEventListener('input', printSearch);
-inputRight2.addEventListener('input', setRightValue2);
-inputRight2.addEventListener('input', printSearch);
+})
 
 
-var selectSort = document.querySelector("[name=selectSort]")
-selectSort.addEventListener('change', printSearch);
 
+// 전체 데이터 출력건수 
+var totData = document.querySelector("#totData")
 
 printSearch()
 //print-search에 값 출력
@@ -342,21 +270,52 @@ function printSearch(){
 	var xhr = new XMLHttpRequest()
 	var lVal = inputLeft.value
 	var rVal = inputRight.value
-	var l2Val = inputLeft2.value
-	var r2Val = inputRight2.value
-	var sVal = selectSort.value
-	var qstr = "?inputLeft="+lVal+"&inputRight="+rVal+"&inputLeft2="+l2Val+"&inputRight2="+r2Val+"&selectSort="+sVal
-	xhr.open("get","2003_search_detail_printrangeEXP2.jsp"+qstr,true) 
+
+	var qstr = "?inputLeft="+lVal+"&inputRight="+rVal+"&selectSort="+sVal
+	xhr.open("get","2003_search_detail_printrange_onewayJSON.jsp"+qstr,true) 
 	xhr.send()
 	xhr.onreadystatechange = function (){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			 console.log(xhr.responseText)
-			document.querySelector("#print-search").innerHTML = xhr.responseText
-			var script = document.querySelector("#inscript") // 자바스크립트 가져오기...
-			eval(script.innerHTML)
+			var flist = JSON.parse(xhr.responseText)
+			var addHTML =""
+			flist.forEach(function(f){
+				var ddate = new Date(f.departDate)
+				var adate= new Date(f.departDate)
+				var fhours = parseInt(f.flightHours)+"시간 "+(f.flightHours%1)*60+"분"
+				adate.setMinutes(adate.getMinutes()+(f.departPacifictime-f.arrivePacifictime+f.flightHours)*60)
+				addHTML+="<div class='row'>	<div class='card'> <div class='card-body schedule'> <div class='row'><div class='col-8'><div class='row'>"
+				addHTML+="<div class='col-3'><img src='"+f.airlinelogo+"' width='110%'></div><div class='col-9'><div class='row'>"
+				addHTML+="<div class='col-4 topleft dDate1'>"+ddate.toLocaleString()+"</div>"
+				addHTML+="<div class='col-4 topcenter fHour1'>"+fhours+"</div>"
+				addHTML+="<div class='col-4 topright aDate1'>"+adate.toLocaleString()+"</div></div><div class='row'>"
+				addHTML+="<div class='col-4 botleft dCode1'>"+f.departAirportcode+"</div>"
+				addHTML+="<div class='col-4 botcenter'>직항/경유</div>"
+				addHTML+="<div class='col-4 botright aCode1'>"+f.arriveAirportcode+"</div></div></div></div></div> <div class='col-4 schedule-right'>"
+				addHTML+="<p class='text-center topcenter'>오늘 예약하기</p>"
+				addHTML+="<p class='text-center fw-semibold totprice'>"+parseInt(f.standardFee+f.classfee)+"</p>"
+				addHTML+="<button type='button' class='btn btn-secondary btttn'><span>선택</span><span class='material-symbols-outlined align-middle'>arrow_forward</span></button>"
+				addHTML+="</div></div></div></div></div>"
+				
+			})
+
+			document.querySelector("#print-search").innerHTML = addHTML
+			// 결제로 값넘기기
+			var secondaryArr = document.querySelectorAll(".btttn")
+			secondaryArr.forEach(function(btn,idx){
+				btn.onclick=function(){
+					var qstr = "?flightNumber="+flist[idx].flightNumber+"&departDate="+flist[idx].departDate//+"&arriveDate="+flist[idx].aDate1
+							+"&departAirportcode="+flist[idx].departAirportcode+"&arriveAirportcode="+flist[idx].arriveAirportcode+"&airlinelogo="+flist[idx].airlinelogo  
+					location.href="2999_search_connection.jsp"+qstr
+				}
+			})
+			
+			totData.innerText = flist.length+"개의 조회 결과"
+			
 		}
 	}
 }
+
+
 
 </script>
 </html>
