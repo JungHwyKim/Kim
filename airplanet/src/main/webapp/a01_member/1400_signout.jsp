@@ -3,5 +3,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:remove var="reg2" scope="session" />
 <script>
-location.href = document.referrer;
+location.href = "/a02_search/2000_main.jsp";
 </script>
