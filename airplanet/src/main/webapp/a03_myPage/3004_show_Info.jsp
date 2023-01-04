@@ -89,7 +89,7 @@ img.user{
 	     <div class="p-3 border-0 bg-white">
 	     	<img src="../b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
-	     	<p>t711txt@naver.com<p>
+	     	<p>${reg2.email}<p>
 	     </div>
 	     
 	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp" class="astyle">여행객 정보 입력</a></div><hr>
@@ -173,7 +173,7 @@ img.user{
 var regId ='${reg2.email}';
 function logout(){
 	if(confirm("로그아웃하시겠습니까?")){
-		session.removeAttribute("regId");
+		location.href="/a01_member/1400_signout.jsp"
      }
 }
 
@@ -186,7 +186,7 @@ searchOb.disabled = true;
 bookingReference.addEventListener("change", stateHandle);
 
 function stateHandle() {
-  if (bookingReference.value == '2212211657371010') {
+  if (bookingReference.value == ${fare.bookingReference}) {
 	 searchOb.disabled = false; 
   }else {
 	 searchOb.disabled = true;

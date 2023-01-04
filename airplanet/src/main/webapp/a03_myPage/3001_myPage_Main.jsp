@@ -35,7 +35,7 @@ img.user{
 	border-radius: 12px;
 }
 </style>
-<body >
+<body>
 	<div class="container-fluid">
 	<%@ include file="/header.jsp" %>
 	  <div class="row no-gutters">
@@ -44,7 +44,7 @@ img.user{
 	     <div class="p-3 border-0 bg-white">
 	     	<img src="../b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
-	     	<p>t711txt@naver.com<p>
+	     	<p>${reg2.email}<p>
 	     </div>
 	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp" class="astyle">여행객 정보 입력</a></div><hr>
 	     <div class="border-0 bg-white"><a href="3009_cardInfo_input.jsp" class="astyle">결제 정보 입력</a></div><hr>
@@ -57,7 +57,7 @@ img.user{
 	    <div class="col-5" style="font-size:25px;">
 	    	<div class="p-3 border-0 bg-white" style="text-align:center;"><h1><b>계정</b></h1></div><br>
 	     	<div class="p-3 border-0 bg-secondary bg-opacity-50">일반정보</div>
-	     	<div class="p-3 border-0 bg-white"><p style="font-size:15px">이메일</p>XXXXX@email.com</div>
+	     	<div class="p-3 border-0 bg-white"><p style="font-size:15px">이메일</p>${reg2.email}</div>
 	     	<div class="p-3 border-0 bg-secondary bg-opacity-50">구독</div>
 	     	<div class="p-3 border-0 bg-white">
 	     		<input style="zoom:2.0;" type="checkbox" name="sub">
@@ -87,7 +87,7 @@ img.user{
 var regId ='${reg2.email}';
 function logout(){
 	if(confirm("로그아웃하시겠습니까?")){
-		session.removeAttribute("regId");
+		location.href="/a01_member/1400_signout.jsp"
      }
 }
 </script>
