@@ -30,6 +30,7 @@
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
 	<jsp:include page="2000_1_seachbar.html"></jsp:include>
+	
 	<%
 	String arriveLocation = request.getParameter("arrivelocation");
 	if(arriveLocation!=null){
