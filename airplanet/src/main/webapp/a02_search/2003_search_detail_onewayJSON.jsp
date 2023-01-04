@@ -29,8 +29,24 @@
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
 	<%
-	String city = request.getParameter("city");
-	session.setAttribute("city", city);
+	String arriveLocation = request.getParameter("arrivelocation");
+	if(arriveLocation!=null){
+		session.setAttribute("arriveLocation", arriveLocation);
+	}
+	
+	if(request.getParameter("departlocation")!=null){
+		String departLocation = request.getParameter("departlocation");
+		String departDate = request.getParameter("departdate");
+		String arriveDate = request.getParameter("arrivedate");
+		String cntS = request.getParameter("cnt");
+		String classStr = request.getParameter("classP");
+		int cnt=Integer.parseInt(cntS);
+		session.setAttribute("departLocation", departLocation);
+		session.setAttribute("departDate", departDate);
+		session.setAttribute("arriveDate", arriveDate);
+		session.setAttribute("cnt", cnt);
+		session.setAttribute("classStr", classStr);
+	}
 	%>
 
 	<div class="row">

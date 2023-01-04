@@ -53,6 +53,7 @@
 	session.setAttribute("departDate", departDate);
 	session.setAttribute("arriveDate", arriveDate);
 	session.setAttribute("cnt", cnt);
+	session.setAttribute("classStr", "");
 	%>
 
 	

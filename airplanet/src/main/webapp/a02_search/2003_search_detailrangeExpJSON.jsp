@@ -29,28 +29,28 @@
 	
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
-	${param.departlocation }
-	${param.arrivelocation }
-	${param.classP }
-	${param.cnt }
-
 	<%
 	String arriveLocation = request.getParameter("arrivelocation");
 	if(arriveLocation!=null){
 		session.setAttribute("arriveLocation", arriveLocation);
 	}
-	String departLocation = request.getParameter("departlocation");
-	String departDate = request.getParameter("departdate");
-	String arriveDate = request.getParameter("arrivedate");
-	String cntS = request.getParameter("cnt");
-	String classStr = request.getParameter("classP");
-	int cnt=Integer.parseInt(cntS);
 	
-	session.setAttribute("departLocation", departLocation);
-	session.setAttribute("departDate", departDate);
-	session.setAttribute("arriveDate", arriveDate);
-	session.setAttribute("cnt", cnt);
-	session.setAttribute("classStr", classStr);
+	if(request.getParameter("departlocation")!=null){
+		String departLocation = request.getParameter("departlocation");
+		String departDate = request.getParameter("departdate");
+		String arriveDate = request.getParameter("arrivedate");
+		String cntS = request.getParameter("cnt");
+		String classStr = request.getParameter("classP");
+		int cnt=Integer.parseInt(cntS);
+		session.setAttribute("departLocation", departLocation);
+		session.setAttribute("departDate", departDate);
+		session.setAttribute("arriveDate", arriveDate);
+		session.setAttribute("cnt", cnt);
+		session.setAttribute("classStr", classStr);
+	}
+	
+	
+
 	%>
 	
 	<div class="row">

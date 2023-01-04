@@ -56,10 +56,12 @@ form > .accodion-con-btn{
 	String arriveDate = request.getParameter("arrivedate");
 	String cntS = request.getParameter("cnt");
 	int cnt=Integer.parseInt(cntS);
+	
 	session.setAttribute("departLocation", departLocation);
 	session.setAttribute("departDate", departDate);
 	session.setAttribute("arriveDate", arriveDate);
 	session.setAttribute("cnt", cnt);
+	session.setAttribute("classStr", "");
 	%>
 
   	<div class="container">
@@ -88,7 +90,7 @@ form > .accodion-con-btn{
   				<span class="p-2 flex-grow-1">${byNation.arriveApcity }</span>
   				<c:forEach var="rPrice" items="${daoR.returnMinfeeE(schR) }" >
   		<%-- 편도가격 + 왕복 리턴가격 --%>
-  				<c:set var= "total1" value="${rPrice.standardFee + byNation.standardFee}"/> 
+  				<c:set var= "total1" value="${(rPrice.standardFee + byNation.standardFee)*cnt}"/> 
   				<span class="p-2"><fmt:formatNumber value="${total1 }"/>부터</span></c:forEach>
   				<span class="material-symbols-outlined p-2">expand_more</span>
   			</div></button>
@@ -121,7 +123,7 @@ form > .accodion-con-btn{
 				  	<jsp:setProperty property="*" name="schRC"/>
 				  	${schRC.setDepartDate(arriveDate) } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation(departLocation) }
 			 		<c:forEach var="rcPrice" items="${daoRC.returnMinfeeN(schRC) }" >  
-			 		<c:set var= "total2" value="${(rcPrice.standardFee + byCity.standardFee)*2}"/>      
+			 		<c:set var= "total2" value="${(rcPrice.standardFee + byCity.standardFee)*cnt}"/>      
 			      	  <span><fmt:formatNumber value="${total2 }"/>부터</span>
 			   		</c:forEach></p> 
 			      </div>
