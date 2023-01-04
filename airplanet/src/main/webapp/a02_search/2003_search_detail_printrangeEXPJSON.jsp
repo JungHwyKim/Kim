@@ -23,7 +23,9 @@ param.inputLeft param.inputRight param.inputLeft2 param.inputRight2 param.select
 	${sch1.setDepartDate2(arriveDate) } 
 	${sch1.setDepartLocation(departLocation) } 
 	${sch1.setArriveLocation(arriveLocation) } 
+	${sch1.setClassStr(classStr) }
 	<c:if test="${empty classStr }">${sch1.setClassStr("ec") }</c:if>
+	
 	${sch1.setFrRange1(param.inputLeft)}
 	${sch1.setToRange1(param.inputRight)}
 	${sch1.setFrRange2(param.inputLeft2)}

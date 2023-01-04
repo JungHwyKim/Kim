@@ -69,7 +69,7 @@
   	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
 
   	<form action="2003_search_detailrangeExpJSON.jsp">
-  	<input type="hidden" name="city" value="${byCity.arriveApcity }"/>
+  	<input type="hidden" name="arrivelocation" value="${byCity.arriveApcity }"/>
 	<button type="submit" class="btn form-control form-control-lg">
     <div class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">

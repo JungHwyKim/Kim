@@ -29,12 +29,28 @@
 	
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
+	${param.departlocation }
+	${param.arrivelocation }
+	${param.classP }
+	${param.cnt }
+
 	<%
-	String arriveLocation = request.getParameter("city");
+	String arriveLocation = request.getParameter("arrivelocation");
 	if(arriveLocation!=null){
 		session.setAttribute("arriveLocation", arriveLocation);
 	}
-
+	String departLocation = request.getParameter("departlocation");
+	String departDate = request.getParameter("departdate");
+	String arriveDate = request.getParameter("arrivedate");
+	String cntS = request.getParameter("cnt");
+	String classStr = request.getParameter("classP");
+	int cnt=Integer.parseInt(cntS);
+	
+	session.setAttribute("departLocation", departLocation);
+	session.setAttribute("departDate", departDate);
+	session.setAttribute("arriveDate", arriveDate);
+	session.setAttribute("cnt", cnt);
+	session.setAttribute("classStr", classStr);
 	%>
 	
 	<div class="row">
@@ -341,7 +357,7 @@ selectSortArr.forEach(function(selectSort){
 	}
 })
 //인원수
-var cnt = ${cnt};
+var cnt = ${cnt}
 printSearch()
 //print-search에 값 출력
 function printSearch(){
@@ -393,7 +409,7 @@ function printSearch(){
 				btn.onclick=function(){
 					var qstr = "?flightNumber="+flist[idx].flightNumber1+"&flightNumber="+flist[idx].flightNumber2+"&departDate="+flist[idx].departDate1+"&departDate="+flist[idx].departDate2
 							+"&departAirportcode="+flist[idx].departAirportcode+"&arriveAirportcode="+flist[idx].arriveAirportcode+"&airlinelogo="+flist[idx].airlinelogo1+"&airlinelogo="+flist[idx].airlinelogo2
-					location.href="2999_search_connection.jsp"+qstr
+					location.href="/a04_payment/4799_searchToView.jsp"+qstr
 				}
 			})
 			
