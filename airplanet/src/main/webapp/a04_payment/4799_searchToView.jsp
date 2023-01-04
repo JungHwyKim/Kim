@@ -11,35 +11,44 @@
  --> 
 
 <%
-//가는편
-FlightAll flight1 = new FlightAll("ICNLAX22122115","KE","ICN","2022-12-21 15:00","LAX",8,999999);
-flight1.setDepartApcity("인천");flight1.setArriveApcity("LA");
-flight1.setAirlineName("대한항공");flight1.setAirlinelogo("/b01_img/ke.PNG");
-flight1.setDepartLocation("인천");flight1.setArriveLocation("샌프란시스코");flight1.setClassStr("bs");
-flight1.setDepartAirportcode("ICN");flight1.setArriveAirportcode("LAX");
-flight1.setOptioncode("ICNLAX22122115bs0");flight1.setClassfee(23420);flight1.setBaggage(0);
+/* String [] flightNumbers = request.getParameterValues("flightNumber");
+String [] departDates = request.getParameterValues("departDate");
+String [] departAirportcodes = request.getParameterValues("departAirportcode");
+String [] arriveAirportcodes = request.getParameterValues("arriveAirportcode");
+String [] airlinelogos = request.getParameterValues("airlinelogo"); */
 
-//환승
-FlightAll flight11 = new FlightAll("LAXSFO22122123","KE","LAX","2022-12-21 23:00","SFO",(float)1.5,800000);
-flight11.setDepartApcity("LA");flight11.setArriveApcity("샌프란시스코");
-flight11.setAirlineName("대한항공");flight11.setAirlinelogo("/b01_img/ke.PNG");
-flight11.setDepartAirportcode("LAX");flight11.setArriveAirportcode("SFO");
-flight11.setDepartLocation("인천");flight11.setArriveLocation("샌프란시스코");flight11.setClassStr("bs");
+//쿼리스트링 받아오기~~
+String [] flightNumbers={"ICNLAX22122115","LAXSFO22122123","SFOICN23012011"};
+session.setAttribute("departLocation", "ICN");
+session.setAttribute("arriveLocation", "SFO");
+session.setAttribute("classStr", "bs");
+//~~~쿼리스트링 받아오기
 
 
-//오는편 정보 넘겨받은거
-FlightAll flight2 = new FlightAll("SFOICN23012011","KE","SFO","2023-01-20 11:00","ICN",10,101000);
-flight2.setDepartApcity("샌프란시스코");flight2.setArriveApcity("인천");
-flight2.setAirlineName("대한항공");flight2.setAirlinelogo(request.getContextPath()+"/b01_img/ke.PNG");
-flight2.setDepartLocation("샌프란시스코");flight2.setArriveLocation("인천");flight2.setClassStr("ec");
-flight2.setDepartAirportcode("SFO");flight2.setArriveAirportcode("ICN");
-
-
+D_FlightAll fallDao=new D_FlightAll();
 ArrayList<FlightAll> flist=new ArrayList<FlightAll>();
-flist.add(flight1);
-flist.add(flight11);
-flist.add(flight2);
-//여기까지 넘겨받을 데이터들
+
+//가는편,오는편 구분용으로 필요함
+String departLoc = (String)session.getAttribute("departLocation");
+String arriveLoc = (String)session.getAttribute("arriveLocation");
+
+//flist만들기
+FlightAll flight1 = null;
+for(int i=0;i<flightNumbers.length;i++){
+	flight1 = fallDao.selectFlight(flightNumbers[i]);
+	flight1 = fallDao.selectDepartAirport(flight1);
+	flight1 = fallDao.selectArriveAirport(flight1);
+	flight1 = fallDao.selectAirline(flight1);
+	flight1.setDepartLocation(departLoc);
+	flight1.setArriveLocation(arriveLoc);
+	if(flight1.getArriveAirportcode().equals(arriveLoc)){
+		//도착을 해서 도착지랑 착륙공항이 같아지면 다음번부터 바뀌는거임
+		arriveLoc = (String)session.getAttribute("departLocation");
+		departLoc = (String)session.getAttribute("arriveLocation");
+	}
+	flight1.setClassStr((String)session.getAttribute("classStr"));
+	flist.add(flight1);
+}
 
 
 //스케줄디테일에 출력될 서머리 json으로 만들기(가는표 기준)
@@ -53,7 +62,7 @@ summary[5]=flist.get(0).getAirlinelogo();
 summary[6]=flist.get(0).getAirlineName();
 
 for(FlightAll ff:flist){
-	if(ff.getDepartLocation()!=ff.getDepartApcity()){
+	if(ff.getDepartLocation()!=ff.getDepartAirportcode()){
 		summary[1]="경유 ";
 	}
 	if(ff.getClassStr().indexOf("bs")!=-1){
@@ -73,20 +82,25 @@ forSearch.setOptionCode(flist.get(0).getClassStr());
 forSearch.setStock(1);
 tlist1=ticketdao.selectAll(forSearch);
 
-if(summary[0].equals("왕복")){	//올때
-List<TicketOption> tlist2=new ArrayList<TicketOption>();
-TicketOption forSearch2= new TicketOption();
-forSearch2.setFlightNumber(flist.get(flist.size()-1).getFlightNumber());
-forSearch2.setOptionCode(flist.get(flist.size()-1).getClassStr());
-forSearch2.setStock(1);
-tlist2=ticketdao.selectAll(forSearch2);
-request.setAttribute("tlist2", tlist2);
+
+for(int i=1;i<flist.size();i++){	//올때 tlist2 만들기
+	if(!flist.get(i).getDepartLocation().equals(flist.get(i-1).getDepartLocation())){
+		out.print("다름<br>");
+		List<TicketOption> tlist2=new ArrayList<TicketOption>();
+		TicketOption forSearch2= new TicketOption();
+		forSearch2.setFlightNumber(flist.get(i).getFlightNumber());
+		forSearch2.setOptionCode(flist.get(i).getClassStr());
+		forSearch2.setStock(1);
+		tlist2=ticketdao.selectAll(forSearch2);
+		session.setAttribute("tlist2", tlist2);
+		out.print(tlist2.size());
+		break;
+	}
 }
 
 //경유일때
 for(int i=1;i<flist.size();i++){
 	if(flist.get(i).getArriveLocation().equals(flist.get(i-1).getArriveLocation())){
-		System.out.println("경유");
 		forSearch= new TicketOption();
 		forSearch.setFlightNumber(flist.get(i).getFlightNumber());
 		forSearch.setOptionCode(flist.get(i).getClassStr());
@@ -95,18 +109,19 @@ for(int i=1;i<flist.size();i++){
 		if(i-1==0){
 			List<TicketOption> tlist11=new ArrayList<TicketOption>();
 			tlist11=ticketdao.selectAll(forSearch);
-			request.setAttribute("tlist11", tlist11);
+			session.setAttribute("tlist11", tlist11);
 		}else if(i==flist.size()-1){
 			List<TicketOption> tlist22=new ArrayList<TicketOption>();
 			tlist22=ticketdao.selectAll(forSearch);
-			request.setAttribute("tlist22", tlist22);
+			session.setAttribute("tlist22", tlist22);
+			out.print(tlist22);
 		}
 	}
 }
 
-request.setAttribute("tlist1", tlist1);
-request.setAttribute("flist", flist);
-request.setAttribute("summary", summary);
+session.setAttribute("tlist1", tlist1);
+session.setAttribute("flist", flist);
+session.setAttribute("summary", summary);
 %>
 
 

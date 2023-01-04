@@ -33,7 +33,7 @@ form{
 	</c:if>
 	
 	
-	<form class="form-group">
+	<form class="form-group" action="4899_viewToTotal.jsp">
 	
 <c:set var="standfeeidx" value="0" />
 <div class="showswitchtarget">
@@ -96,7 +96,7 @@ form{
 </div>
 </c:if>
 
-<input type="submit" class="btn btn-primary" value="예약하기" name="submit">
+<input type="submit" class="btn btn-primary" value="예약하기">
 </form>
 </main>
 
@@ -114,20 +114,7 @@ btns[1].addEventListener('click',function(){
 })
 </c:if>
 
-var sbt=document.querySelector('[name=submit]')
-sbt.onclick=function(){
-	sbt.value="true"
-}
 
-<% 
-String gogo=request.getParameter("submit");
-if(gogo!=null&&gogo!=""){
-	if(gogo.equals("true")){
-		request.setAttribute("flist", request.getAttribute("flist"));
-		request.getRequestDispatcher("4899_viewToTotal.jsp").forward(request, response); 
-	}
-}
-%>
 </script>
 <br><br><br><br><br>
 <%@ include file="/0000_footer.html" %>

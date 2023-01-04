@@ -30,7 +30,7 @@
 	text-align: center;
 	}
 .shadow-primary{
-text-shadow: 1px 1px 4px black ;}
+text-shadow: 1px 1px 3px steelblue ;}
 
 </style>
 <title>예약 완료</title>
@@ -56,7 +56,7 @@ var paymentDue=new Date()
 		arriveTimes.push(new Date('${ii[3]}'.substr(0,4),'${ii[3]}'.substr(5,2)-1,
 				'${ii[3]}'.substr(8,2), Number('${ii[3]}'.substr(11,2))+ Number(${ii[4]})+ Number(${ii[11]}),
 				'${ii[3]}'.substr(14,2),'${ii[3]}'.substr(17,2)))
-		
+				
 	paymentDue=new Date('${ii[1]}'.substr(0,4),'${ii[1]}'.substr(5,2)-1,
 				Number('${ii[1]}'.substr(8,2))+1, '${ii[1]}'.substr(11,2),
 				'${ii[1]}'.substr(14,2),'${ii[1]}'.substr(17,2))
@@ -66,9 +66,10 @@ var paymentDue=new Date()
 
 <main class="container">
 <%@ include file="/header.jsp" %>
+<hr>
 <h2>해외항공권 예약</h2>
 <div class="imgbookingisdone">
-<div class="text-white"><span class="shadow-primary">예약이 완료되었습니다</span></div>
+<div class="text-white"><span class="shadow-primary">예매가 완료되었습니다</span></div>
 </div>
 
 <article class="row" style="min-height: 400px">
@@ -77,7 +78,7 @@ var paymentDue=new Date()
 <p>결제마감일 이전에 결제하지 않은 경우 동일요금, 조건으로 항공권 구매가 불가능합니다. 마감일은 항공사 사정으로 변경될 수 있으니 24시간 이내에 꼭 재확인 해주세요.</p>
 <div class="row">
 <div class="col-sm-5">총 요금 <p style="color:steelblue;font-size:large;font-weight: bold"><fmt:formatNumber pattern="0,000원" value="${totalPrice }" /></p></div>
-<div class="col-sm-5">결제 마감일<p style="color:steelblue;font-size:large;font-weight: bold" id="paymentDue"> 까지</p></div>
+<div class="col-sm-5">환불보장 기간<p style="color:steelblue;font-size:large;font-weight: bold" id="paymentDue"> 까지</p></div>
 </div>
 </div>
 
@@ -99,7 +100,7 @@ var paymentDue=new Date()
 <button class="col btn btn-primary mx-2">에어플래닛 메인</button>
 </div>
 
-<hr>
+
 </main>
 <%@ include file="/0000_footer.html" %>
 

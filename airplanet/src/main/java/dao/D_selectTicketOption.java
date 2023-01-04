@@ -63,35 +63,7 @@ public class D_selectTicketOption {
 			}
 		return thisticket;
 	}
-	
-	public boolean updateStock(String flightNumber, int sold) {	//표 팔렸을때
-		boolean done=false;
-		try {
-			con=DB.con();
-			con.setAutoCommit(false);
-			String sql="UPDATE TICKETOPTION SET stock = (stock - ?) WHERE OPTIONCODE LIKE '%'||?||'%' ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, sold);
-			pstmt.setString(2, flightNumber);			
-			if(pstmt.execute()) {
-				con.commit();
-				done=pstmt.executeUpdate()==1?true:false;
-			}
-	     } catch (SQLException e) {
-			System.out.println("SQL예외: "+e.getMessage());
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				System.out.println("롤백예외:" +e1.getMessage());
-			}
-			}catch(Exception e) {
-				System.out.println("일반예외:"+e.getMessage());
-			}
-			finally {
-				DB.close(rs, pstmt, con);
-			}
-		return done;
-	}
+
 	
 	
 	public static void main(String[] args) {
@@ -101,8 +73,7 @@ public class D_selectTicketOption {
 		for(TicketOption t:dd.selectAll(search)) {
 			System.out.println(t.getOptionCode());
 		}
-		System.out.println(dd.updateStock("LAXSFO22122123bs0", 2));
-		
+
 
 	}
 

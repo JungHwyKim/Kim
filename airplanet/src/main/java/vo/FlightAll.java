@@ -4,21 +4,21 @@ package vo;
 public class FlightAll {
 	private String departApnation;
 	private String departApcity;
-	private int departPacifictime;
-	private String departAirportcode;
-	private String flightNumber;
+	private int departPacifictime;	
+	private String departAirportcode; 
+	private String flightNumber;   //받을거
 	private String departDate;
-	private float flightHours;
+	private float flightHours;    
 	private int standardFee;
 	private int classfee;
 	private String optioncode;		
 	private String arriveApnation;
 	private String arriveApcity;
 	private int arrivePacifictime;
-	private String arriveAirportcode;
-	private String arriveApphoto;
-	private String airlinelogo;
-	private String classStr; // 검색(좌석)		//ec,bs코드로??
+	private String arriveAirportcode;	//받을거
+	private String arriveApphoto;	
+	private String airlinelogo;			//받을거
+	private String classStr; // 검색(좌석) 세션		//ec,bs코드로??
 	private String departLocation; // 검색(출발지) //+최초출발지
 	private String arriveLocation; // 검색(도착지) //+최종도착지
 	

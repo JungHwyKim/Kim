@@ -49,10 +49,12 @@ function discountcardapply (cardvalue){
 }
 
 function finalpriceapply(){
-	var finalprice=document.querySelector('#finalprice')
+	let finalprice=document.querySelector('#finalprice')
 	let mileage1 = finalmileage.innerText
 	let mileage2 = mileage1.replace(',','')
 	let card1 = finaldiscountcard.innerText
 	let card2 = card1.replace(',','')
 	finalprice.innerText=(originalPrice-mileage2-card2).toLocaleString()
+	let cardPromotion=document.querySelector('[name=cardPromotion]')
+	cardPromotion.value=card2
 }

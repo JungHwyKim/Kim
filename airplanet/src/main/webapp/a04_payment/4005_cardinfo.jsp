@@ -30,6 +30,8 @@
 	<label><input type="radio" name="cardmf" value="m" checked >남성</label>&nbsp;&nbsp;&nbsp;
 	<label><input type="radio" name="cardmf" value="f">여성</label></td></tr>
 </table>
+<input type="hidden" name="cardcorporate2">
+<input type="hidden" name="cardPromotion" >
 </fieldset>
 <ul class="smallinfo">
 <li>결제는 탑승객 명의의 카드를 사용해야 하며, 이 외의 카드를 이용하신 경우 항공사에서 요청하는 증빙서류를 제출하셔야 합니다. 증빙서류를 제출하지 않은 경우 발권은 가능하나, 추후 발생되는 문제에 대하여 책임지지 않습니다.
@@ -39,6 +41,7 @@
 <c:if test='${not empty reg2.email }' >
 <c:set var="cardinfo" value='${fn:split(reg2.cardInfo," ")}'  />
 </c:if>
+
 <script>
 var cardjson={
 		"cardownertype": '${cardinfo[0]}',

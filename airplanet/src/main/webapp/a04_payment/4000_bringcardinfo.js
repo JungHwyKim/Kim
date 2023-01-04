@@ -34,6 +34,7 @@ function bringcardinfo(self){
 			discountcardbyselectedcard();
 			cardcorporate.disabled=true;
 			discountcardapply(cardcorporate.value);
+				finalpriceapply();
 					
 		}})
 
@@ -42,26 +43,30 @@ function bringcardinfo(self){
  	cardinstallmentopts.forEach(function(insopt){
 		if(insopt.value==cardjson['cardinstallment']){
 			insopt.selected = true;
-			document.querySelector('[name=cardinstallment]').disabled=true;
+			document.querySelector('[name=cardinstallment]').readOnly=true;
 			}
 		})
+			
 //못바꾸게
 		inputs.forEach(function(thisinput){
-		thisinput.disabled=true;
+		thisinput.readOnly=true;
 		})
 		discountcard.forEach(function(thisinput){
-		thisinput.disabled=true;
+		thisinput.readOnly=true;
 		})
 		
 	}else{
-//체크해제하면 disabled 해제
+//체크해제하면 readOnly 해제
 		inputs.forEach(function(thisinput){
-		thisinput.disabled=false;
+		thisinput.readOnly=false;
 		})
 		discountcard.forEach(function(thisinput){
-		thisinput.disabled=false;
+		thisinput.readOnly=false;
 		})
-		cardcorporate.disabled=false;
-		document.querySelector('[name=cardinstallment]').disabled=false;
+		cardcorporate.readOnly=false;
+		document.querySelector('[name=cardinstallment]').readOnly=false;
 	}
+	
+	let cardcorporate2= document.querySelector('[name=cardcorporate2]')
+	cardcorporate2.value=cardcorporate.value
 }

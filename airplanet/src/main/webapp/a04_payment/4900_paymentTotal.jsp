@@ -84,7 +84,7 @@ a:link {
 
 
 
-<form class="needs-validation" action="4005_rule2.html" novalidate>
+<form class="needs-validation" action="4902_fareInsert_pay.jsp" novalidate>
 <%@ include file="4004_1_passengerInfo.jsp" %>
 <label><input class="form-check-input" type="checkbox" onchange="bringPassengerinfo()">탑승객 정보 불러오기</label><br>
 <strong>탑승객 영문이름, 생년월일, 성별 기재 시 주의사항</strong>
@@ -113,7 +113,7 @@ a:link {
 <div class="row .justify-content-start">
 <h5 class="col-3">마일리지 사용하기</h5>
 	<div class="input-group col" id="mileageinput" required>
-	<input type="number" class="form-control" value="0" min ="0" max="99999999">
+	<input type="number" class="form-control" name="useMileage" value="0" min ="0" max="99999999">
 	<span class="input-group-text"> / </span>
 	<input type="number" class="input-group-text" value="${reg2.mileage }" readonly>
 	</div>
@@ -131,6 +131,7 @@ a:link {
 <label class="col-sm-3"><input class="form-check-input" type="radio" name="discountcard" value="롯데카드" >롯데카드결제조건</label><div class="col-sm-3">3,000원</div>
 <label class="col-sm-3"><input class="form-check-input" type="radio" name="discountcard" value="현대카드" >현대카드결제조건</label><div class="col-sm-3">40,000원</div>
 </div>
+
 <br><br>
 
 <div class="rounded-2 bg-info row">
@@ -244,6 +245,8 @@ var consentAgreements = document.querySelectorAll('#consentAgreements input')
 					}
 					if(thiscard.value==""){cardcorporate.disabled=false;}
 				})
+				let cardcorporate2= document.querySelector('[name=cardcorporate2]')
+				cardcorporate2.value=cardcorporate.value
 				finalpriceapply();
 		})
  })
@@ -295,7 +298,9 @@ if(myMileage==''){myMileage=0;}else{myMileage=Number(myMileage)}
 cardcorporate.addEventListener('change',function(){
 	discountcardbyselectedcard();
 	discountcardapply(cardcorporate.value);
-	finalpriceapply()
+	finalpriceapply();
+	let cardcorporate2= document.querySelector('[name=cardcorporate2]')
+	cardcorporate2.value=cardcorporate.value
 })
 /* 마일리지 입력할때 */
 mileageinputs[0].addEventListener("input",mileageValid)	
@@ -312,11 +317,11 @@ showswitch[1].addEventListener('click',function(){
 
 /* 지금결제vs나중에 */
 showswitch[2].addEventListener('click',function(){
-	showswitching('2','2','','finalsubmit','결제 완료하기','4006_book_success.jsp');
+	showswitching('2','2','','finalsubmit','결제 완료하기','4902_fareInsert_pay.jsp');
 	paynow()
 }) 	
 showswitch[3].addEventListener('click',function(){
-	showswitching('2','3','none','finalsubmit','예약 완료하기','4005_rule3.html');	
+	showswitching('2','3','none','finalsubmit','예약 완료하기','4901_fareInsert_reserve.jsp');	
 	paynow()
 }) 	
 
