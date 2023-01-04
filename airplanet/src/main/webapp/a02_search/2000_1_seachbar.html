@@ -170,7 +170,6 @@
 </style>
 </head>
 <body>
-
 	<h2>검색창(확대/축소)</h2>
 	<form>
 		<div class="accordion" style="display:flex;">
@@ -565,6 +564,127 @@ arriv.onblur=function(){
 		d1container.style.display="none"
 	}
 }
+
+//출발지 쿠키 생성
+function departCookie(){
+	var date = new Date()
+	date.setDate(date.getDate() + 7)
+	var dCookie = ""
+	dCookie += "depart="+depart.value+";"
+	dCookie += "expires=" + date.toUTCString()
+	var codeCookie = ""
+	codeCookie += "departcode="+depC+";"
+	codeCookie += "expires=" + date.toUTCString()
+	document.cookie = dCookie;
+	document.cookie = codeCookie;
+}
+// 도착지 쿠키 생성
+function arriveCookie(){
+	var date = new Date()
+	date.setDate(date.getDate() + 7)
+	var aCookie = ""
+	aCookie += "arrive="+arriv.value+";"
+	aCookie += "expires=" + date.toUTCString()
+	var codeCookie = ""
+	codeCookie += "arrivecode="+arvC+";"
+	codeCookie += "expires=" + date.toUTCString()
+	document.cookie = aCookie;
+	document.cookie = codeCookie;
+}
+var a = ""
+	// 출발지(쿠키)
+	var cookiee = document.cookie.split(";")
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "depart"){
+				depart.value = nv[1].trim()
+				a = nv[1].trim()
+			}
+		}
+	}
+	var b = ""
+	// 도착지(쿠키)
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "arrive"){
+				arriv.value = nv[1].trim()
+				b = nv[1].trim()
+			}
+		}
+	}
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "departcode"){
+				depC = nv[1].trim()
+			}
+		}
+	}
+	for(var i=0;i<cookiee.length;i++){
+	var nv = cookiee[i].split("=")
+		for(var j=0;j<nv.length;j++){
+			if(nv[0].trim() == "arrivecode"){
+				arvC = nv[1].trim()
+			}
+		}
+	}
+	
+	// 항공권 검색
+	searchBtnOb.onclick=function(){
+		// 왕복
+		if(tripD == 0){
+			if(depC == ""){
+				depart.focus()
+				// 입력해달라는 내용
+				console.log("1")
+				console.log(depC)
+				console.log(arvC)
+			}else{
+				if(arriv.value == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(arvC == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		// 편도
+		}else{
+			if(depC == ""){
+				depart.focus()
+				// 입력해달라는 내용
+				console.log("2")
+			}else{
+				if(arriv.value == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(arvC == ""){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		}
+	}
 </script>
 </body>
 </html>
