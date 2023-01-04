@@ -29,9 +29,9 @@ header{
 		<img class="profilepic" src="/b01_img/user.PNG" class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="a03_myPage/3001_myPage_Main.jsp">마이페이지</a>
-    <a class="dropdown-item" href="/a01_member/1400_signout.jsp">로그아웃</a>
+    <a class="dropdown-item" onclick="signout()">로그아웃</a>
   </div>
-		</div>
+		</div> <span id="prof_name">${naver_name}</span>
 		</div>
 </header>
 
@@ -45,25 +45,49 @@ signup.onclick=function(){
 }
 var signinout=document.querySelector('[name=signin]')
 
+// 추가
+var n = document.querySelector("#prof_name")
+
+var kakaoId = '${profile_name}'
 var regId='${reg2.email}'
-if(regId==''){	//로그인 안했을때
+if(regId=='' && kakaoId==''){	//로그인 안했을때
 	signup.style.display="";
 	signinout.value="로그인"
 	signinout.onclick=function(){location.href="/a01_member/1002_signin.jsp"}
+}else if(regId != ''){
+	signup.style.display="none";
+	signinout.style.display="none"
+	// 추가
+	n.innerText='${reg2.name}'+kakaoId+'${naver_id}'
 }else{
 	signup.style.display="none";
 	signinout.style.display="none"
-	signinout.onclick=function(){location.href="/a01_member/1400_signout.jsp"}
+	// 추가
+	n.innerText='${reg2.name}'+kakaoId+'${naver_id}'
+}
+console.log('${reg2.name}')
+console.log('${profile_name}')
+//console.log('${state.nickname}')
+
+function signout(){
+	if('${reg2.name}' != ''){
+		console.log("일반")
+		location.href="/a01_member/1400_signout.jsp"			
+	}else{
+		console.log("카카오")
+		location.href="/a01_member/1401_signout.jsp"
+	}
 }
 
 var profilepic=document.querySelector('.profilepic')
 var reg2email='${reg2.email}';
 console.log(reg2email)
-if(reg2email.length>2){
+if(reg2email.length>2 || kakaoId != ''){
 	profilepic.style.display='inline-block'
 }else{
 	profilepic.style.display='none'
 }
+
 
 
 </script>

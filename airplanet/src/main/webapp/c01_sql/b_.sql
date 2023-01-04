@@ -121,7 +121,7 @@ AND substr(t.optioncode,15,2)='ec'
 
 
 -- 2003 detail 시간 값 조절했을 때
-SELECT DISTINCT  f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
+SELECT DISTINCT f.flightnumber, f.departdate, f.DEPARTAIRPORT , f.ARRIVEAIRPORT , f.FLIGHTHOURS, 
 a1.PACIFICTIME , a2.PACIFICTIME, ar.AIRLINELOGO, f.STANDARDFEE , t.CLASS  
 FROM FLIGHT f, airport a2, airport a1, ticketOption t, AIRLINE ar 
 WHERE a1.AIRPORTCODE =f.DEPARTAIRPORT 
@@ -134,11 +134,33 @@ AND (a1.apcity='인천' OR a1.airportcode='인천')
 AND (a2.APCITY='FUK' OR a2.AIRPORTCODE='FUK')
 AND substr(t.optioncode,15,2)='ec'
 AND TO_NUMBER(TO_char(f.departdate,'sssss')) >=0 and TO_NUMBER(TO_char(f.departdate,'sssss')) <=86400
+ORDER BY f.STANDARDFEE--f.DEPARTDATE--f.FLIGHTHOURS -- --
 ;
 
 
 
-
+-- 2003 detail 시간 값 조절했을 때(왕복정렬까지포함)
+SELECT DISTINCT f1.flightnumber, f1.departdate, f1.DEPARTAIRPORT , f1.ARRIVEAIRPORT , f1.FLIGHTHOURS, 
+a1.PACIFICTIME , a2.PACIFICTIME, ar1.AIRLINELOGO, f1.STANDARDFEE , t1.CLASS,
+f2.FLIGHTNUMBER,f2.DEPARTDATE, f2.FLIGHTHOURS, ar2.AIRLINELOGO, f2.STANDARDFEE , t2.CLASS 
+FROM FLIGHT f1, airport a2, airport a1, ticketOption t1, TICKETOPTION t2, AIRLINE ar1, AIRLINE ar2, FLIGHT f2 
+WHERE a1.AIRPORTCODE =f1.DEPARTAIRPORT 
+AND a2.AIRPORTCODE =f1.ARRIVEAIRPORT 
+AND t1.FLIGHTNUMBER =f1.FLIGHTNUMBER 
+AND ar1.AIRLINECODE =f1.AIRLINECODE 
+AND t1.stock>=1 AND t2.STOCK >=1
+AND a2.AIRPORTCODE =f2.DEPARTAIRPORT AND a1.AIRPORTCODE =f2.ARRIVEAIRPORT 
+AND t2.FLIGHTNUMBER =f2.FLIGHTNUMBER AND ar2.AIRLINECODE =f2.AIRLINECODE 
+AND TO_CHAR(f1.departdate,'yyyy-mm-dd')= '2022-12-21'
+AND TO_CHAR(f2.departdate,'yyyy-mm-dd')= '2022-12-30'
+AND (a1.apcity='인천' OR a1.airportcode='인천') 
+AND (a2.APCITY='FUK' OR a2.AIRPORTCODE='FUK')
+AND substr(t1.optioncode,15,2)='ec'
+AND substr(t2.optioncode,15,2)='ec'
+AND TO_NUMBER(TO_char(f1.departdate,'sssss')) >=0 and TO_NUMBER(TO_char(f1.departdate,'sssss')) <=86400
+AND TO_NUMBER(TO_char(f2.departdate,'sssss')) >=0 and TO_NUMBER(TO_char(f2.departdate,'sssss')) <=86400
+ORDER BY f2.departdate --f1.STANDARDFEE+f2.STANDARDFEE --f1.FLIGHTHOURS+f2.FLIGHTHOURS -- --
+;
 
 
 -- 도시, 공항으로 검색했을 때 /// 경유Exp
@@ -186,69 +208,7 @@ AND ap2.apcity='LA'-- 도착도시
 AND t.stock>=1 -- 좌석이 있으면
 ;
 
-/*
- String query = "";
- if( ~==null)
- 	query += "";
-
-SELECT ap1.apnation, ap1.apcity, f.flightnumber, f.departdate,f.flighthours,f.standardfee, 
-t.optioncode,ap2.apnation, ap2.apcity, ap2.apphoto, ar.airlinelogo
-FROM airport ap2, flight f, airport ap1, ticketOption t, airline ar 
-WHERE f.arriveairport=ap2.airportcode
-AND f.departairport = ap1.airportcode
-AND f.flightnumber = t.flightnumber
-AND ar.airlinecode = f.airlinecode
-AND ap1.apnation = ?
-AND ap2.apnation = ?
-AND TO_CHAR(f.departdate,'yyyy-mm-dd')= '2022-12-21' 
-AND substr(t.optioncode,15,2)= ?
-AND ap1.apcity=?
-AND ap2.apcity=?
-AND t.stock>=1 
- * 
- * 
- *  */
 
 
---편도 나라명+도시명, 티켓정보
-SELECT f.flightnumber, f.departdate, f.flighthours, f.airlinecode, ap.apphoto, ar.airlineLogo, f.standardfee 
-FROM airport ap, flight f, airline ar 
-WHERE f.departairport = ap.airportcode 
-AND ar.airlineCode = f.airlinecode
-AND f.departairport='ICN'  -- 출발지 검색
-AND f.arriveairport='LAX'  -- 도착지 검색
-AND TO_CHAR(f.departdate,'yyyy-mm-dd') = '2022-12-21' -- 가는날
-;
-
---편도
-SELECT f.flightnumber, f.departdate, f.flighthours, f.airlinecode, ap.apphoto, ar.airlineLogo, f.standardfee 
-FROM airport ap, flight f, airline ar 
-WHERE f.departairport = ap.airportcode 
-AND ar.airlineCode = f.airlinecode
-AND f.departairport='ICN'  -- 출발지 검색
-AND f.arriveairport='LAX'  -- 도착지 검색
-AND TO_CHAR(f.departdate,'yyyy-mm-dd') = '2022-12-22' -- 가는날
-;
---왕복이면 뒤집어서
-SELECT f.flightnumber, f.departdate, f.flighthours, f.airlinecode, ap.apphoto, ar.airlineLogo, f.standardfee 
-FROM airport ap, flight f, airline ar 
-WHERE f.departairport = ap.airportcode 
-AND ar.airlineCode = f.airlinecode
-AND f.departairport='LAX'  -- 출발지 검색
-AND f.arriveairport='ICN'  -- 도착지 검색
-AND TO_CHAR(f.departdate,'yyyy-mm-dd') = '2022-12-30' -- 가는날
-;
-
-SELECT ap.apcity FROM airport ap, flight f 
-WHERE f.arriveairport = ap.airportcode
-AND apcity='LA';
-
-/*
--- 나라별 항공편
-SELECT f.flightnumber, flighthours, departdate, standardfee FROM flight f, ticketoption t, airport ap
-WHERE f.flightnumber=t.flightnumber AND ap.airportCode =
-AND t.stock>=1 -- 좌석이 1이상 남았을 때
-AND ; 
-*/
 
 

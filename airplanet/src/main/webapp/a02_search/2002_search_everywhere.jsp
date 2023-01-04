@@ -50,7 +50,19 @@ form > .accodion-con-btn{
 
 </head>
 <body>
+	<%
+	String departLocation = request.getParameter("departlocation");
+	String departDate = request.getParameter("departdate");
+	String arriveDate = request.getParameter("arrivedate");
+	String cntS = request.getParameter("cnt");
+	int cnt=Integer.parseInt(cntS);
 	
+	session.setAttribute("departLocation", departLocation);
+	session.setAttribute("departDate", departDate);
+	session.setAttribute("arriveDate", arriveDate);
+	session.setAttribute("cnt", cnt);
+	session.setAttribute("classStr", "");
+	%>
 
   	<div class="container">
   	<jsp:include page="/header.jsp"></jsp:include>
@@ -60,7 +72,7 @@ form > .accodion-con-btn{
   		<jsp:useBean id="daoE" class="dao.B_searcheverywhere"/>
   		<jsp:useBean id="schE" class="vo.FlightAll"/>
   		<jsp:setProperty property="*" name="schE"/>
-  		${schE.setDepartDate("2022-12-21") } ${schE.setDepartLocation("ICN") }
+  		${schE.setDepartDate(departDate) } ${schE.setDepartLocation(departLocation) }
   		
   		<c:forEach var="byNation" items="${daoE.getMinfeeE(schE) }">
   		
@@ -68,7 +80,7 @@ form > .accodion-con-btn{
 		  	<jsp:useBean id="daoR" class="dao.B_returnprice"/>
 		  	<jsp:useBean id="schR" class="vo.FlightAll"/>
 		  	<jsp:setProperty property="*" name="schR"/>
-		  	${schR.setDepartDate("2022-12-30") } ${schR.setDepartLocation(byNation.arriveApcity) }${schR.setArriveLocation("ICN") }
+		  	${schR.setDepartDate(arriveDate) } ${schR.setDepartLocation(byNation.arriveApcity) }${schR.setArriveLocation(departLocation) }
 		    
   		
   		<div class="accodion-item d-grid gap-2">
@@ -78,7 +90,7 @@ form > .accodion-con-btn{
   				<span class="p-2 flex-grow-1">${byNation.arriveApcity }</span>
   				<c:forEach var="rPrice" items="${daoR.returnMinfeeE(schR) }" >
   		<%-- 편도가격 + 왕복 리턴가격 --%>
-  				<c:set var= "total1" value="${rPrice.standardFee + byNation.standardFee}"/> 
+  				<c:set var= "total1" value="${(rPrice.standardFee + byNation.standardFee)*cnt}"/> 
   				<span class="p-2"><fmt:formatNumber value="${total1 }"/>부터</span></c:forEach>
   				<span class="material-symbols-outlined p-2">expand_more</span>
   			</div></button>
@@ -86,12 +98,12 @@ form > .accodion-con-btn{
 		    <jsp:useBean id="daoN" class="dao.B_searchnation"/>
 			<jsp:useBean id="schN" class="vo.FlightAll"/>
 			<jsp:setProperty property="*" name="schN"/>
-		  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") } ${schN.setArriveLocation(byNation.arriveApcity) }
+		  	${schN.setDepartDate(departDate) } ${schN.setDepartLocation(departLocation) } ${schN.setArriveLocation(byNation.arriveApcity) }
 		  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
   			
   			
-  			<form action="2003_search_detailrangeExp.jsp">
-			<input type="hidden" name="city" value="${byCity.arriveApcity }">
+  			<form action="2003_search_detailrangeExpJSON.jsp">
+			<input type="hidden" name="arrivelocation" value="${byCity.arriveApcity }">
   			<button type="submit" class="accodion-con-btn">
   			<div class="accodion-body">
   			<div class="card mb-12" >
@@ -109,9 +121,9 @@ form > .accodion-con-btn{
 			   		 <jsp:useBean id="daoRC" class="dao.B_returnprice"/>
 				  	<jsp:useBean id="schRC" class="vo.FlightAll"/>
 				  	<jsp:setProperty property="*" name="schRC"/>
-				  	${schRC.setDepartDate("2022-12-30") } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation("ICN") }
+				  	${schRC.setDepartDate(arriveDate) } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation(departLocation) }
 			 		<c:forEach var="rcPrice" items="${daoRC.returnMinfeeN(schRC) }" >  
-			 		<c:set var= "total2" value="${rcPrice.standardFee + byCity.standardFee}"/>      
+			 		<c:set var= "total2" value="${(rcPrice.standardFee + byCity.standardFee)*cnt}"/>      
 			      	  <span><fmt:formatNumber value="${total2 }"/>부터</span>
 			   		</c:forEach></p> 
 			      </div>

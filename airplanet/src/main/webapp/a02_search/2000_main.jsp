@@ -111,6 +111,8 @@
 }
 .adt{
 	padding:0 5% 0 5%;
+	margin:12px 15px 0 15px;
+	color:white;
 }
 .headerRL{
 	width:120px;
@@ -122,6 +124,77 @@
 	font-weight:700;
 	color:white;
 }
+.backgroudCover{
+	border:1px solid white;
+	border-radius:20px;
+	height:250px;
+	background:rgba(250,250,250,0.9);
+}
+.travelLabel{
+	font-weight:600;
+	font-size:small;
+}
+.departText{
+	position:absolute;
+	font-weight:600;
+	font-size:x-small;
+	color:red;
+}
+.travelInput{
+	height:35px;
+}
+.balloonGradeLabel{
+	margin-left:30px;
+	padding-top:20px;
+	font-size:small;
+	font-weight:600;
+	color:white;
+}
+.opt{
+	border-radius:5px;
+	width:240px;
+	height:35px;
+}
+.balloonDiv{
+	margin:-5px 0 0 28px;
+	padding-top:10px;
+}
+.balloonMenCount{
+	margin-left:30px;
+	padding:10px 0 10px 0;
+	font-size:small;
+	font-weight:600;
+	color:white;
+}
+.sendgAn{
+	width:90%;
+	height:25px;
+	background:rgba(250,250,250,0.7);
+	border-radius:5px;
+	border:none;
+}
+.switchButton{
+	z-index:1;
+	position:absolute;
+	width:30px;
+	height:25px;
+	margin:-33px 0 0 240px;
+	background:white;
+	border:none;
+	font-size:20px;
+	color:steelblue
+}
+.searchButton{
+	margin:20px 0 0 900px;
+	width:150px;
+	height:50px;
+	font-size:large;
+	font-weight:700;
+	background:NavajoWhite;
+	border:1px solid moccasin;
+	color:white;
+	border-radius:10px;
+}
 </style>
 </head>
 <body>
@@ -130,66 +203,70 @@
 		<jsp:include page="/header.jsp" flush="true"/> 	
 	</div>
 		<div class="colD">
-			<div style="margin-top:100px;"><span style="font-size:70px;font-weight:800;color:white;">여행을 시작하세요</span></div>
-			<div style="border:1px solid white;border-radius:20px;height:250px;background:rgba(250,250,250,0.9)">
+			<div style="margin-top:100px;">
+				<span style="font-size:70px;font-weight:800;color:white;">여행을 시작하세요</span>
+			</div>
+			<div class="backgroudCover">
 				<div style="margin:50px 0 0 20px">
-					<input type="radio" name="trip" value="0" checked="checked"/><span style="font-weight:600" > 왕복 </span> 
-					<input type="radio" name="trip" value="1"/><span style="font-weight:600" > 편도</span>
+					<input type="radio" name="trip" value="0" checked="checked"/>
+						<span style="font-weight:600" > 왕복 </span> 
+					<input type="radio" name="trip" value="1"/>
+						<span style="font-weight:600" > 편도</span>
 				</div>
 			<div style="display:flex;margin:25px 0 0 25px;">
 				<div style="flex-direction:column;"> 
-					<div><span style="font-weight:600;font-size:small;">출발지</span></div>
-					<div><input style="width:250px;height:35px;" type="text" name="departure"/></div>
+					<div><span class="travelLabel">출발지</span></div>
+					<div><input style="width:250px;" class="travelInput" type="text" name="departure"/></div>
 					<div style="position:absolute;">
 						<div class="wordList" tabindex="0"></div>
 					</div>
+					<div class="departText"></div>
 				</div>
 				<div style="flex-direction:column;">
-					<div><span style="font-weight:600;font-size:small;">도착지</span></div>
-					<div><input style="width:250px;height:35px;" type="text" name="arrival"/></div>
+					<div><span class="travelLabel">도착지</span></div>
+					<div><input style="width:250px;" class="travelInput" type="text" name="arrival"/></div>
 					<div style="position:absolute;">
 						<div class="wordList1" tabindex="0"></div>
 					</div>
 				</div>
 				<div style="flex-direction:column;">
-					<div><span style="font-weight:600;font-size:small;">가는날</span></div>
-					<div><input style="width:125px;height:35px;" type="text" name="ddate"/></div>
+					<div><span class="travelLabel">가는날</span></div>
+					<div><input style="width:125px;" class="travelInput" type="text" name="ddate"/></div>
 				</div>
 				<div style="flex-direction:column;">
-					<div><span style="font-weight:600;font-size:small;">오는날</span></div>
-					<div><input style="width:125px;height:35px;" type="text" name="adate"/></div>
+					<div><span class="travelLabel">오는날</span></div>
+					<div><input style="width:125px;" class="travelInput" type="text" name="adate"/></div>
 				</div>
 				<div style="flex-direction:column;">
-					<div><span style="font-weight:600;font-size:small;">좌석등급 및 승객</span></div>
-					<div><input style="width:250px;height:35px;" type="text" name="gradenum"/></div>
+					<div><span class="travelLabel">좌석등급 및 승객</span></div>
+					<div><input style="width:250px;" class="travelInput" type="text" name="gradenum"/></div>
 					<div style="position:absolute;">
 						<div class="gAn" tabindex="0">
 							<div class="balloon">
-								<div style="margin-left:30px;padding-top:20px;font-size:small;font-weight:600;color:white;">좌석 등급</div>
-								<div style="margin:-5px 0 0 28px;padding-top:10px;">
-									<select class="opt" style="border-radius:5px;width:240px;height:35px;">
+								<div class="balloonGradeLabel">좌석 등급</div>
+								<div class="balloonDiv">
+									<select class="opt">
 										<option value="ec">일반석</option>
 										<option value="bs">비즈니스석</option>
 										<option value="fs">일등석</option>
 									</select>
 								</div>
-								<div style="margin-left:30px;padding:10px 0 10px 0;font-size:small;font-weight:600;color:white;">인원</div>
+								<div class="balloonMenCount">인원</div>
 								<div style="display:flex;margin:3% 0 0 23%;">
 									<div><input type="button" class="mBtn1" value="&#8722"></div>
-									<div class="adt" style="margin:12px 15px 0 15px;color:white;">1</div>
+									<div class="adt">1</div>
 									<div><input type="button" class="pBtn1" value="&#43"></div>
 								</div>
 								<div style="margin:17% 0 0 30px;">
-									<input class="sendgAn" type="button" style="width:90%;height:25px;background:rgba(250,250,250,0.7);border-radius:5px;border:none;" value="완료">
+									<input class="sendgAn" type="button" value="완료">
 								</div>
 							</div>
 						 </div>
 					</div>
 				</div>
 			</div>
-			<div><input style="z-index:1;position:absolute;width:30px;height:25px;margin:-33px 0 0 240px;background:white;border:none;font-size:20px;color:steelblue" type="button" name="switch" value="⇄"/></div>
-			<div><input style="margin:20px 0 0 900px;width:150px;height:50px;font-size:large;font-weight:700;background:NavajoWhite;border:1px solid moccasin;color:white;border-radius:10px;" name="searchBtn" type="button" value="항공권 검색 →"></div>
-			
+			<div><input class="switchButton" type="button" name="switch" value="⇄"/></div>
+			<div><input class="searchButton" name="searchBtn" type="button" value="항공권 검색 →"></div>
 			</div>
 		</div>
 	</div>
@@ -217,7 +294,10 @@
 	
 	// 출발지/도착지 반전
 	swch.onclick=function(){
+		var dC = depC
 		var departSave = depart.value
+		depC = arvC
+		arvC = dC
 		depart.value = arriv.value
 		arriv.value = departSave
 	}
@@ -287,15 +367,13 @@
 	
 	// 오는날이 가는날보다 빠를때
 	ddateOb.onchange=function(){
-		const ddate = new Date(ddateOb.value)
-		console.log(ddateOb.value)		
+		const ddate = new Date(ddateOb.value)	
 		if(ddateOb.value >= adateOb.value){
 			adateOb.value = ddateOb.value 
 		}
 	}	
 	adateOb.onchange=function(){
 		const adate = new Date(adateOb.value)
-		console.log(adateOb.value)	
 		if(ddateOb.value >= adateOb.value){
 			adateOb.value = ddateOb.value 
 		}	
@@ -521,64 +599,9 @@
 		document.cookie = codeCookie;
 	}
 	
-	
-	
-	// 항공권 검색
-	searchBtnOb.onclick=function(){
-		// 왕복
-		if(tripD == 0){
-			if(depC == ""){
-				depart.focus()
-				// 입력해달라는 내용
-				console.log("1")
-				console.log(depC)
-				console.log(arvC)
-			}else{
-				if(arriv.value == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					call()
-					call1()
-					location.href="b2000_1_check.jsp"+qstr
-				}else if(arvC == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else{
-					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}
-			}
-		// 편도
-		}else{
-			if(depC == ""){
-				depart.focus()
-				// 입력해달라는 내용
-				console.log("2")
-			}else{
-				if(arriv.value == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else if(arvC == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else{
-					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}
-			}
-		}
-	}
+	console.log(arriv.value)
+	console.log(arriv.value.split(","))
+	console.log(arriv.value.split(",").length>1)
 	
 	var a = ""
 	// 출발지(쿠키)
@@ -620,10 +643,60 @@
 		}
 	}
 	
-	console.log(depC)
-	console.log(arvC)
+	var departText = document.querySelector(".departText")
+	depart.onfocus=function(){
+		departText.innerText=""	
+	}
 	
-	
+	// 항공권 검색
+	searchBtnOb.onclick=function(){
+		// 왕복
+		if(tripD == 0){
+			if(depart.value.length == 0 || !depart.value.includes(",")){
+				departText.innerText="출발지를 선택해주세요"
+			}else{
+				departText.innerText=""
+				if(arriv.value.length == 0){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(!arriv.value.includes(",")){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		// 편도
+		}else{
+			if(depart.value.length == 0 || !depart.value.includes(",")){
+				depart.focus()
+			}else{
+				if(arriv.value.length == 0){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(!arriv.value.includes(",")){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		}
+	}	
 	
 </script>
 </body>

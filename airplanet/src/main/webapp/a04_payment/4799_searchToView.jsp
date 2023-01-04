@@ -11,17 +11,17 @@
  --> 
 
 <%
-/* String [] flightNumbers = request.getParameterValues("flightNumber");
+String [] flightNumbers = request.getParameterValues("flightNumber");
 String [] departDates = request.getParameterValues("departDate");
 String [] departAirportcodes = request.getParameterValues("departAirportcode");
 String [] arriveAirportcodes = request.getParameterValues("arriveAirportcode");
-String [] airlinelogos = request.getParameterValues("airlinelogo"); */
+String [] airlinelogos = request.getParameterValues("airlinelogo"); 
 
 //쿼리스트링 받아오기~~
-String [] flightNumbers={"ICNLAX22122115","LAXSFO22122123","SFOICN23012011"};
+/* String [] flightNumbers={"ICNLAX22122115","LAXSFO22122123","SFOICN23012011"};
 session.setAttribute("departLocation", "ICN");
 session.setAttribute("arriveLocation", "SFO");
-session.setAttribute("classStr", "bs");
+session.setAttribute("classStr", "bs"); */
 //~~~쿼리스트링 받아오기
 
 
@@ -30,7 +30,8 @@ ArrayList<FlightAll> flist=new ArrayList<FlightAll>();
 
 //가는편,오는편 구분용으로 필요함
 String departLoc = (String)session.getAttribute("departLocation");
-String arriveLoc = (String)session.getAttribute("arriveLocation");
+String arriveLoc = fallDao.selectAirportCode((String)session.getAttribute("arriveLocation"));
+
 
 //flist만들기
 FlightAll flight1 = null;

@@ -51,7 +51,19 @@ form > .accodion-con-btn{
 
 </head>
 <body>
+	<%
+	String departLocation = request.getParameter("departlocation");
+	String departDate = request.getParameter("departdate");
+	String arriveDate = request.getParameter("arrivedate");
+	String cntS = request.getParameter("cnt");
+	int cnt=Integer.parseInt(cntS);
 	
+	session.setAttribute("departLocation", departLocation);
+	session.setAttribute("departDate", departDate);
+	session.setAttribute("arriveDate", arriveDate);
+	session.setAttribute("cnt", cnt);
+	session.setAttribute("classStr", "");
+	%>
 
   	<div class="container">
   	<jsp:include page="/header.jsp"></jsp:include>
@@ -61,7 +73,7 @@ form > .accodion-con-btn{
   		<jsp:useBean id="daoE" class="dao.B_searcheverywhere"/>
   		<jsp:useBean id="schE" class="vo.FlightAll"/>
   		<jsp:setProperty property="*" name="schE"/>
-  		${schE.setDepartDate("2022-12-21") } ${schE.setDepartLocation("ICN") }
+  		${schE.setDepartDate(departDate) } ${schE.setDepartLocation(departLocation) }
   		
   		<c:forEach var="byNation" items="${daoE.getMinfeeE(schE) }">
 		    
@@ -71,19 +83,19 @@ form > .accodion-con-btn{
   		 <button class="btn btn-light" type="button">
   			<div class="accodion-header d-flex">
   				<span class="p-2 flex-grow-1">${byNation.arriveApcity }</span>
-  				<span class="p-2"><fmt:formatNumber value="${byNation.standardFee }"/>부터</span>
+  				<span class="p-2"><fmt:formatNumber value="${(byNation.standardFee)*cnt }"/>부터</span>
   				<span class="material-symbols-outlined p-2">expand_more</span>
   			</div></button>
   			
 		    <jsp:useBean id="daoN" class="dao.B_searchnation"/>
 			<jsp:useBean id="schN" class="vo.FlightAll"/>
 			<jsp:setProperty property="*" name="schN"/>
-		  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") } ${schN.setArriveLocation(byNation.arriveApcity) }
+		  	${schN.setDepartDate(departDate) } ${schN.setDepartLocation(departLocation) } ${schN.setArriveLocation(byNation.arriveApcity) }
 		  	
 		  	
 		  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
-			<form action="2003_search_detail_oneway.jsp">
-			<input type="hidden" name="city" value="${byCity.arriveApcity }">
+			<form action="2003_search_detail_onewayJSON.jsp">
+			<input type="hidden" name="arrivelocation" value="${byCity.arriveApcity }">
   			<button type="submit" class="accodion-con-btn ">
   			<div class="accodion-body">
   			<div class="card mb-12" >
@@ -97,7 +109,7 @@ form > .accodion-con-btn{
 			        <p class="card-text"><small class="text-muted">직항</small></p>
 			        <p class="card-text d-flex justify-content-between" >
 			        <span class="material-symbols-outlined">flight_takeoff</span>
-			      	  <span><fmt:formatNumber value="${byCity.standardFee }"/>부터</span>
+			      	  <span><fmt:formatNumber value="${(byCity.standardFee)*cnt }"/>부터</span>
 			   		</p> 
 			      </div>
 			    </div>

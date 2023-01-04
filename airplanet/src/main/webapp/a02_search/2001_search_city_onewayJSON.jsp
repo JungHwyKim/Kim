@@ -43,7 +43,18 @@
 	<div class="container">
 <jsp:include page="/header.jsp"></jsp:include>
 	
-
+	<%
+	String departLocation = request.getParameter("departlocation");
+	String departDate = request.getParameter("departdate");
+	String cntS = request.getParameter("cnt");
+	int cnt=Integer.parseInt(cntS);
+	
+	session.setAttribute("departLocation", departLocation);
+	session.setAttribute("departDate", departDate);
+	session.setAttribute("cnt", cnt);
+	session.setAttribute("classStr", "");
+	%>
+	
 	
 	<p class="text-md-end">예상 최저 가격일 뿐입니다. 최근 8일 내에 검색한 결과입니다.</p>
 	<div class="list-group">
@@ -51,26 +62,19 @@
 	<jsp:useBean id="daoN" class="dao.B_searchnation"/>
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
-  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") }${schN.setArriveLocation("일본") }
-
+  	${schN.setDepartDate(departDate) } ${schN.setDepartLocation(departLocation) }${schN.setArriveLocation(param.arrivelocation) }
+	
   	
   	
   	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
 
-  	<form action="2003_search_detailrangeExp.jsp">
-  	<input type="hidden" name="city" value="${byCity.arriveApcity }"/>
+  	<form action="2003_search_detail_onewayJSON.jsp">
+  	<input type="hidden" name="arrivelocation" value="${byCity.arriveApcity }"/>
 	<button type="submit" class="btn form-control form-control-lg">
     <div class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">${byCity.arriveApcity }</h5>
-      	  <%--도시별 최저가격(왕복)   dao.B_returnprice  returnMinfeeN   --%>  
-		 <jsp:useBean id="daoRC" class="dao.B_returnprice"/>
-		 <jsp:useBean id="schRC" class="vo.FlightAll"/>
-		 <jsp:setProperty property="*" name="schRC"/>
-		  ${schRC.setDepartDate("2022-12-30") } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation("ICN") }
-		  <c:forEach var="rcPrice" items="${daoRC.returnMinfeeN(schRC) }" >  
-		  <c:set var= "total2" value="${rcPrice.standardFee + byCity.standardFee}"/>      
-      <medium class="list-content-price"><fmt:formatNumber value="${total2 }"/>부터 ></medium></c:forEach>
+      <medium class="list-content-price"><fmt:formatNumber value="${(byCity.standardFee)*cnt }"/>부터 ></medium>
     </div>
     <p class="list-content-bottom">1회 이상 경유(직항이용가능)</p>
   </div></button>
@@ -97,7 +101,7 @@ btnarr.forEach(function(btn){
 	}
 })
 
-location.href = location.href;
+
 
 </script>
 </html>

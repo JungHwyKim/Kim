@@ -22,6 +22,7 @@ public class FlightAll {
 	private String departLocation; // 검색(출발지) //+최초출발지
 	private String arriveLocation; // 검색(도착지) //+최종도착지
 	
+	
 	//세영추가
 	private String airlineCode;
 	private String airlineName;
@@ -35,6 +36,7 @@ public class FlightAll {
 	//원주 추가
 	private int frRange;
 	private int toRange;
+	private int sort;
 	public FlightAll() {}
 
 	
@@ -45,15 +47,30 @@ public class FlightAll {
 		this.departLocation = departLocation;
 		this.arriveLocation = arriveLocation;
 	}
-	public FlightAll( String departDate,String departLocation, String arriveLocation, String classStr, int frRange, int toRange) {
+	public FlightAll( String departDate,String departLocation, String arriveLocation, String classStr, int frRange, int toRange, int sort) {
 		this.departDate = departDate;
 		this.classStr = classStr;
 		this.departLocation = departLocation;
 		this.arriveLocation = arriveLocation;
 		this.frRange=frRange;
 		this.toRange=toRange;
+		this.sort = sort;
 	}
 	
+	
+
+	public int getSort() {
+		return sort;
+	}
+
+
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+
+
+
 	public int getFrRange() {
 		return frRange;
 	}

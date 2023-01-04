@@ -109,6 +109,29 @@ public class D_FlightAll {
 		return newflight;
 	}
 	
+	public String selectAirportCode(String arriveLocation) {
+		String sql="SELECT airportcode FROM AIRPORT a WHERE apcity = upper( ? ) OR AIRPORTCODE = upper( ? )";
+		String airportcode=null;
+		try  {
+			con=DB.con();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, arriveLocation);
+			pstmt.setString(2, arriveLocation );
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				airportcode=rs.getString(1);
+			}
+		}  catch (SQLException e) {
+			System.out.println("SQL예외: "+e.getMessage());
+			}catch(Exception e) {
+				System.out.println("일반예외:"+e.getMessage());
+			}
+			finally {
+				DB.close(rs, pstmt, con);
+			}
+		return airportcode;
+	}
+	
 
 	public static void main(String[] args) {
 		D_FlightAll fallDao=new D_FlightAll();
