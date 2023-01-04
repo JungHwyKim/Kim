@@ -176,7 +176,7 @@
 </style>
 </head>
 <body>
-	<h2>검색창(확대/축소)</h2>
+
 		<div class="accordion" style="display:flex;">
 			<div style="padding-right:630px;">출발지-도착지 텍스트</div>
 		</div>
@@ -309,7 +309,7 @@ $(function() {
     $( "[name=ddate], [name=adate]" ).datepicker({
     	  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
     	  changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
-    	  minDate: '0y', // 현재날짜로부터 100년이전까지 년을 표시한다.
+    	  minDate: '-1y', // 현재날짜로부터 100년이전까지 년을 표시한다.
     	  nextText: '다음 달', // next 아이콘의 툴팁.
     	  prevText: '이전 달', // prev 아이콘의 툴팁.
     	  numberOfMonths: [1,1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
@@ -326,7 +326,7 @@ $(function() {
     });
 });
 
-$(document).ready(function () {
+/* $(document).ready(function () {
           $.datepicker.setDefaults($.datepicker.regional['ko']); 
           $( "[name=ddate]" ).datepicker({
                changeMonth: true, 
@@ -364,7 +364,7 @@ $(document).ready(function () {
                }    
           });    
   });
-
+ */
 // 날짜 디폴트
 ddateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
 adateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
@@ -650,20 +650,14 @@ var a = ""
 			}else{
 				departText.innerText=""
 				if(arriv.value.length == 0){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else if(!arriv.value.includes(",")){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2003_search_detailrangeExpJSON.jsp"+qstr
 				}
 			}
 		// 편도
@@ -672,20 +666,14 @@ var a = ""
 				depart.focus()
 			}else{
 				if(arriv.value.length == 0){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else if(!arriv.value.includes(",")){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2003_search_detail_onewayJSON.jsp"+qstr
 				}
 			}
 		}
