@@ -91,6 +91,11 @@
 	width:60%;
 	margin-top:10px;
 }
+.naver{
+	width:60%;
+	margin-top:10px;
+	display:block;
+}
 </style>
 <script>
 /*
@@ -136,12 +141,14 @@
 				<hr color="steelblue">
 			</div>
 			<!-- 구글 버튼 -->
-			<div id="naver_id_login">
+			<div id="naver_id_login" style="display:none;">
+			<div id="naver_id_login" class="naver">
 				<input style="width:100%;border:1px solid Gainsboro;background:white;color:black;" 
 					type="button" value="네이버 로그인"/>
 				<div class="googleImgDiv">
 					<img src="/b01_img/google.png" class="googleImg"/>
 				</div>
+			</div>	
 			</div>
 			<!-- 카카오 버튼 -->
 			<div class="kakao">
@@ -261,8 +268,12 @@ function deleteIdCookie(){
 }
 var page = "http://localhost:6080/a01_member/a03_signinCk.jsp"
 // 회원체크 페이지에서 돌아오면 lPage 바뀌지 않음
-if(!document.referrer.includes(page)){
+if(!document.referrer.includes(page) && document.referrer!=''){
 	var lPage = document.referrer	
+// 로그인 페이지로 바로 넘어갈때 lPage가 null
+}else if(document.referrer==''){
+	console.log("2321")
+	var lPage = "/a02_search/2000_main.jsp"
 }
 //
 console.log(lPage)
@@ -273,8 +284,7 @@ if(lPage != null){
 	}
 	console.log(localStorage.getItem('lastPage'))
 }
-// 로그인 페이지로 바로 넘어갈때 lPage가 null
-console.log(document.referrer+"1")
+
 
 
 // 카카오 스크립트

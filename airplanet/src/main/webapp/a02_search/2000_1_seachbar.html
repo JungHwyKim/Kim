@@ -167,23 +167,16 @@
 .wordList1{
 	display:none;
 }
+.departText{
+	position:absolute;
+	font-weight:600;
+	font-size:x-small;
+	color:red;
+}
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-
-
-		<div style="position:absolute;margin-left:400px;margin-top:18px;">
-			<input type="text" name="ddate" style="background:steelblue;border:none;">
-		</div>
-		<div style="position:absolute;margin-left:600px;margin-top:18px;padding-right:30px;">
-			<input type="text" name="adate" style="background:steelblue;border:none;">
-		</div>
-
-=======
 	<h2>검색창(확대/축소)</h2>
->>>>>>> branch 'main' of https://github.com/JungHwyKim/Kim.git
-	<form>
 		<div class="accordion" style="display:flex;">
 			<div style="padding-right:630px;">출발지-도착지 텍스트</div>
 		</div>
@@ -199,6 +192,7 @@
 					<div style="position:absolute;">
 						<div class="wordList" tabindex="0"></div>
 					</div>
+					<div class="departText"></div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span class="text">도착지</span></div>
@@ -248,7 +242,6 @@
 			<div><input class="switchB" type="button" name="switch" value="⇄"/></div>
 			<div><input class="searchT" name="search" type="submit" value="항공권 검색 →"></div>	
 		</div>
-	</form>
 <script>
 var acc = document.getElementsByClassName("accordion");
 var i;
@@ -643,23 +636,25 @@ var a = ""
 		}
 	}
 	
+	var departText = document.querySelector(".departText")
+	depart.onfocus=function(){
+		departText.innerText=""	
+	}
+	
 	// 항공권 검색
-	searchBtnOb.onclick=function(){
+	sch.onclick=function(){
 		// 왕복
 		if(tripD == 0){
-			if(depC == ""){
-				depart.focus()
-				// 입력해달라는 내용
-				console.log("1")
-				console.log(depC)
-				console.log(arvC)
+			if(depart.value.length == 0 || !depart.value.includes(",")){
+				departText.innerText="출발지를 선택해주세요"
 			}else{
-				if(arriv.value == ""){
+				departText.innerText=""
+				if(arriv.value.length == 0){
 					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
-				}else if(arvC == ""){
+				}else if(!arriv.value.includes(",")){
 					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
@@ -673,17 +668,15 @@ var a = ""
 			}
 		// 편도
 		}else{
-			if(depC == ""){
+			if(depart.value.length == 0 || !depart.value.includes(",")){
 				depart.focus()
-				// 입력해달라는 내용
-				console.log("2")
 			}else{
-				if(arriv.value == ""){
+				if(arriv.value.length == 0){
 					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
 					location.href="b2000_1_check.jsp"+qstr
-				}else if(arvC == ""){
+				}else if(!arriv.value.includes(",")){
 					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
@@ -696,7 +689,7 @@ var a = ""
 				}
 			}
 		}
-	}
+	}	
 </script>
 </body>
 </html>

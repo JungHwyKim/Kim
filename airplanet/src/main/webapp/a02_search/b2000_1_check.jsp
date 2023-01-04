@@ -26,12 +26,12 @@
 	String classP = request.getParameter("classP");
 	String cnt = request.getParameter("cnt");
 %>
-<%=departlocation %>
-<%=arrivelocation %>
-<%=departdate %>
-<%=arrivedate %>
-<%=classP %>
-<%=cnt %>
+출발지:<%=departlocation %><br>
+도착지:<%=arrivelocation %><br>
+출발일자:<%=departdate %><br>
+도착일자:<%=arrivedate %><br>
+등급:<%=classP %><br>
+인원:<%=cnt %><br>
 </body>
 <script>
 

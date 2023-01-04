@@ -134,6 +134,12 @@
 	font-weight:600;
 	font-size:small;
 }
+.departText{
+	position:absolute;
+	font-weight:600;
+	font-size:x-small;
+	color:red;
+}
 .travelInput{
 	height:35px;
 }
@@ -214,6 +220,7 @@
 					<div style="position:absolute;">
 						<div class="wordList" tabindex="0"></div>
 					</div>
+					<div class="departText"></div>
 				</div>
 				<div style="flex-direction:column;">
 					<div><span class="travelLabel">도착지</span></div>
@@ -592,62 +599,9 @@
 		document.cookie = codeCookie;
 	}
 	
-	
-	
-	// 항공권 검색
-	searchBtnOb.onclick=function(){
-		// 왕복
-		if(tripD == 0){
-			if(depC == ""){
-				depart.focus()
-				// 입력해달라는 내용
-				console.log("1")
-				console.log(depC)
-				console.log(arvC)
-			}else{
-				if(arriv.value == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else if(arvC == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else{
-					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}
-			}
-		// 편도
-		}else{
-			if(depC == ""){
-				depart.focus()
-				// 입력해달라는 내용
-				console.log("2")
-			}else{
-				if(arriv.value == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else if(arvC == ""){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}else{
-					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
-				}
-			}
-		}
-	}
+	console.log(arriv.value)
+	console.log(arriv.value.split(","))
+	console.log(arriv.value.split(",").length>1)
 	
 	var a = ""
 	// 출발지(쿠키)
@@ -689,10 +643,60 @@
 		}
 	}
 	
-	console.log(depC)
-	console.log(arvC)
+	var departText = document.querySelector(".departText")
+	depart.onfocus=function(){
+		departText.innerText=""	
+	}
 	
-	
+	// 항공권 검색
+	searchBtnOb.onclick=function(){
+		// 왕복
+		if(tripD == 0){
+			if(depart.value.length == 0 || !depart.value.includes(",")){
+				departText.innerText="출발지를 선택해주세요"
+			}else{
+				departText.innerText=""
+				if(arriv.value.length == 0){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(!arriv.value.includes(",")){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		// 편도
+		}else{
+			if(depart.value.length == 0 || !depart.value.includes(",")){
+				depart.focus()
+			}else{
+				if(arriv.value.length == 0){
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else if(!arriv.value.includes(",")){
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}else{
+					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					departCookie()
+					arriveCookie()
+					location.href="b2000_1_check.jsp"+qstr
+				}
+			}
+		}
+	}	
 	
 </script>
 </body>
