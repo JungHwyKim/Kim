@@ -28,7 +28,7 @@ header{
 		<div class="dropdown profilepic">
 		<img class="profilepic" src="/b01_img/user.PNG" class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="a03_myPage/3001_myPage_Main.jsp">마이페이지</a>
+    <a class="dropdown-item" href="/a03_myPage/3001_myPage_Main.jsp">마이페이지</a>
     <a class="dropdown-item" onclick="signout()">로그아웃</a>
   </div>
 		</div> <span id="prof_name">${naver_name}</span>
