@@ -113,7 +113,7 @@
   		<div class="accodion-body">
   		 <input class="form-check-input" type="checkbox" value="" checked >
   		 <label class="form-check-label">
-    	 <span>대한항공(KAL)</span><br><span>660,301부터</span>
+    	 <span>대한항공(KAL)</span>
   		 </label>
   		  <br><br>
   		</div>
@@ -277,7 +277,7 @@ selectSortArr.forEach(function(selectSort){
 })
 
 
-
+var cnt = ${cnt}
 // 전체 데이터 출력건수 
 var totData = document.querySelector("#totData")
 
@@ -309,7 +309,7 @@ function printSearch(){
 				addHTML+="<div class='col-4 botcenter'>직항/경유</div>"
 				addHTML+="<div class='col-4 botright aCode1'>"+f.arriveAirportcode+"</div></div></div></div></div> <div class='col-4 schedule-right'>"
 				addHTML+="<p class='text-center topcenter'>오늘 예약하기</p>"
-				addHTML+="<p class='text-center fw-semibold totprice'>"+parseInt(f.standardFee+f.classfee)+"</p>"
+				addHTML+="<p class='text-center fw-semibold totprice'>"+parseInt(f.standardFee+f.classfee)*cnt+"</p>"
 				addHTML+="<button type='button' class='btn btn-secondary btttn'><span>선택</span><span class='material-symbols-outlined align-middle'>arrow_forward</span></button>"
 				addHTML+="</div></div></div></div></div>"
 				
@@ -322,7 +322,7 @@ function printSearch(){
 				btn.onclick=function(){
 					var qstr = "?flightNumber="+flist[idx].flightNumber+"&departDate="+flist[idx].departDate//+"&arriveDate="+flist[idx].aDate1
 							+"&departAirportcode="+flist[idx].departAirportcode+"&arriveAirportcode="+flist[idx].arriveAirportcode+"&airlinelogo="+flist[idx].airlinelogo  
-					location.href="2999_search_connection.jsp"+qstr
+					location.href="/a04_payment/4799_searchToView.jsp"+qstr
 				}
 			})
 			

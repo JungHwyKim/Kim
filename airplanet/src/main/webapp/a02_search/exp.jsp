@@ -33,12 +33,12 @@ var cnt=4
 go()
 //왕복
 function go(){
-	
+	/*
 	var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb+
 	"&arrivedate="+adateOb+"&cnt="+cnt
 	
 	location.href="2002_search_everywhere.jsp"+qstr
-	/*
+	
 	//왕복 city
 	var qstr="?departlocation="+depC+"&arrivelocation="+arriv+"&departdate="+ddateOb+
 			"&arrivedate="+adateOb+"&cnt="+cnt
@@ -59,17 +59,17 @@ function go(){
 
 	location.href="2002_search_everywhere_oneway.jsp"+qstr
 	
-	//편도 city
+	//편도 city 
 	var qstr="?departlocation="+depC+"&arrivelocation="+arriv+"&departdate="+ddateOb+
 			"&classP="+optOb+"&cnt="+cnt
 
 	location.href="2001_search_city_onewayJSON.jsp"+qstr
-	//편도 detail
-	var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+
-			"&classP="+optOb.value+"&cnt="+cnt1
+	//편도 detail*/
+	var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb+
+			"&classP="+optOb+"&cnt="+cnt
 
 	location.href="2003_search_detail_onewayJSON.jsp"+qstr
-	*/
+	
 }
 
 

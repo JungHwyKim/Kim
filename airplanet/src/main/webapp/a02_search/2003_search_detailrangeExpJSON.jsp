@@ -139,7 +139,7 @@
   		<div class="accodion-body">
   		 <input class="form-check-input" type="checkbox" value="" checked >
   		 <label class="form-check-label">
-    	 <span>대한항공(KAL)</span><br><span>660,301부터</span>
+    	 <span>대한항공(KAL)</span>
   		 </label>
   		  <br><br>
   		</div>
