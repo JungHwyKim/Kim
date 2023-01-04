@@ -30,7 +30,8 @@ ArrayList<FlightAll> flist=new ArrayList<FlightAll>();
 
 //가는편,오는편 구분용으로 필요함
 String departLoc = (String)session.getAttribute("departLocation");
-String arriveLoc = (String)session.getAttribute("arriveLocation");
+String arriveLoc = fallDao.selectAirportCode((String)session.getAttribute("arriveLocation"));
+
 
 //flist만들기
 FlightAll flight1 = null;
