@@ -37,14 +37,14 @@ img.user{
 </style>
 <body >
 	<div class="container-fluid">
-	<%@ include file="/header_logout.jsp" %>
+	<%@ include file="/header.jsp" %>
 	  <div class="row no-gutters">
 	  	<div class="col-1"></div>
 	    <div class="col-3" style="text-align:center;font-size:25px;">
 	     <div class="p-3 border-0 bg-white">
 	     	<img src="../b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
-	     	<p>XXXX@email.com<p>
+	     	<p>t711txt@naver.com<p>
 	     </div>
 	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp" class="astyle">여행객 정보 입력</a></div><hr>
 	     <div class="border-0 bg-white"><a href="3009_cardInfo_input.jsp" class="astyle">결제 정보 입력</a></div><hr>
@@ -84,8 +84,11 @@ img.user{
 <%@ include file="/0000_footer.html" %>
 </body>
 <script>
+var regId ='${reg2.email}';
 function logout(){
-	confirm("로그아웃 하시겠습니까?")
+	if(confirm("로그아웃하시겠습니까?")){
+		session.removeAttribute("regId");
+     }
 }
 </script>
 </html>

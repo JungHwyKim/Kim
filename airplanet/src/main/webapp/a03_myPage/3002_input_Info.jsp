@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
     import="java.util.*"
+    import="dao.C_insertPassengerInfo"
     %>
 <!DOCTYPE html>
 <html>
@@ -55,7 +56,7 @@ img.user{
 }
 </style>
 <body>
-<%@ include file="/header_logout.jsp" %>
+<%@ include file="/header.jsp" %>
 <br><br>
 	<div class="container-fluid">
 	  <div class="row no-gutters">
@@ -64,7 +65,7 @@ img.user{
 	     <div class="p-3 border-0 bg-white">
 	     	<img src="../b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
-	     	<p>XXXX@email.com<p>
+	     	<p>t711txt@naver.com<p>
 	     </div>
 	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp" class="astyle">여행객 정보 입력</a></div><hr>
 	     <div class="border-0 bg-white"><a href="3009_cardInfo_input.jsp" class="astyle">결제 정보 입력</a></div><hr>
@@ -75,6 +76,7 @@ img.user{
 	    </div>
 	    <div class="col-2"></div>
 	    <div class="col-5" style="font-size:25px;">
+	    <form action="3002_input_Info_check.jsp" method="post">
 	    	<div class="p-3 border-0 bg-white" style="text-align:center;"><h1><b>상세 개인 정보</b></h1></div><br>
 	     	<div class="field p-3 border-0 bg-white">
 	     		<label for="exampleFormControlInput1" class="form-label">이메일</label>
@@ -150,18 +152,23 @@ img.user{
 					<option>포르투갈</option>
 				</select>
   			</div>
-  			<input id="save" type="button" value="승객 저장" class="btnSave"/>
+  			<input id="save" type="submit" value="승객 저장" class="btnSave"/>
+  			</form>
 	    <div class="col-1"></div>
 	  </div>
 	</div>
 	</div>
 	<br><br>
 <%@ include file="/0000_footer.html" %>
+
 </body>
 <script>
 // 로그아웃
+var regId ='${reg2.email}';
 function logout(){
-	confirm("로그아웃 하시겠습니까?")
+	if(confirm("로그아웃하시겠습니까?")){
+		session.removeAttribute("regId");
+     }
 }
 
 // 유효성 검사
