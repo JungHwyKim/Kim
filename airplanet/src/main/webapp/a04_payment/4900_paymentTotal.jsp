@@ -32,7 +32,9 @@ a:link {
 <%@ include file="4001_scheduleDetail.jsp" %>
 <div class="row">
 <div class="col" ><button type="button" class="btn btn-primary showswitch" style="width: 100%">가는 편</button></div>
-<div class="col" ><button type="button" class="btn btn-secondary showswitch" style="width: 100%">오는 편</button></div></div>
+<c:if test ="${not empty tlist2 }" >
+	<div class="col" ><button type="button" class="btn btn-secondary showswitch" style="width: 100%">오는 편</button></div></div>
+</c:if>
 <table class="table table-bordered showswitchtarget">
 <thead>
 <tr class="table-secondary"><th>구분</th><th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th></tr>
@@ -59,6 +61,7 @@ a:link {
 <colgroup><col style="width:10%"><col style="width:10%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
 <tbody>
 <c:set var="costback" value="0" />
+<c:if test="${not empty tlist2 }" >
 <c:forEach var="eachticket" items="${flist }" varStatus="vv" >
 	<c:if test="${flist.get(flist.size()-1).departLocation eq eachticket.departLocation }">
 		<tr><td>${fn:substring(eachticket.optioncode,0,3) }➡${fn:substring(eachticket.optioncode,3,6) }</td>
@@ -67,6 +70,7 @@ a:link {
 	<c:set var="costback" value="${costback+ eachticket.standardFee + eachticket.classfee+ eachticket.baggage}" />
 	</c:if>
 </c:forEach>
+</c:if>
 <tr><th class="table-secondary" colspan="2">총 요금(오는 편)</th><td colspan="3"><c:out value="${costback }" />원</td></tr>
 </tbody>
 </table>
