@@ -42,7 +42,18 @@
 	
 	<div class="container">
 <jsp:include page="/header.jsp"></jsp:include>
+	<%
+	String departLocation = request.getParameter("departlocation");
+	String departDate = request.getParameter("departdate");
+	String arriveDate = request.getParameter("arrivedate");
+	String cntS = request.getParameter("cnt");
+	int cnt=Integer.parseInt(cntS);
 	
+	session.setAttribute("departLocation", departLocation);
+	session.setAttribute("departDate", departDate);
+	session.setAttribute("arriveDate", arriveDate);
+	session.setAttribute("cnt", cnt);
+	%>
 
 	
 	<p class="text-md-end">예상 최저 가격일 뿐입니다. 최근 8일 내에 검색한 결과입니다.</p>
@@ -51,7 +62,7 @@
 	<jsp:useBean id="daoN" class="dao.B_searchnation"/>
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
-  	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") }${schN.setArriveLocation("일본") }
+  	${schN.setDepartDate(departDate) } ${schN.setDepartLocation(departLocation) }${schN.setArriveLocation(param.arrivelocation) }
 
   	
   	
@@ -67,9 +78,10 @@
 		 <jsp:useBean id="daoRC" class="dao.B_returnprice"/>
 		 <jsp:useBean id="schRC" class="vo.FlightAll"/>
 		 <jsp:setProperty property="*" name="schRC"/>
-		  ${schRC.setDepartDate("2022-12-30") } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation("ICN") }
+		  ${schRC.setDepartDate(arriveDate) } ${schRC.setDepartLocation(byCity.arriveApcity) }${schRC.setArriveLocation(departLocation) }
 		  <c:forEach var="rcPrice" items="${daoRC.returnMinfeeN(schRC) }" >  
-		  <c:set var= "total2" value="${rcPrice.standardFee + byCity.standardFee}"/>      
+		  <c:set var= "total2" value="${(rcPrice.standardFee + byCity.standardFee)*cnt}"/>   
+		
       <medium class="list-content-price"><fmt:formatNumber value="${total2 }"/>부터 ></medium></c:forEach>
     </div>
     <p class="list-content-bottom">1회 이상 경유(직항이용가능)</p>

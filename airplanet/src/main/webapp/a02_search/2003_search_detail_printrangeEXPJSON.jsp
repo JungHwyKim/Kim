@@ -6,18 +6,24 @@
 <% request.setCharacterEncoding("utf-8"); %>       
 
 <%
-String city = (String) session.getAttribute("city");
+
+String arriveLocation = (String) session.getAttribute("arriveLocation");
+String departLocation = (String) session.getAttribute("departLocation");
+String departDate = (String) session.getAttribute("departDate");
+String arriveDate = (String) session.getAttribute("arriveDate");
+String classStr = (String) session.getAttribute("classStr");
+
 %>
 <%--dao.B_search_range2 getRangeticket2  
 param.inputLeft param.inputRight param.inputLeft2 param.inputRight2 param.selectSort --%>
 	<jsp:useBean id="dao1" class="dao.B_search_range2"/>
 	<jsp:useBean id="sch1" class="vo.FlightAll2"/>
 	<jsp:setProperty property="*" name="sch1"/>
-	${sch1.setDepartDate1("2022-12-21") }
-	${sch1.setDepartDate2("2022-12-30") } 
-	${sch1.setDepartLocation("ICN") } 
-	${sch1.setArriveLocation("FUK") } 
-	${sch1.setClassStr("ec") }
+	${sch1.setDepartDate1(departDate) }
+	${sch1.setDepartDate2(arriveDate) } 
+	${sch1.setDepartLocation(departLocation) } 
+	${sch1.setArriveLocation(arriveLocation) } 
+	<c:if test="${empty classStr }">${sch1.setClassStr("ec") }</c:if>
 	${sch1.setFrRange1(param.inputLeft)}
 	${sch1.setToRange1(param.inputRight)}
 	${sch1.setFrRange2(param.inputLeft2)}

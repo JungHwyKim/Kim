@@ -82,7 +82,7 @@ form > .accodion-con-btn{
 		  	
 		  	
 		  	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
-			<form action="2003_search_detail_oneway.jsp">
+			<form action="2003_search_detail_onewayJSON.jsp">
 			<input type="hidden" name="city" value="${byCity.arriveApcity }">
   			<button type="submit" class="accodion-con-btn ">
   			<div class="accodion-body">

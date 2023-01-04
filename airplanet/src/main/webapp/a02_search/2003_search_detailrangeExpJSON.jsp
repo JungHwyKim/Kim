@@ -30,9 +30,13 @@
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
 	<%
-	String city = request.getParameter("city");
-	session.setAttribute("city", city);
+	String arriveLocation = request.getParameter("city");
+	if(arriveLocation!=null){
+		session.setAttribute("arriveLocation", arriveLocation);
+	}
+
 	%>
+	
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
@@ -48,12 +52,12 @@
   		<div class="accodion-body">
   		 <input class="form-check-input" name="via" type="checkbox" value="직항" checked="checked" >
   		 <label class="form-check-label">
-    	 <span>직항</span><br><span>530,301부터</span>
+    	 <span>직항</span><!-- <br><span>530,301부터</span> -->
   		 </label>
   		  <br><br>
   		 <input class="form-check-input" name="via"  type="checkbox" value="1회경유" checked="checked" >
   		 <label class="form-check-label">
-    	 <span>1회 경유</span><br><span>603,200부터</span>
+    	 <span>1회 경유</span><!--  <br><span>603,200부터</span>-->
   		 </label> 		 
   		</div>
   		</div>
@@ -117,7 +121,7 @@
   				<span>항공사</span><span class="material-symbols-outlined">expand_more</span>
   			</div></button>
   		<div class="accodion-body">
-  		 <input class="form-check-input" type="checkbox" value="" >
+  		 <input class="form-check-input" type="checkbox" value="" checked >
   		 <label class="form-check-label">
     	 <span>대한항공(KAL)</span><br><span>660,301부터</span>
   		 </label>
@@ -144,6 +148,7 @@
 				 </select></label>
 		</div>
 		</div>
+		<!-- 
 		<div class="row">
 			<div class="btn-group">
 			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="1" checked >
@@ -173,7 +178,7 @@
 			</div>
 			
 			
-		</div>
+		</div> -->
 		
 		<div class="row" id="print-search"> </div>
 		
@@ -335,8 +340,8 @@ selectSortArr.forEach(function(selectSort){
 		printSearch()
 	}
 })
-
-
+//인원수
+var cnt = ${cnt};
 printSearch()
 //print-search에 값 출력
 function printSearch(){
@@ -377,7 +382,7 @@ function printSearch(){
 						addHTML+="<div class='col-4 botleft dCode2'>"+f.arriveAirportcode+"</div>"
 						addHTML+="<div class='col-4 botcenter'>직항/경유</div>"
 						addHTML+="<div class='col-4 botright aCode2'>"+f.departAirportcode+"</div></div></div></div></div><div class='col-4 schedule-right'><p class='text-center topcenter'>오늘 예약하기</p>"
-						addHTML+="<p class='text-center fw-semibold totprice'>"+parseInt(f.standardFee1+f.classfee1+f.standardFee2+f.classfee2)+"</p><button type='button' class='btn btn-secondary btttn'><span>선택</span><span class='material-symbols-outlined align-middle'>arrow_forward</span></button></div></div></div></div></div>"	
+						addHTML+="<p class='text-center fw-semibold totprice'>"+parseInt(f.standardFee1+f.classfee1+f.standardFee2+f.classfee2)*cnt+"</p><button type='button' class='btn btn-secondary btttn'><span>선택</span><span class='material-symbols-outlined align-middle'>arrow_forward</span></button></div></div></div></div></div>"	
 						
 			})		
 			document.querySelector("#print-search").innerHTML = addHTML	

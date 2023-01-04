@@ -23,22 +23,53 @@
 
 </body>
 <script type="text/javascript">
-var json= [{"num1":0,"num2":1},{"num3":2,"num4":3},{"nums1":0,"nums2":1},{"nums3":2,"nums4":3}]
-var j1 =[]
-var j2 =[]
-console.log(json)
-console.log(json.length)
-json.forEach(function(f,idx){
-	if(idx<json.length/2){
-		j1.push(f)
-		
-	}else{
-		j2.push(f)
-	}
-})
-console.log(j1)
+var depC="ICN"
+var ddateOb="2022-12-21"
+var adateOb="2022-12-30"
+var arriv="미국"
+var arvC="FUK"
+var optOb="ec"
+var cnt=3
+go()
+//왕복
+function go(){
+	/*
+	var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb+
+	"&arrivedate="+adateOb+"&cnt="
+	
+	location.href="2002_search_everywhere.jsp"+qstr
+	*/
+	//왕복 city
+	var qstr="?departlocation="+depC+"&arrivelocation="+arriv+"&departdate="+ddateOb+
+			"&arrivedate="+adateOb+"&cnt="+cnt
 
-console.log(j2)
+	location.href="2001_search_cityJSON.jsp"+qstr
+	
+	/*
+	//왕복 detail
+	var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb+
+			"&arrivedate="+adateOb+"&classP="+optOb+"&cnt="
+
+	location.href="2003_search_detailrangeExpJSON.jsp"+qstr
+	
+	
+	//편도 everywhere
+	var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+
+			"&classP="+optOb.value+"&cnt="+cnt1
+
+	location.href="2002_search_everywhere_oneway.jsp"+qstr
+	//편도 city
+	var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+
+			"&classP="+optOb.value+"&cnt="+cnt1
+
+	location.href="2001_search_city_onewayJSON.jsp"+qstr
+	//편도 detail
+	var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+
+			"&classP="+optOb.value+"&cnt="+cnt1
+
+	location.href="2003_search_detail_onewayJSON.jsp"+qstr
+	*/
+}
 
 
 </script>

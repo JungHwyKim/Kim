@@ -32,7 +32,7 @@
 	String city = request.getParameter("city");
 	session.setAttribute("city", city);
 	%>
-	
+
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
@@ -48,12 +48,12 @@
   		<div class="accodion-body">
   		 <input class="form-check-input" name="via" type="checkbox" value="직항" checked="checked" >
   		 <label class="form-check-label">
-    	 <span>직항</span><br><span>530,301부터</span>
+    	 <span>직항</span><!-- <br><span>530,301부터</span> -->
   		 </label>
   		  <br><br>
   		 <input class="form-check-input" name="via"  type="checkbox" value="1회경유" checked="checked" >
   		 <label class="form-check-label">
-    	 <span>1회 경유</span><br><span>603,200부터</span>
+    	 <span>1회 경유</span><!-- <br><span>603,200부터</span> -->
   		 </label> 		 
   		</div>
   		</div>
@@ -95,7 +95,7 @@
   				<span>항공사</span><span class="material-symbols-outlined">expand_more</span>
   			</div></button>
   		<div class="accodion-body">
-  		 <input class="form-check-input" type="checkbox" value="" >
+  		 <input class="form-check-input" type="checkbox" value="" checked >
   		 <label class="form-check-label">
     	 <span>대한항공(KAL)</span><br><span>660,301부터</span>
   		 </label>
@@ -121,6 +121,7 @@
 				 </select></label>
 		</div>
 		</div>
+		<!--  
 		<div class="row">
 			<div class="btn-group">
 			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="1" checked >
@@ -148,7 +149,7 @@
 				  </div>		  
 			  </label>
 			</div>
-		</div>
+		</div>-->
 		
 		<div class="row" id="print-search"> </div>
 		

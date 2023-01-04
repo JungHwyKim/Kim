@@ -52,7 +52,7 @@
 	<jsp:useBean id="schN" class="vo.FlightAll"/>
 	<jsp:setProperty property="*" name="schN"/>
   	${schN.setDepartDate("2022-12-21") } ${schN.setDepartLocation("ICN") }${schN.setArriveLocation("일본") }
-
+	
   	
   	
   	<c:forEach var="byCity" items="${daoN.getMinfeeN(schN) }">
