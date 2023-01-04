@@ -58,7 +58,7 @@
 	position:absolute;
 	width:30px;
 	height:25px;
-	margin:-150px 0 0 32%;
+	margin:-158px 0 0 20%;
 	background:white;
 	border:none;
 	font-size:20px;
@@ -75,7 +75,7 @@
 	border:1px solid moccasin;
 	color:white;
 	border-radius:10px;
-	margin:-90px 0 0 80%;
+	margin:-45px 0 0 23%;
 	visibility:hidden;
 }
 .searchT:hover{
@@ -88,23 +88,12 @@
 }
 .balloon {  
 	 position:relative; 
-	 margin:20px 0 0 -15px;
+	 margin:-150px 70px 0 0;
 	 width:300px; 
 	 height:280px;
 	 background:rgba(100,100,100,0.7); 
 	 border-radius:10px;
 	 display: none;
-}
-.balloon:after { 
-	 border-top:0px solid transparent; 
-	 border-left: 10px solid transparent; 
-	 border-right: 10px solid transparent; 
-	 border-bottom: 10px solid rgba(100,100,100,0.7);
-	 content:""; 
-	 margin-left:-55px;
-	 position:absolute;
-	 top:-10px;
-	 left:200px;  
 }
 .pBtn1{
 	border-radius:50%;
@@ -174,7 +163,7 @@
 	color:red;
 }
 .inputCSS{
-	width:100%;height:30px;
+	width:100%;height:35px;
 }
 .daPlace{
 	width:40%;
@@ -182,7 +171,7 @@
 </style>
 </head>
 <body>
-	<h2>검색창(확대/축소)</h2>
+
 		<div class="accordion" style="display:flex;">
 			<div class="daPlace"></div>
 		</div>
@@ -243,10 +232,12 @@
 							</div>
 						 </div>
 					</div>
+					<div><input class="searchT" name="search" type="submit" value="항공권 검색 →"></div>	
 				</div>
+				
 			</div>
 			<div><input class="switchB" type="button" name="switch" value="⇄"/></div>
-			<div><input class="searchT" name="search" type="submit" value="항공권 검색 →"></div>	
+			
 		</div>
 <script>
 var acc = document.getElementsByClassName("accordion");
@@ -315,7 +306,7 @@ $(function() {
     $( "[name=ddate], [name=adate]" ).datepicker({
     	  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
     	  changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
-    	  minDate: '0y', // 현재날짜로부터 100년이전까지 년을 표시한다.
+    	  minDate: '-1y', // 현재날짜로부터 100년이전까지 년을 표시한다.
     	  nextText: '다음 달', // next 아이콘의 툴팁.
     	  prevText: '이전 달', // prev 아이콘의 툴팁.
     	  numberOfMonths: [1,1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
@@ -331,45 +322,6 @@ $(function() {
     	  yearRange: "2022:2024" //연도 범위
     });
 });
-
-$(document).ready(function () {
-          $.datepicker.setDefaults($.datepicker.regional['ko']); 
-          $( "[name=ddate]" ).datepicker({
-               changeMonth: true, 
-               changeYear: true,
-               nextText: '다음 달',
-               prevText: '이전 달', 
-               dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-               dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-               monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-               monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-               dateFormat: "yymmdd",
-               maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-               onClose: function( selectedDate ) {    
-                    //시작일(startDate) datepicker가 닫힐때
-                    //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                   $("#endDate").datepicker( "option", "minDate", selectedDate );
-               } 
-          });
-           
-          $( "[name=adate]" ).datepicker({
-               changeMonth: true, 
-               changeYear: true,
-               nextText: '다음 달',
-               prevText: '이전 달', 
-               dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-               dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-               monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-               monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-               dateFormat: "yymmdd",
-               maxDate: 0,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-               onClose: function( selectedDate ) {    
-                   // 종료일(endDate) datepicker가 닫힐때
-                   // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
-                   $("#startDate").datepicker( "option", "maxDate", selectedDate );
-               }    
-          });    
-  });
 
 // 날짜 디폴트
 ddateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
@@ -656,20 +608,14 @@ var a = ""
 			}else{
 				departText.innerText=""
 				if(arriv.value.length == 0){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else if(!arriv.value.includes(",")){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2003_search_detailrangeExpJSON.jsp"+qstr
 				}
 			}
 		// 편도
@@ -678,20 +624,14 @@ var a = ""
 				depart.focus()
 			}else{
 				if(arriv.value.length == 0){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else if(!arriv.value.includes(",")){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
-					departCookie()
-					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					arriv.focus()
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2003_search_detail_onewayJSON.jsp"+qstr
 				}
 			}
 		}

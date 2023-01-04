@@ -307,7 +307,7 @@
 	    $("[name=ddate], [name=adate]").datepicker({
 	    	  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
 	    	  changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
-	    	  minDate: '0y', // 현재날짜로부터 100년이전까지 년을 표시한다.
+	    	  minDate: '-1y', // 현재날짜로부터 100년이전까지 년을 표시한다.
 	    	  nextText: '다음 달', // next 아이콘의 툴팁.
 	    	  prevText: '이전 달', // prev 아이콘의 툴팁.
 	    	  numberOfMonths: [1,1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
@@ -323,43 +323,7 @@
 	    	  yearRange: "2022:2024" //연도 범위
 	    });
 	});
-	$(document).ready(function () {
-        $.datepicker.setDefaults($.datepicker.regional['ko']); 
-        $( "[name=ddate]" ).datepicker({
-             changeMonth: true, 
-             changeYear: true,
-             nextText: '다음 달',
-             prevText: '이전 달', 
-             dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-             dateFormat: "yymmdd",
-             maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-             onClose: function( selectedDate ) {    
-                  //시작일(startDate) datepicker가 닫힐때
-                  //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                 $("#endDate").datepicker( "option", "minDate", selectedDate );
-             } 
-        });
-        $( "[name=adate]" ).datepicker({
-             changeMonth: true, 
-             changeYear: true,
-             nextText: '다음 달',
-             prevText: '이전 달', 
-             dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-             dateFormat: "yymmdd",
-             maxDate: 0,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-             onClose: function( selectedDate ) {    
-                 // 종료일(endDate) datepicker가 닫힐때
-                 // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
-                 $("#startDate").datepicker( "option", "maxDate", selectedDate );
-             }    
-        });    
-	});
+	
 	
 	// 날짜 디폴트
 	ddateOb.value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
@@ -657,20 +621,20 @@
 			}else{
 				departText.innerText=""
 				if(arriv.value.length == 0){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2002_search_everywhere.jsp"+qstr
 				}else if(!arriv.value.includes(",")){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2001_search_cityJSON.jsp"+qstr
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&arrivedate="+adateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2003_search_detailrangeExpJSON.jsp"+qstr
 				}
 			}
 		// 편도
@@ -679,20 +643,20 @@
 				depart.focus()
 			}else{
 				if(arriv.value.length == 0){
-					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					var qstr="?departlocation="+depC+"&arrivelocation=&departdate="+ddateOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2002_search_everywhere_oneway.jsp"+qstr
 				}else if(!arriv.value.includes(",")){
-					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
+					var qstr="?departlocation="+depC+"&arrivelocation="+arriv.value+"&departdate="+ddateOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2001_search_city_onewayJSON.jsp"+qstr
 				}else{
 					var qstr="?departlocation="+depC+"&arrivelocation="+arvC+"&departdate="+ddateOb.value+"&classP="+optOb.value+"&cnt="+cnt1
 					departCookie()
 					arriveCookie()
-					location.href="b2000_1_check.jsp"+qstr
+					location.href="2003_search_detail_onewayJSON.jsp"+qstr
 				}
 			}
 		}
