@@ -26,11 +26,17 @@ request.setCharacterEncoding("utf-8");
 </c:if>
 </body>
 <script>
+if(localStorage.getItem('lastPage')){
+	var lastPage = localStorage.getItem('lastPage')
+}
+console.log(lastPage)
+console.log(document.referrer)
 var pass = '${reg2.email}'
 if(pass != ''){
-	location.href="/a02_search/2000_main.jsp"
+	location.href=lastPage
 }else{
 	location.href="/a01_member/1002_signin.jsp"
 }
+
 </script>
 </html>

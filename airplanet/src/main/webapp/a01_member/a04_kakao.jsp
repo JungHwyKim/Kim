@@ -13,27 +13,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/a00_com/a01_common.css" rel="stylesheet">
+<script>
+/*
+ 
+ */
+</script>
 </head>
 <body>
-<div style="margin-left:10%;width:80%;">
-		<jsp:include page="/header.jsp" flush="true"/> 	
-</div>
-<%
-	String departlocation = request.getParameter("departlocation");
-	String arrivelocation = request.getParameter("arrivelocation");
-	String departdate = request.getParameter("departdate");
-	String arrivedate = request.getParameter("arrivedate");
-	String classP = request.getParameter("classP");
-	String cnt = request.getParameter("cnt");
-%>
-<%=departlocation %>
-<%=arrivelocation %>
-<%=departdate %>
-<%=arrivedate %>
-<%=classP %>
-<%=cnt %>
+<c:set var="profile_name" scope="session" value="${param.profile_name}"/> 
+${profile_name}
 </body>
 <script>
 
+if(localStorage.getItem('lastPage')){
+	var lastPage = localStorage.getItem('lastPage')
+}
+ 
+ var pass = '${profile_name}'
+if(pass != ''){
+	location.href=lastPage
+}else{
+	location.href="/a01_member/1002_signin.jsp"
+}
 </script>
 </html>

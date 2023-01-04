@@ -97,7 +97,7 @@ btnarr.forEach(function(btn){
 	}
 })
 
-
+location.href = location.href;
 
 </script>
 </html>
