@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"  
+    import="dao.C_selectFare"
+    import="vo.FareAll"
    %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- jsp에서 substring 기능을 사용하기 위한 태그 선언 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,17 +78,20 @@ img.user{
 
 </style>
 <body>
-<%@ include file="/header_logout.jsp" %>
+<%@ include file="/header.jsp" %>
 <br><br>
 	<div class="container-fluid">
 	  <div class="row no-gutters">
+	  
 	  	<div class="col-1"></div>
+	  	
 	    <div class="col-3" style="text-align:center;font-size:25px;">
 	     <div class="p-3 border-0 bg-white">
 	     	<img src="../b01_img/user.PNG" class="user"><br>
 	     	<h1><b>안녕하세요!</b></h1>
-	     	<p>XXXX@email.com<p>
+	     	<p>t711txt@naver.com<p>
 	     </div>
+	     
 	     <div class="border-0 bg-white" style="margin-top:30px;"><a href="3002_input_Info.jsp" class="astyle">여행객 정보 입력</a></div><hr>
 	     <div class="border-0 bg-white"><a href="3009_cardInfo_input.jsp" class="astyle">결제 정보 입력</a></div><hr>
 	     <div class="border-0 bg-white"><a href="3004_show_Info.jsp" class="astyle">내 예약</a></div><hr>
@@ -90,89 +99,94 @@ img.user{
 	     <div class="border-0 bg-white">계정</div><hr>
 	     <input class="btnOut" type="button" value="로그아웃" onclick="logout()"/>
 	    </div>
+	    
 	    <div class="col-2"></div>
+	    
 	    <div class="col-5" style="font-size:25px;">
 	    	<div class="p-3 border-0 bg-white" style="text-align:center;"><h1><b>내 예약</b></h1></div>
 	     	<div class="p-3 border-0 bg-white">
 	     		<label for="exampleFormControlInput1" class="form-label">예약번호</label>
-  				<input type="text" name="reNum" class="field" id="exampleFormControlInput1" placeholder="예약 번호를 입력하세요">
-  				<input id="search" class="btnSearch" type="button" value="검색" onclick="doDisplay()">	
+	     		<jsp:useBean id="dao" class="dao.C_selectFare" scope="session"/>
+	     		<jsp:useBean id="sch" class="vo.FareAll" scope="session"/>
+				<jsp:setProperty property="*" name="sch"/>
+				<form method="post">
+  					<input type="text" class="field" id="exampleFormControlInput1" placeholder="예약 번호를 입력하세요" name="bookingReference" value="${sch.bookingReference}">
+  					<input id="search" class="btnSearch" type="submit" value="검색" onclick="doDisplay()">	
+  				</form>
   			</div>
+  	
   			<div class="p-3 border-0 bg-white"></div>
-  			<div id="myDIV" style="display:none;" class="p-3 mt-5 border-0 bg-secondary bg-opacity-50">
-  				<p style="font-size:15px;">예약번호:18739927&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약날짜:2022년 12월 14일</p>
+  			<c:set var="fareData" value="${dao.getFareList(sch)}" scope="session"/>
+  			<c:forEach var="fare" items="${fareData}">
+  			<div id="myDIV" class="p-3 mt-5 border-0 bg-secondary bg-opacity-50">
+  				<p style="font-size:15px;">예약번호:${fare.bookingReference}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약날짜:${fn:substring(fare.resDate,0,16)}</p>
   				<hr>
-  				<h1><b>출발지 - 도착지</b></h1>
+  				<h1><b>${fare.departAirport} - ${fare.arriveAirport}</b></h1>
   				<div style="display:flex;">
 				<div>
 					<b>항공편명</b><br>
-					<p style="margin-top:10px;">TW125</p>
+					<p style="margin-top:10px;">${fare.flightNumber}</p>
 				</div>
+				
 				<div style="margin-left:50px;">
 					<b>출발 시간</b><br>
-					<p style="margin-top:10px;">22년 12월 19일 08:45</p>
+					<p style="margin-top:10px;">${fn:substring(fare.departDate,0,16)}</p>
 				</div>
-				<div style="margin-left:50px;">
+				<div style="width:120px;">
+					<p style="font-size:20px"><b>--${fare.flightHours}시간 소요--></b></p><br>
+				</div>
+				
+				<div style="margin-left:30px;">
 					<b>도착 시간</b><br>
 					<p style="margin-top:10px;">22년 12월 19일 11:40</p>
-				</div>
+				</div>	
 			</div>
+			
 			<div style="margin-top:20px;">
 				<b>승객</b><br>
-				<p style="margin-top:10px;">김길동,홍길동,신길동,최길동</p>
+				<p style="margin-top:10px;">${fare.korname}</p>
 			</div>
-			<br>
-			<h1><b>출발지 - 도착지</b></h1>
-  				<div style="display:flex;">
-				<div>
-					<b>항공편명</b><br>
-					<p style="margin-top:10px;">VJ876</p>
-				</div>
-				<div style="margin-left:50px;">
-					<b>출발 시간</b><br>
-					<p style="margin-top:10px;">22년 12월 26일 15:20</p>
-				</div>
-				<div style="margin-left:50px;">
-					<b>도착 시간</b><br>
-					<p style="margin-top:10px;">22년 12월 26일 18:15</p>
-				</div>
-			</div>
-			<div style="margin-top:20px;">
-				<b>승객</b><br>
-				<p style="margin-top:10px;">김길동,홍길동,신길동,최길동</p>
-			</div>
+			
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-			  <button style="float:right;background:steelblue;border:none;color:white;border-radius:12px;" class="btn me-md-2" onclick="window.open('3005_change_flight.jsp')">변경</button>
-			  <button style="background:steelblue;border:none;color:white;border-radius:12px;" class="btn" onclick="window.open('3007_cancel_flight.jsp')">취소</button>
+			  <button style="font-size:20px;width:150px;background:steelblue;border:none;color:white;border-radius:12px;" class="btn" onclick="window.open('3008_cancel_flight_input.jsp')">취소</button>
 			</div>
-  		</div>
+			</div>
+			</c:forEach>
+			<form action="3008_cancel_flight_input.jsp" method="post">
+				
+			</form>
+  		</div> 
+  	
   		<br>
-  		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-			<button style="width:10%;float:right;background:steelblue;border:none;color:white;border-radius:12px;" class="btn me-md-2" type="button">←</button>
-			<button style="width:10%;background:steelblue;border:none;color:white;border-radius:12px;" class="btn" type="button">→</button>
-		</div>
+  		<div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
+		
 	    <div class="col-1"></div>
+	    
 	  </div>
 	</div>
-	</div>
 	<br><br>
+
 <%@ include file="/0000_footer.html" %>
 </body>
 <script>
 // 로그아웃
+var regId ='${reg2.email}';
 function logout(){
-	confirm("로그아웃 하시겠습니까?")
+	if(confirm("로그아웃하시겠습니까?")){
+		session.removeAttribute("regId");
+     }
 }
 
-var reNum = document.querySelector("[name=reNum]")
+var bookingReference = document.querySelector("[name=bookingReference]")
 var searchOb = document.querySelector("#search")
+var changeOb = document.querySelector("#change")
 
 // 예약번호 일치시 버튼 활성화
 searchOb.disabled = true;
-reNum.addEventListener("change", stateHandle);
+bookingReference.addEventListener("change", stateHandle);
 
 function stateHandle() {
-  if (reNum.value == '18739927') {
+  if (bookingReference.value == '2212211657371010') {
 	 searchOb.disabled = false; 
   }else {
 	 searchOb.disabled = true;
@@ -189,5 +203,7 @@ function doDisplay(){
         con.style.display = 'none'; 	
     } 
 } 
+
+
 </script>
 </html>

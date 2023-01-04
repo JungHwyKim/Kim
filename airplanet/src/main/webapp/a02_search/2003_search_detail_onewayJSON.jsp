@@ -28,6 +28,8 @@
 	
 	<div class="container">
 	<jsp:include page="/header.jsp"></jsp:include>
+	<jsp:include page="2000_1_seachbar.html"></jsp:include>
+	
 	<%
 	String arriveLocation = request.getParameter("arrivelocation");
 	if(arriveLocation!=null){
@@ -48,7 +50,7 @@
 		session.setAttribute("classStr", classStr);
 	}
 	%>
-
+	
 	<div class="row">
 	<div class="col-4"> <!-- 왼쪽 내용 -->
 	<a class="d-block p-2" href="*">달력/차트보기</a>
