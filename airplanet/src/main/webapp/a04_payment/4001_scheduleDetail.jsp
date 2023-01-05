@@ -20,6 +20,8 @@
 	border-radius: 5px;
 	}
 </style>
+<script type="text/javascript" src="PSTchanger.js" ></script>
+
 
 <div class="row card-group bg-primary text-white">
 <c:forEach var="ff" items="${flist}" varStatus="i" >
@@ -58,8 +60,15 @@
 	<c:forEach var="ff" items="${flist}" varStatus="i">
 	<tr>
 	<td rowspan="1"> ${ff.departLocation } → ${ff.arriveLocation }</td>
-	<td><strong>${ff.departApcity }</strong> <span style="font-size:0.9em"> ${ff.departDate }</span></td>
-	<td><strong>${ff.arriveApcity}</strong> <span style="font-size:0.9em"> 현지도착시간 </span></td>
+	<td><strong>${ff.departApcity }</strong>
+	<span style="font-size:0.9em"> 
+	<script>document.write(PSTchanger('${ff.departDate}',Number(${ff.departPacifictime})))</script>
+	</span></td>
+	<td><strong>${ff.arriveApcity}</strong> 
+	<span style="font-size:0.9em"> 	
+	<script>document.write(PSTchanger('${ff.departDate}',Number(${ff.arrivePacifictime})+${ff.flightHours}))</script>
+	</span></td>
+
 	<td>${ff.flightHours } </td>
 	<td><strong>${ff.airlineName }</strong><span style="font-size:0.8em">${ff.flightNumber }</span>
 	</tr>
@@ -68,7 +77,6 @@
 </tbody>
 </table>
 <br>
-
 <script>
 var tds=document.querySelectorAll('#scheduleDetailetable td')
 for(var i in tds){
@@ -82,4 +90,5 @@ for(var i in tds){
 		}
 	}
 }
+
 </script>

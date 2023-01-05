@@ -3,6 +3,7 @@
     import="java.util.*"
     %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,12 +46,13 @@ a:link {
 <c:forEach var="eachticket" items="${flist }" varStatus="vv" >
 	<c:if test="${flist.get(0).departLocation eq eachticket.departLocation }">
 		<tr><td>${fn:substring(eachticket.optioncode,0,3) }➡${fn:substring(eachticket.optioncode,3,6) }</td>
-		<td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
-		<td>${eachticket.standardFee + eachticket.classfee+ eachticket.baggage}</td>		</tr>
+		<td>${cnt }명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td><fmt:formatNumber value="${(eachticket.standardFee + eachticket.classfee+ eachticket.baggage)*cnt}" pattern="#,###" /></td>		</tr>
 	<c:set var="costgo" value="${costgo+ eachticket.standardFee + eachticket.classfee+ eachticket.baggage}" />
 	</c:if>
 </c:forEach>
-<tr><th class="table-secondary" colspan="2">총 요금(가는 편)</th><td colspan="3"><c:out value="${costgo }" />원</td></tr>
+<c:set var="costgo" value="${costgo*cnt}" />
+<tr><th class="table-secondary" colspan="2">총 요금(가는 편)</th><td colspan="3"><fmt:formatNumber value="${costgo}" pattern="#,###" />원</td></tr>
 </tbody>
 </table>
 
@@ -65,18 +67,19 @@ a:link {
 <c:forEach var="eachticket" items="${flist }" varStatus="vv" >
 	<c:if test="${flist.get(flist.size()-1).departLocation eq eachticket.departLocation }">
 		<tr><td>${fn:substring(eachticket.optioncode,0,3) }➡${fn:substring(eachticket.optioncode,3,6) }</td>
-		<td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
-		<td>${eachticket.standardFee + eachticket.classfee+ eachticket.baggage}</td>		</tr>
+		<td>${cnt }명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td><fmt:formatNumber value="${(eachticket.standardFee + eachticket.classfee+ eachticket.baggage)*cnt}" pattern="#,###" /></td>		</tr>
 	<c:set var="costback" value="${costback+ eachticket.standardFee + eachticket.classfee+ eachticket.baggage}" />
 	</c:if>
 </c:forEach>
 </c:if>
-<tr><th class="table-secondary" colspan="2">총 요금(오는 편)</th><td colspan="3"><c:out value="${costback }" />원</td></tr>
+<c:set var="costback" value="${costback*cnt}" />
+<tr><th class="table-secondary" colspan="2">총 요금(오는 편)</th><td colspan="3"><fmt:formatNumber value="${costback}" pattern="#,###" />원</td></tr>
 </tbody>
 </table>
 
 <div class="row justify-content-between">
-<div class="col-4"><h5>총 예상 요금</h5></div><div class="col-4"><h5>${costgo+costback }원</h5></div>
+<div class="col-4"><h5>총 예상 요금</h5></div><div class="col-4"><h5><fmt:formatNumber value="${costgo+costback}" pattern="#,###" />원</h5></div>
 </div>
 
 <ul class="smallinfo"><strong>예약 시 주의사항</strong>
@@ -139,7 +142,7 @@ a:link {
 <br><br>
 
 <div class="rounded-2 bg-info row">
-<div class="col text-center align-self-center ">총 요금 ${costgo+costback }원</div>
+<div class="col text-center align-self-center ">총 요금 <fmt:formatNumber value="${costgo+costback}" pattern="#,###" />원</div>
 <div class="col">
 	<div class="row">
 		<div class="col">카드할인  -</div>

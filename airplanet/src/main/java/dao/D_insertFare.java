@@ -83,9 +83,56 @@ public class D_insertFare {
 			return bookingReference;
 		}
 	
-	public boolean insertFareCurr(Fare newfare) {
+	public String insertFarelistReturnSEQ(ArrayList<Fare> farelist) {
+		String bookingReference="";
+		try {
+			con=DB.con();
+			con.setAutoCommit(false);
+			String sql="INSERT INTO FARE VALUES (?||fare_seq.nextval,?,?,sysdate,?,?,?,?) ";
+		for(int i=0;i<farelist.size();i++){
+				if(i!=0) {
+					sql="INSERT INTO FARE VALUES (?||fare_seq.currval,?,?,sysdate,?,?,?,?) ";
+					}
+			Fare newfare = farelist.get(i);
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, newfare.getBookingReference());
+			pstmt.setString(2, newfare.getOptionCode());
+			pstmt.setString(3, newfare.getEmail());
+			pstmt.setString(4, newfare.getResState()); 
+			pstmt.setString(5, newfare.getCardInfo());
+			pstmt.setInt(6, newfare.getCnt());
+			pstmt.setInt(7, newfare.getTotalPrice());
+			pstmt.executeUpdate();
+			}
+		
+			String sql3="SELECT ?||fare_seq.currval FROM dual";
+			pstmt3 = con.prepareStatement(sql3);			
+			pstmt3.setString(1, farelist.get(0).getBookingReference());
+			rs=pstmt3.executeQuery();
+			if(rs.next()) {
+				bookingReference=rs.getString(1);
+			}
+			
+			con.commit();
+		 } catch (SQLException e) {
+				System.out.println("insertFareNext SQL예외: "+e.getMessage());
+				try {
+					con.rollback();
+				} catch (SQLException e1) {
+					System.out.println("롤백예외:" +e1.getMessage());
+				}
+				}catch(Exception e) {
+					System.out.println("일반예외:"+e.getMessage());
+				}
+				finally {
+					DB.close(rs, pstmt, con);
+				}
+			return bookingReference;
+		}
+	
+	public boolean insertFare(Fare newfare) {
 		boolean done=false;
-		String sql="INSERT INTO FARE VALUES (?||fare_seq.currval,?,?,sysdate,?,?,?,?) ";
+		String sql="INSERT INTO FARE VALUES (?||fare_seq.nextval,?,?,sysdate,?,?,?,?) ";
 		try {
 			con=DB.con();
 			con.setAutoCommit(false);
@@ -117,7 +164,7 @@ public class D_insertFare {
 	
 	public boolean insertPassenger(Passenger newpsg) {
 		boolean done=false;
-		String sql="INSERT INTO passenger values(?||fare_seq.currval,?,?,?,to_date(?,'yyyy-mm-dd'),?,?,to_date(?,'yyyy-mm-dd'),?,?)";
+		String sql="INSERT INTO passenger values(?,?,?,?,to_date(?,'yyyy-mm-dd'),?,?,to_date(?,'yyyy-mm-dd'),?,?)";
 		try {
 			con = DB.con();
 			con.setAutoCommit(false);

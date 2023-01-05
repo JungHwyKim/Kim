@@ -13,6 +13,8 @@
 <%
 Date nowtime=new Date();
 SimpleDateFormat dtFormat = new SimpleDateFormat("yyMMddHHmmss");
+String cntString = (String)session.getAttribute("cnt");
+int cnt = Integer.parseInt(cntString);
 AirMember reg2 = (AirMember)session.getAttribute("reg2");
 ArrayList<FlightAll> flist= (ArrayList<FlightAll>)session.getAttribute("flist");
 ArrayList<Fare> farelist= new ArrayList<Fare> ();
@@ -28,31 +30,43 @@ D_insertFare insertFareDao =new D_insertFare();
 	ffare.setEmail(reg2.getEmail());
 	ffare.setResState("1");	//결제
 	ffare.setCardInfo("");
-	ffare.setCnt(1);	//한명일때만?? 
-	ffare.setTotalPrice(ff.getStandardFee()+ff.getClassfee()+ff.getBaggage());
+	ffare.setCnt(cnt);	//한명일때만?? 
+	ffare.setTotalPrice((ff.getStandardFee()+ff.getClassfee()+ff.getBaggage())*cnt);
 	farelist.add(ffare);
 	
-	insertFareDao.updateStock(ff.getOptioncode(), 1);	//옵션코드 재고 업데이트, 한명일때
+	insertFareDao.updateStock(ff.getOptioncode(), cnt);	//옵션코드 재고 업데이트, 한명일때
+	}
+String bkrf =insertFareDao.insertFarelistReturnSEQ(farelist);
+	
+
+	String kornames[] =request.getParameterValues("korname");
+	String engnames[] =request.getParameterValues("engname");
+	String engsurs[] =request.getParameterValues("engsur");
+	String ppbirthdays[] =request.getParameterValues("ppbirthday");
+//	String mfs[] =request.getParameterValues("mf");
+	String ppnumbers[] =request.getParameterValues("ppnumber");
+	String ppexpires[] =request.getParameterValues("ppexpire");
+	String nations[] =request.getParameterValues("nation");
+	String ppnations[] =request.getParameterValues("ppnation");
+
+	for(int i=0;i<cnt;i++){
+		Passenger ppassenger=new Passenger();	//탑승자 정보 넘겨받아야됨!!!
+		ppassenger.setBookingReference(bkrf);
+		ppassenger.setKorname(kornames[i]);
+		ppassenger.setEngname(engnames[i]);
+		ppassenger.setEngsur(engsurs[i]);
+		ppassenger.setBirthday(ppbirthdays[i]);
+		ppassenger.setMf(request.getParameter("mf"+(i+1)));
+		ppassenger.setPpnumber(ppnumbers[i]);
+		ppassenger.setPpexpire(ppexpires[i]);
+		ppassenger.setNation(nations[i]);
+		ppassenger.setPpnation(ppnations[i]);
+		insertFareDao.insertPassenger(ppassenger);
 	}
 
-Passenger ppassenger=new Passenger();	//탑승자 정보 넘겨받아야됨!!!
-ppassenger.setBookingReference(dtFormat.format(nowtime));
-ppassenger.setKorname(request.getParameter("korname"));
-out.print(request.getParameter("korname"));
-ppassenger.setEngname(request.getParameter("engname"));
-ppassenger.setEngsur(request.getParameter("engsur"));
-ppassenger.setBirthday(request.getParameter("ppbirthday"));
-ppassenger.setMf (request.getParameter("mf"));
-ppassenger.setPpnumber (request.getParameter("ppnumber"));
-out.print(request.getParameter("ppnumber"));
-ppassenger.setPpexpire (request.getParameter("ppexpire"));
-ppassenger.setNation (request.getParameter("nation"));
-ppassenger.setPpnation (request.getParameter("ppnation"));
-
-String bkrf = insertFareDao.insertFarePassenger(farelist,ppassenger);
 
 request.setAttribute("bookingReference", bkrf);
-
+request.setAttribute("farelist", farelist);
 request.getRequestDispatcher("4006_book_success.jsp").forward(request,response);
 %>
 

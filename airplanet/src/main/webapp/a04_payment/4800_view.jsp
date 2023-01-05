@@ -43,7 +43,7 @@ form{
 	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 	<c:forEach var="eachticket" items="${tlist1 }" >
 	<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
-	<td>${flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee }</td>
+	<td>${(flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee)*cnt }</td>
 	<td><input type="radio" name="passenger1go" value="${eachticket.optionCode }" checked></td></tr>
 	</c:forEach>
 </table>
@@ -55,8 +55,8 @@ form{
 	<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist11.get(0).optionCode,0,3) }➡${fn:substring(tlist11.get(0).optionCode,3,6) } </th>
 	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 		<c:forEach var="eachticket" items="${tlist11 }" >
-		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
-		<td>${flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee }</td>
+		<tr><td>${cnt }명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${(flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee)*cnt }</td>
 		<td><input type="radio" name="passenger1layover" value="${eachticket.optionCode }" checked></td></tr>
 		</c:forEach>
 	</table>
@@ -74,8 +74,8 @@ form{
 	<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist2.get(0).optionCode,0,3) }➡${fn:substring(tlist2.get(0).optionCode,3,6) } </th>
 	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 		<c:forEach var="eachticket" items="${tlist2 }" >
-		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
-		<td>${flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee }</td>
+		<tr><td>${cnt }명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${(flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee)*cnt }</td>
 		<td><input type="radio" name="passenger1back" value="${eachticket.optionCode }" checked></td></tr>
 		</c:forEach>
 	</table>
@@ -87,8 +87,8 @@ form{
 	<tr class="table-secondary"><th rowspan="4">${fn:substring(tlist22.get(0).optionCode,0,3) }➡${fn:substring(tlist22.get(0).optionCode,3,6) } </th>
 	<th>인원</th><th>선택사항1</th><th>선택사항2</th><th>합계</th><th>선택</th></tr>
 		<c:forEach var="eachticket" items="${tlist22 }" >
-		<tr><td>1명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
-		<td>${flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee }</td>
+		<tr><td>${cnt }명</td><td>${eachticket.classStr }</td><td>${eachticket.baggageStr }</td>
+		<td>${(flist.get(standfeeidx).standardFee+eachticket.baggage+eachticket.classFee)*cnt }</td>
 		<td><input type="radio" name="passenger1layover" value="${eachticket.optionCode }" checked></td></tr>
 		</c:forEach>
 	</table>

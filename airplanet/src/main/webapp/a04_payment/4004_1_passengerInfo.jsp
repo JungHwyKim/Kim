@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
+    <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h2>예약자 정보</h2>
 <table class="table table-bordered">
@@ -17,19 +18,22 @@
 <br>
 <h2>탑승객 정보</h2>
 <fieldset id="passengerinfoset">
-<div class="row g-3 align-items-center">
-  <div class="col-auto"> <label for="korname" class="col-form-label">한글명</label><input id="korname" name="korname" class="form-control" placeholder="예)홍길동" required></div>
-  <div class="col-auto"> <label for="engsur" class="col-form-label">영문 성</label><input id="engsur" name="engsur" class="form-control"  placeholder="예)HONG" required></div>
-  <div class="col-auto"> <label for="engname" class="col-form-label">영문 이름</label><input id="engname" name="engname" class="form-control" placeholder="예)GILDONG" required></div>
-  <div class="col-auto"> <label class="col-form-label">생년월일</label><input name="ppbirthday" class="form-control" type="date" required></div>
-  <div class="col-auto"> <label for="mf" class="col-form-label">성별</label><div class="form-control" ><label><input type="radio" name="mf" value="m" checked>남성</label>&nbsp; &nbsp;<label><input type="radio" name="mf" value="f" >여성</label></div></div>
-</div> 
-<div class="row g-3 align-items-center"> 
-  <div class="col-auto"> <label class="col-form-label">여권번호</label><input name="ppnumber" class="form-control" required></div>
-  <div class="col-auto"> <label class="col-form-label">여권만료일</label><input type="date" name="ppexpire" class="form-control" required></div>
-  <div class="col-auto"> <label class="col-form-label">국적</label><input name="nation" class="form-control" value="한국" required></div>
-  <div class="col-auto"> <label class="col-form-label">여권발행국</label><input name="ppnation" class="form-control" value= "한국" required></div>
-</div>  
+<c:forEach begin="1" end ="${cnt }" varStatus="ii">
+<h4>탑승객 ${ii.count }</h4>
+	<div class="row g-3 align-items-center">
+	  <div class="col-auto"> <label for="korname" class="col-form-label">한글명</label><input id="korname" name="korname" class="form-control" placeholder="예)홍길동" required></div>
+	  <div class="col-auto"> <label for="engsur" class="col-form-label">영문 성</label><input id="engsur" name="engsur" class="form-control"  placeholder="예)HONG" required></div>
+	  <div class="col-auto"> <label for="engname" class="col-form-label">영문 이름</label><input id="engname" name="engname" class="form-control" placeholder="예)GILDONG" required></div>
+	  <div class="col-auto"> <label class="col-form-label">생년월일</label><input name="ppbirthday" class="form-control" type="date" required></div>
+	  <div class="col-auto"> <label for="mf" class="col-form-label">성별</label><div class="form-control" ><label><input type="radio" name="mf${ii.index }" value="m" checked>남성</label>&nbsp; &nbsp;<label><input type="radio" name="mf${ii.index }" value="f" >여성</label></div></div>
+	</div> 
+	<div class="row g-3 align-items-center"> 
+	  <div class="col-auto"> <label class="col-form-label">여권번호</label><input name="ppnumber" class="form-control" required></div>
+	  <div class="col-auto"> <label class="col-form-label">여권만료일</label><input type="date" name="ppexpire" class="form-control" required></div>
+	  <div class="col-auto"> <label class="col-form-label">국적</label><input name="nation" class="form-control" value="한국" required></div>
+	  <div class="col-auto"> <label class="col-form-label">여권발행국</label><input name="ppnation" class="form-control" value= "한국" required></div>
+	</div>  
+</c:forEach>
 </fieldset>
 
 
