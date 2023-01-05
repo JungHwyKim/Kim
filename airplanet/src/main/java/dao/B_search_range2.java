@@ -20,8 +20,8 @@ public class B_search_range2 {
 	public List<FlightAll2> getRangeticket2(FlightAll2 fa){
 		List<FlightAll2> flist = new ArrayList<FlightAll2>();
 		String sql="SELECT DISTINCT f1.flightnumber, f1.departdate, f1.DEPARTAIRPORT , f1.ARRIVEAIRPORT , f1.FLIGHTHOURS, \r\n"
-				+ "a1.PACIFICTIME , a2.PACIFICTIME, ar1.AIRLINELOGO, f1.STANDARDFEE , t1.CLASS,\r\n"
-				+ "f2.FLIGHTNUMBER,f2.DEPARTDATE, f2.FLIGHTHOURS, ar2.AIRLINELOGO, f2.STANDARDFEE , t2.CLASS \r\n"
+				+ "a1.PACIFICTIME , a2.PACIFICTIME, ar1.AIRLINELOGO, f1.STANDARDFEE , t1.CLASSfee,\r\n"
+				+ "f2.FLIGHTNUMBER,f2.DEPARTDATE, f2.FLIGHTHOURS, ar2.AIRLINELOGO, f2.STANDARDFEE , t2.CLASSfee \r\n"
 				+ "FROM FLIGHT f1, airport a2, airport a1, ticketOption t1, TICKETOPTION t2, AIRLINE ar1, AIRLINE ar2, FLIGHT f2 \r\n"
 				+ "WHERE a1.AIRPORTCODE =f1.DEPARTAIRPORT \r\n"
 				+ "AND a2.AIRPORTCODE =f1.ARRIVEAIRPORT \r\n"
